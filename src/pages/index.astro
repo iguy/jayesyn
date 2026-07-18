@@ -10,7 +10,7 @@
     <meta name="generator" content={Astro.generator} />
     <title>Jayesyn | Common Ground</title>
     
-    <!-- Tailwind CSS Script Engine (Forced inline to ensure production styling loads instantly) -->
+    <!-- Tailwind CSS Play CDN Script Engine -->
     <script is:inline src="https://cdn.tailwindcss.com"></script>
     
     <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
@@ -26,7 +26,7 @@
       <div class="space-y-6 order-2 md:order-1 max-w-xl">
         <span class="text-sm uppercase tracking-widest text-zinc-500 font-medium block">Debut Single</span>
         
-        <!-- Main Artist Header with Playfair Display Font -->
+        <!-- Main Artist Title with Playfair Display Font -->
         <h1 class="text-5xl md:text-7xl font-light tracking-tight text-white leading-none font-['Playfair_Display',serif]">
           Common <span class="font-normal italic text-zinc-400">Ground</span>
         </h1>
@@ -61,7 +61,7 @@
             <!-- Center Custom Record Label Cover Art -->
             <div class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-zinc-800 border-4 border-[#121212] overflow-hidden shadow-inner flex items-center justify-center relative">
               <div class="absolute inset-0 bg-gradient-to-tr from-zinc-900 to-zinc-700 flex flex-col items-center justify-center text-center p-2">
-                <!-- Artist Label with Playfair Display Font -->
+                <!-- Vinyl Label Artist with Playfair Display Font -->
                 <span class="text-[11px] md:text-[13px] uppercase tracking-wider font-semibold text-white font-['Playfair_Display',serif]">Jayesyn</span>
                 <span class="text-[8px] md:text-[10px] text-zinc-400 italic mt-0.5">Common Ground</span>
               </div>
@@ -81,7 +81,7 @@
 
     </main>
 
-    <!-- Hidden HTML5 Audio Element (Fixed to project root directory) -->
+    <!-- Hidden HTML5 Audio Element -->
     <audio id="audio-preview" src="/common-ground-sample.m4a" preload="auto" loop></audio>
 
     <!-- Custom CSS Animation Injection -->
