@@ -56,18 +56,21 @@ const jsonLd = {
       <h1>JAYESYN</h1>
       
       <p class="lede">
-        JAYESYN is a talented R&amp;B artist launching with his debut single, "Common Ground"—a soulful, uplifting project anchored by a powerful message of unity. Driven by an intimate, velvet-smooth vocal delivery, his arrangements blossom into stunning, choir-like layered harmonies that are as emotionally moving as they are technically brilliant.
+        JAYESYN is a visionary R&amp;B artist launching with his debut single, "Common Ground"—a soulful, uplifting project anchored by a powerful message of unity. Driven by an intimate, velvet-smooth vocal delivery, his arrangements blossom into stunning, choir-like layered harmonies that are as emotionally moving as they are technically brilliant.
       </p>
       
       <p class="track-desc">
-        His production is meticulously polished, seamlessly blending classic soul instrumentation with modern, spacious landscapes. Anchored by a groovy, melodic bassline and a steady, mid-tempo pocket, the music is elevated by warm electric keys and a signature poignant violin melody that brings a timeless, classical elegance to the entire project.
+        His production is meticulously polished, seamlessly blending classic soul instrumentation with modern, spacious landscapes. Anchored by a groovy, melodic bassline and a steady, mid-tempo pocket, the music is elevated by warm electric keys and a signature poignant trumpet melody that brings a timeless, classical elegance to the entire project.
       </p>
 
       <a class="cta" href="#signup">Hear "Common Ground" early</a>
     </div>
 
-    <!-- Signature: rotating record-label disc -->
-    <div class="disc-wrap" aria-hidden="true">
+    <!-- Hidden Audio Tag -->
+    <audio id="audio-preview" src="/audio/common-ground-sample.mp3" preload="auto" loop></audio>
+
+    <!-- Interactive Vinyl Disc Container -->
+    <div class="disc-wrap" id="interactive-disc" role="button" aria-label="Hover to preview Common Ground" tabindex="0">
       <svg class="disc" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <path id="ringpath" d="M 200,200 m -152,0 a 152,152 0 1,1 304,0 a 152,152 0 1,1 -304,0" />
@@ -142,6 +145,35 @@ const jsonLd = {
     &middot; &copy; {new Date().getFullYear()} Jayesyn. All rights reserved.
   </p>
 </footer>
+
+<!-- INTERACTIVE AUDIO SCRIPT -->
+<script>
+  const discContainer = document.getElementById('interactive-disc');
+  const audio = document.getElementById('audio-preview');
+
+  if (discContainer && audio) {
+    // Play on hover
+    discContainer.addEventListener('mouseenter', () => {
+      audio.play().catch(err => {
+        console.log("Audio play blocked by browser policy until manual interaction.", err);
+      });
+    });
+
+    // Pause and reset track when mouse leaves
+    discContainer.addEventListener('mouseleave', () => {
+      audio.pause();
+    });
+
+    // Accessibility support: Play on click/enter tap if focused
+    discContainer.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+  }
+</script>
 
 <style is:global>
 :root {
@@ -254,7 +286,17 @@ h1 {
 .cta:hover { background: var(--uv-soft); }
 
 /* signature disc */
-.disc-wrap { display: flex; justify-content: center; }
+.disc-wrap { 
+  display: flex; 
+  justify-content: center; 
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.3s ease;
+}
+.disc-wrap:hover {
+  transform: scale(1.03);
+}
+
 .disc {
   width: min(400px, 80vw);
   animation: spin 40s linear infinite;
