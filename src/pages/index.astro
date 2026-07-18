@@ -1,5 +1,5 @@
 ---
-// index.astro - Jayesyn | Common Ground (FULLY RESTORED PRODUCTION VERSION)
+// index.astro - Jayesyn | Common Ground (FULL MASTER ARCHITECTURE RESTORED)
 ---
 
 <html lang="en">
@@ -10,186 +10,235 @@
     <meta name="generator" content={Astro.generator} />
     <title>Jayesyn | Common Ground</title>
     
-    <!-- Tailwind CSS Engine Fix -->
     <script is:inline src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style is:global>
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #0c0c0e;
+      }
+      .font-serif {
+        font-family: 'Playfair Display', serif;
+      }
+      @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .animate-vinyl {
+        animation: spin-slow 8s linear infinite;
+      }
+    </style>
   </head>
-  <body class="bg-[#121212] text-[#f5f5f7] min-h-screen font-['Plus_Jakarta_Sans',sans-serif] overflow-x-hidden antialiased">
+  
+  <body class="text-zinc-100 bg-[#0c0c0e] min-h-screen tracking-tight antialiased selection:bg-[#6399bb]/30">
     
-    <!-- Header / Navigation -->
-    <header class="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center border-b border-zinc-800/50">
-      <div class="text-xl font-medium tracking-wider text-white">JAYESYN</div>
-      <a href="#signup" class="text-sm bg-zinc-900 border border-zinc-800 hover:border-[#6399bb] px-4 py-2 rounded-full transition-all text-zinc-300">Join the Circle</a>
+    <!-- Background Texture/Glow -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div class="absolute -top-[40%] -left-[20%] w-[80%] h-[80%] rounded-full bg-[#6399bb]/5 blur-[120px]"></div>
+      <div class="absolute -bottom-[40%] -right-[20%] w-[80%] h-[80%] rounded-full bg-zinc-900/40 blur-[120px]"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="relative z-10 w-full max-w-7xl mx-auto px-6 py-8 flex justify-between items-center">
+      <div class="text-xl font-light tracking-[0.3em] text-white">JAYESYN</div>
+      <nav class="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase text-zinc-400">
+        <a href="#concept" class="hover:text-white transition-colors">Concept</a>
+        <a href="#timeline" class="hover:text-white transition-colors">Roadmap</a>
+      </nav>
+      <a href="#signup" class="text-xs tracking-widest uppercase bg-[#6399bb]/10 hover:bg-[#6399bb]/20 border border-[#6399bb]/30 text-[#6399bb] px-6 py-3 rounded-full transition-all duration-300 backdrop-blur-sm">
+        Access Portal
+      </a>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="max-w-7xl mx-auto px-6 py-12 md:py-20 space-y-32">
+    <main class="relative z-10 max-w-7xl mx-auto px-6 pt-12 pb-32 space-y-48">
       
-      <!-- HERO SECTION: Artist Info & Vinyl Player -->
-      <section class="grid md:grid-cols-2 gap-12 items-center">
-        <!-- Left Column: Artist Bio Text -->
-        <div class="space-y-6 order-2 md:order-1 max-w-xl">
-          <span class="text-sm uppercase tracking-widest text-[#6399bb] font-medium block">Debut Single</span>
-          <h1 class="text-5xl md:text-7xl font-light tracking-tight text-white leading-none font-['Playfair_Display',serif]">
-            Common <span class="font-normal italic text-zinc-400">Ground</span>
-          </h1>
+      <!-- HERO AREA: Concept & Vinyl Player -->
+      <section id="concept" class="grid lg:grid-cols-12 gap-16 items-center pt-8">
+        
+        <!-- Left Side: Cinematic Presentation -->
+        <div class="lg:col-span-7 space-y-10 order-2 lg:order-1">
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span class="h-[1px] w-8 bg-[#6399bb]"></span>
+              <span class="text-xs uppercase tracking-[0.4em] text-[#6399bb] font-semibold">Debut Spatial Architecture</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-light tracking-tight text-white leading-[1.1] font-serif">
+              Common <br /><span class="font-normal italic text-zinc-400">Ground</span>
+            </h1>
+          </div>
           
-          <div class="h-px w-20 bg-[#6399bb] my-4"></div>
-          
-          <p class="text-lg md:text-xl text-zinc-400 font-light leading-relaxed">
-            Jayesyn crafts an immersive, artist-led R&B experience designed to unite listeners through a shared sonic atmosphere. 
-          </p>
-          
-          <p class="text-base text-zinc-500 font-light leading-relaxed">
-            Built on a foundation of warm electric piano chords and a locked-in bass and drum groove, the track breathes with organic textures—anchored by a soulful, sweeping trumpet melody that bridges the gap between classic soul and modern rhythm.
-          </p>
+          <div class="space-y-6 text-zinc-400 font-light leading-relaxed text-base md:text-lg max-w-xl">
+            <p>
+              An immersive, artist-led R&B project designed to explore shared sonic spaces. Built on warm electric piano foundations, a locked groove, and an expansive trumpet motif bridging late-night jazz architecture with modern rhythmic depth.
+            </p>
+            <p class="text-sm text-zinc-500">
+              Hover or touch the visual press to spin the record and audition the early conceptual master sequence.
+            </p>
+          </div>
         </div>
 
-        <!-- Right Column: Interactive Vinyl Record Container -->
-        <div id="interactive-container" class="flex flex-col items-center justify-center order-1 md:order-2 group/hero select-none cursor-pointer">
-          <div class="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center">
+        <!-- Right Side: High-Fidelity Vinyl Experience -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2">
+          <div id="interactive-player" class="relative w-72 h-72 md:w-[400px] md:h-[400px] group cursor-pointer">
             
-            <!-- Outer Vinyl Record -->
-            <div 
-              id="vinyl-record" 
-              class="absolute inset-0 rounded-full bg-[#1a1a1a] shadow-[0_0_50px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.05)] transition-transform duration-500 ease-out group-hover/hero:scale-105 active:scale-95 flex items-center justify-center z-10"
-              style="transform-origin: center center;"
-            >
-              <!-- Grooves detailing on the vinyl -->
-              <div class="absolute inset-4 rounded-full border border-zinc-800/40"></div>
-              <div class="absolute inset-10 rounded-full border border-zinc-800/30"></div>
-              <div class="absolute inset-16 rounded-full border border-zinc-800/20"></div>
-              <div class="absolute inset-24 rounded-full border border-zinc-800/10"></div>
-              
-              <!-- Center Custom Record Label Cover Art -->
-              <div class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-zinc-800 border-4 border-[#121212] overflow-hidden shadow-inner flex items-center justify-center relative">
-                <div class="absolute inset-0 bg-gradient-to-tr from-zinc-900 via-[#6399bb]/20 to-zinc-700 flex flex-col items-center justify-center text-center p-2">
-                  <span class="text-[9px] md:text-[11px] uppercase tracking-wider font-semibold text-white">Jayesyn</span>
-                  <span class="text-[8px] md:text-[10px] text-zinc-400 italic">Common Ground</span>
-                </div>
-                <!-- Center Spindle Hole -->
-                <div class="w-3 h-3 rounded-full bg-[#121212] z-20 shadow-inner"></div>
+            <!-- Vinyl Sleeve / Outer Shadow Jacket -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-zinc-950 to-zinc-900 rounded-2xl shadow-[0_30px_70px_rgba(0,0,0,0.9)] border border-zinc-800/40 z-20 transition-transform duration-500 group-hover:-translate-x-6 flex items-center justify-center overflow-hidden">
+              <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-zinc-800/10 via-transparent to-transparent"></div>
+              <div class="text-center p-6 space-y-2">
+                <p class="text-[10px] tracking-[0.3em] uppercase text-zinc-500">Jayesyn</p>
+                <h2 class="font-serif text-2xl font-light text-zinc-300 italic tracking-wide">Common Ground</h2>
+                <p class="text-[9px] tracking-widest uppercase text-[#6399bb]/70 pt-4">Stereo LP &bull; Preview Edition</p>
               </div>
             </div>
-            
+
+            <!-- Heavy Weight Vinyl Disc -->
+            <div 
+              id="vinyl-disc" 
+              class="absolute inset-2 rounded-full bg-gradient-to-b from-[#111113] to-[#070708] shadow-[0_15px_40px_rgba(0,0,0,0.8)] transition-transform duration-700 ease-out z-10 group-hover:translate-x-32 flex items-center justify-center border border-black"
+            >
+              <!-- Micro Grooves -->
+              <div class="absolute inset-4 rounded-full border border-zinc-900/60 opacity-60"></div>
+              <div class="absolute inset-8 rounded-full border border-black/80"></div>
+              <div class="absolute inset-14 rounded-full border border-zinc-800/20"></div>
+              <div class="absolute inset-20 rounded-full border border-black/40"></div>
+              <div class="absolute inset-28 rounded-full border border-zinc-900/40"></div>
+              
+              <!-- Center Core Label -->
+              <div class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-zinc-900 border-[5px] border-[#0c0c0e] shadow-[inset_0_4px_10px_rgba(0,0,0,0.9)] flex items-center justify-center overflow-hidden relative">
+                <div class="absolute inset-0 bg-gradient-to-br from-zinc-950 via-[#6399bb]/10 to-zinc-900 flex flex-col items-center justify-center text-center p-4">
+                  <span class="text-[9px] tracking-[0.25em] font-medium text-white/80 uppercase">Jayesyn</span>
+                  <span class="text-[8px] text-[#6399bb] italic tracking-wider mt-0.5">Common Ground</span>
+                </div>
+                <!-- Center Spindle Pin Hole -->
+                <div class="w-3 h-3 rounded-full bg-[#0c0c0e] z-30 border border-zinc-800/80 shadow-inner"></div>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Dynamic CTA Instruction Box -->
-          <div id="cta-badge" class="mt-8 flex items-center gap-2 bg-zinc-900/80 border border-zinc-800 px-4 py-2 rounded-full backdrop-blur-sm text-sm text-zinc-400 tracking-wide transition-all duration-300 animate-pulse group-hover/hero:opacity-40">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6399bb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-bounce"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-            <span>Roll over to play snippet</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- MARKETING & ROLLOUT TIMELINE SECTION -->
-      <section class="border-t border-zinc-800/60 pt-16 max-w-4xl mx-auto space-y-12">
-        <div class="text-center space-y-2">
-          <span class="text-xs uppercase tracking-widest text-[#6399bb] font-medium">The Roadmap</span>
-          <h2 class="text-3xl md:text-4xl font-light tracking-tight text-white font-['Playfair_Display',serif]">Rollout Timeline & Strategy</h2>
-        </div>
-
-        <div class="relative border-l border-zinc-800 ml-4 md:ml-32 space-y-12">
-          <!-- Phase 1 -->
-          <div class="relative pl-8">
-            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-[#6399bb] border-4 border-[#121212]"></div>
-            <span class="text-xs font-mono uppercase tracking-wider text-[#6399bb]">Phase 01 — Sonic Teaser</span>
-            <h3 class="text-xl text-white mt-1 font-medium">Private Audio Preview</h3>
-            <p class="text-zinc-400 font-light mt-2 max-w-xl">
-              Launching the interactive canvas space for dedicated listeners to preview organic textures and the underlying trumpet melodies before streaming platforms go live.
-            </p>
-          </div>
-
-          <!-- Phase 2 -->
-          <div class="relative pl-8">
-            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-zinc-700 border-4 border-[#121212]"></div>
-            <span class="text-xs font-mono uppercase tracking-wider text-zinc-500">Phase 02 — Digital Distribution</span>
-            <h3 class="text-xl text-white mt-1 font-medium">Global DSP Release</h3>
-            <p class="text-zinc-400 font-light mt-2 max-w-xl">
-              Official streaming rollout across Spotify, Apple Music, and Tidal. Launch of the accompanying high-fidelity studio session visuals.
-            </p>
-          </div>
-
-          <!-- Phase 3 -->
-          <div class="relative pl-8">
-            <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-zinc-700 border-4 border-[#121212]"></div>
-            <span class="text-xs font-mono uppercase tracking-wider text-zinc-500">Phase 03 — Common Ground Experience</span>
-            <h3 class="text-xl text-white mt-1 font-medium">Community Listening Session</h3>
-            <p class="text-zinc-400 font-light mt-2 max-w-xl">
-              An intimate, physical audio-visual pop-up experience bringing the warm electric tones and community message of the project into a live environment.
-            </p>
+          <!-- UI Indicator Badge -->
+          <div id="playback-badge" class="mt-8 flex items-center gap-3 bg-zinc-900/60 border border-zinc-800/80 px-5 py-2.5 rounded-full text-xs text-zinc-400 tracking-widest uppercase backdrop-blur-sm transition-colors duration-300">
+            <span class="relative flex h-2 w-2">
+              <span id="badge-pulse" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-600 opacity-75"></span>
+              <span id="badge-dot" class="relative inline-flex rounded-full h-2 w-2 bg-zinc-600"></span>
+            </span>
+            <span id="badge-text">Deck Idle</span>
           </div>
         </div>
       </section>
 
-      <!-- SIGNUP / MARKETING CONVERSION FORM -->
-      <section id="signup" class="bg-gradient-to-b from-zinc-900/50 to-zinc-950 border border-zinc-800 rounded-2xl p-8 md:p-12 max-w-3xl mx-auto text-center space-y-6 shadow-xl">
-        <div class="max-w-md mx-auto space-y-2">
-          <h2 class="text-2xl md:text-3xl font-light text-white font-['Playfair_Display',serif]">Step into Common Ground</h2>
-          <p class="text-sm text-zinc-400 font-light">
-            Join the inner circle for early access to private vinyl pressings, future release keys, and live local gatherings.
+      <!-- TIMELINE / MULTI-RELEASE PROJECT SCOPE -->
+      <section id="timeline" class="border-t border-zinc-900/60 pt-24 max-w-4xl mx-auto space-y-16">
+        <div class="space-y-2">
+          <span class="text-xs uppercase tracking-[0.3em] text-[#6399bb] font-semibold block">Strategic Roadmap</span>
+          <h2 class="text-3xl md:text-4xl font-light text-white font-serif">The Master Project Scope</h2>
+        </div>
+
+        <div class="relative border-l border-zinc-800/60 ml-4 md:ml-32 space-y-16">
+          <!-- Phase 1: The 3 Singles Campaign -->
+          <div class="relative pl-8 group">
+            <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-[#6399bb] ring-4 ring-[#0c0c0e]"></div>
+            <div class="text-[11px] font-mono tracking-widest text-[#6399bb] uppercase">Phase 01 / Campaign Launch</div>
+            <h3 class="text-lg font-medium text-white mt-1">The 3-Single Narrative Sequence</h3>
+            <p class="text-zinc-400 font-light mt-2 text-sm md:text-base leading-relaxed">
+              Initiating the campaign with a trilogy of interconnected singles, led by <span class="text-white italic">"Common Ground"</span>. Each drop serves as a distinct sonic and visual chapter building the atmospheric foundation of the project.
+            </p>
+          </div>
+
+          <!-- Phase 2: The EP Drop -->
+          <div class="relative pl-8 group">
+            <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-zinc-800 ring-4 ring-[#0c0c0e]"></div>
+            <div class="text-[11px] font-mono tracking-widest text-zinc-500 uppercase">Phase 02 / Full Experience</div>
+            <h3 class="text-lg font-medium text-white mt-1">Debut EP Studio Release</h3>
+            <p class="text-zinc-400 font-light mt-2 text-sm md:text-base leading-relaxed">
+              The culmination of the singles into a cohesive, long-form digital EP across all streaming platforms. Expands the record's late-night jazz architecture with unreleased B-sides and deeper ambient movements.
+            </p>
+          </div>
+
+          <!-- Phase 3: The Remix Vinyl -->
+          <div class="relative pl-8 group">
+            <div class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-zinc-800 ring-4 ring-[#0c0c0e]"></div>
+            <div class="text-[11px] font-mono tracking-widest text-zinc-500 uppercase">Phase 03 / Physical Artifact</div>
+            <h3 class="text-lg font-medium text-white mt-1">Remix Vinyl Project & Pressing</h3>
+            <p class="text-zinc-400 font-light mt-2 text-sm md:text-base leading-relaxed">
+              Transitioning the EP into a physical, heavyweight remix vinyl project. Featuring elite club reworks, alternative jazz arrangements, and premium tactile packaging available strictly for private inner-circle pre-orders.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EMAIL MARKETING ENGINE -->
+      <section id="signup" class="bg-gradient-to-b from-zinc-900/40 to-zinc-950/60 border border-zinc-900/80 rounded-2xl p-8 md:p-16 max-w-4xl mx-auto text-center space-y-8 shadow-2xl relative">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-[1px] bg-gradient-to-r from-transparent via-[#6399bb]/40 to-transparent"></div>
+        
+        <div class="max-w-xl mx-auto space-y-3">
+          <h2 class="text-3xl font-light text-white font-serif">Enter the Architecture</h2>
+          <p class="text-xs md:text-sm text-zinc-400 font-light tracking-wide leading-relaxed">
+            Register your credentials to claim placement priority for upcoming physical vinyl pressings and exclusive text alerts.
           </p>
         </div>
 
-        <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3 pt-2" onsubmit="event.preventDefault(); alert('Welcome to the circle.');">
+        <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3 pt-4" onsubmit="event.preventDefault(); alert('Transmission linked.');">
           <input 
             type="email" 
             required 
-            placeholder="Your email address" 
-            class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#6399bb] transition-all"
+            placeholder="Enter your email address" 
+            class="flex-1 bg-zinc-950/60 border border-zinc-800/80 rounded-xl px-5 py-3.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-[#6399bb] transition-all duration-300"
           />
           <button 
             type="submit" 
-            class="bg-[#6399bb] hover:bg-[#5282a1] text-white font-medium text-sm px-6 py-3 rounded-lg transition-all shadow-md"
+            class="bg-[#6399bb] hover:bg-[#5387a8] text-white font-medium text-xs tracking-widest uppercase px-8 py-4 rounded-xl transition-all duration-300 shadow-md"
           >
-            Secure Access
+            Join Network
           </button>
         </form>
-        <span class="text-[11px] text-zinc-600 block">No spam. Only art. Unsubscribe anytime.</span>
+        <span class="text-[10px] tracking-[0.25em] text-zinc-600 uppercase block">Curated Pipeline &bull; Zero Spam Architecture</span>
       </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="w-full text-center py-12 border-t border-zinc-900 text-xs text-zinc-600 tracking-wide">
-      &copy; 2026 JAYESYN. ALL RIGHTS RESERVED. DESIGNED FOR THE EXPERIENCE.
+    <footer class="w-full text-center py-12 border-t border-zinc-950 text-[10px] text-zinc-600 tracking-[0.25em] uppercase relative z-10">
+      &copy; 2026 JAYESYN. ALL RIGHTS RESERVED. ARCHITECTED FOR COMMON GROUND.
     </footer>
 
-    <!-- Hidden HTML5 Audio Element -->
-    <audio id="audio-preview" src="/common-ground-sample.m4a" preload="auto" loop></audio>
+    <audio id="audio-deck" src="/common-ground-sample.m4a" preload="auto" loop></audio>
 
-    <!-- Custom CSS Animation Injection -->
-    <style is:global>
-      @keyframes record-spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
-      .spinning {
-        animation: record-spin 3.5s linear infinite !important;
-      }
-    </style>
-
-    <!-- Original Working Hover Script -->
     <script>
-      const container = document.getElementById('interactive-container');
-      const record = document.getElementById('vinyl-record');
-      const audio = document.getElementById('audio-preview') as HTMLAudioElement;
+      const player = document.getElementById('interactive-player');
+      const disc = document.getElementById('vinyl-disc');
+      const audio = document.getElementById('audio-deck') as HTMLAudioElement;
+      
+      const bText = document.getElementById('badge-text');
+      const bPulse = document.getElementById('badge-pulse');
+      const bDot = document.getElementById('badge-dot');
 
-      if (container && record && audio) {
-        // Play + Spin on Hover Enter
-        container.addEventListener('mouseenter', () => {
-          audio.play().catch(err => console.log("Audio playback managed:", err));
-          record.classList.add('spinning');
+      if (player && disc && audio) {
+        player.addEventListener('mouseenter', () => {
+          audio.play().catch(e => console.log('Context block handled:', e));
+          disc.classList.add('animate-vinyl');
+          
+          if (bText && bPulse && bDot) {
+            bText.innerText = "Auditioning Loop";
+            bText.classList.add('text-[#6399bb]');
+            bDot.classList.replace('bg-zinc-600', 'bg-[#6399bb]');
+            bPulse.classList.replace('bg-zinc-600', 'bg-[#6399bb]');
+          }
         });
 
-        // Pause + Stop Spin on Hover Leave
-        container.addEventListener('mouseleave', () => {
+        player.addEventListener('mouseleave', () => {
           audio.pause();
-          record.classList.remove('spinning');
+          disc.classList.remove('animate-vinyl');
+          
+          if (bText && bPulse && bDot) {
+            bText.innerText = "Deck Idle";
+            bText.classList.remove('text-[#6399bb]');
+            bDot.classList.replace('bg-[#6399bb]', 'bg-zinc-600');
+            bPulse.classList.replace('bg-[#6399bb]', 'bg-zinc-600');
+          }
         });
       }
     </script>
