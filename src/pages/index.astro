@@ -1,7 +1,7 @@
 ---
 // jayesyn.com — homepage
 const releases = [
-  { code: 'SGL 001', title: 'Single One', date: 'TBA 2026', status: 'Announced' },
+  { code: 'SGL 001', title: 'Common Ground', date: 'TBA 2026', status: 'Announced' },
   { code: 'SGL 002', title: 'Single Two', date: 'TBA 2026', status: 'Scheduled' },
   { code: 'SGL 003', title: 'Single Three', date: 'TBA 2026', status: 'Scheduled' },
   { code: 'EP 001', title: 'Four-Track EP', date: 'TBA 2026', status: 'In production' },
@@ -56,14 +56,14 @@ const jsonLd = {
       <h1>JAYESYN</h1>
       
       <p class="lede">
-        JAYESYN is a visionary R&amp;B artist delivering a soulful, uplifting sound anchored by a powerful message of unity and common ground. Driven by an intimate, velvet-smooth vocal delivery, his arrangements blossom into stunning, choir-like layered harmonies that are as emotionally moving as they are technically brilliant.
+        JAYESYN is a visionary R&amp;B artist launching with his debut single, "Common Ground"—a soulful, uplifting project anchored by a powerful message of unity. Driven by an intimate, velvet-smooth vocal delivery, his arrangements blossom into stunning, choir-like layered harmonies that are as emotionally moving as they are technically brilliant.
       </p>
       
       <p class="track-desc">
         His production is meticulously polished, seamlessly blending classic soul instrumentation with modern, spacious landscapes. Anchored by a groovy, melodic bassline and a steady, mid-tempo pocket, the music is elevated by warm electric keys and a signature poignant violin melody that brings a timeless, classical elegance to the entire project.
       </p>
 
-      <a class="cta" href="#signup">Hear the first single early</a>
+      <a class="cta" href="#signup">Hear "Common Ground" early</a>
     </div>
 
     <!-- Signature: rotating record-label disc -->
@@ -79,7 +79,7 @@ const jsonLd = {
         <circle cx="200" cy="200" r="119" fill="none" stroke="#121014" stroke-width="2" />
         <text class="ring-text">
           <textPath href="#ringpath" startOffset="0">
-            THREE SINGLES &#183; ONE EP &#183; REMIX PROJECT &#183; VINYL &#183; ORIGINAL ARTWORK &#183;&nbsp;
+            COMMON GROUND &#183; THREE SINGLES &#183; ONE EP &#183; REMIX PROJECT &#183; VINYL &#183;&nbsp;
           </textPath>
         </text>
         <text x="200" y="188" text-anchor="middle" class="label-name">JAYESYN</text>
@@ -263,6 +263,28 @@ h1 {
 @keyframes spin { 
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); } 
+}
+
+/* record disc typography colors */
+.ring-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  fill: var(--uv-soft);
+}
+.label-name {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  fill: var(--carbon);
+}
+.label-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  fill: var(--carbon);
 }
 
 /* ---------- releases ---------- */
