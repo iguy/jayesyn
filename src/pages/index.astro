@@ -15,7 +15,7 @@ const jsonLd = {
   '@type': 'MusicGroup',
   name: 'Jayesyn',
   url: 'https://jayesyn.com',
-  genre: 'Electronic', // TODO: confirm genre with artist
+  genre: 'R&B / Soul', // Updated to match song style
   foundingLocation: {
     '@type': 'Place',
     name: 'Los Angeles, California',
@@ -34,8 +34,8 @@ const jsonLd = {
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Jayesyn — Three singles. One EP. Remixes. Vinyl.</title>
-<meta name="description" content="Jayesyn is a Los Angeles artist releasing three singles, a four-track EP, a remix project, and a vinyl pressing. Hear it first — join the list." />
+<title>Jayesyn — Soulful &amp; Uplifting R&amp;B</title>
+<meta name="description" content="Jayesyn is a Los Angeles artist releasing soulful R&amp;B driven by clean production, warm instrumentation, and a powerful message of common ground." />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="canonical" href="https://jayesyn.com/" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,10 +57,20 @@ const jsonLd = {
     <div class="hero-text">
       <p class="eyebrow">Los Angeles &middot; New project</p>
       <h1>JAYESYN</h1>
+      
       <p class="lede">
-        Three singles, one month apart. A four-track EP. A remix project.
-        A vinyl pressing. All of it drawn from original works of art.
+        A soulful and uplifting R&amp;B project with a hopeful, unifying message. 
+        The music is carried by an intimate, smooth male vocalist whose performance 
+        blossoms into rich, choir-like layered harmonies over a moving call for common ground.
       </p>
+      
+      <p class="track-desc">
+        The production is clean and polished, built upon a warm blend of classic and modern soul instrumentation. 
+        A groovy, melodic bass guitar line locks in with a steady mid-tempo drum pattern, accompanied by a 
+        gentle electric piano and a standout violin playing a poignant, memorable melody that adds a touch 
+        of classical elegance to a spacious atmosphere.
+      </p>
+
       <a class="cta" href="#signup">Hear the first single early</a>
     </div>
 
@@ -224,12 +234,21 @@ h1 {
   line-height: 0.95;
   letter-spacing: -0.01em;
   white-space: nowrap;
+  margin-bottom: 1.5rem;
 }
 .lede {
-  margin-top: 1.5rem;
-  max-width: 34rem;
+  max-width: 38rem;
+  color: var(--cream);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.track-desc {
+  margin-top: 1rem;
+  max-width: 38rem;
   color: var(--dim);
-  font-size: 1.1rem;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 .cta {
   display: inline-block;
