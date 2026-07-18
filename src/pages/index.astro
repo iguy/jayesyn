@@ -56,7 +56,7 @@ const jsonLd = {
   <section class="hero">
     <div class="hero-text">
       <p class="eyebrow">Los Angeles &middot; New project</p>
-      <h1>JAY<wbr />ESYN</h1>
+      <h1>JAYESYN</h1>
       <p class="lede">
         Three singles, one month apart. A four-track EP. A remix project.
         A vinyl pressing. All of it drawn from original works of art.
@@ -191,6 +191,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .top-name {
   font-family: 'Unbounded', sans-serif;
   font-weight: 700; font-size: 0.85rem; letter-spacing: 0.18em;
+  white-space: nowrap;
 }
 .top-link {
   margin-left: auto;
@@ -222,6 +223,7 @@ h1 {
   font-size: clamp(3.2rem, 9vw, 6.5rem);
   line-height: 0.95;
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 .lede {
   margin-top: 1.5rem;
@@ -323,7 +325,7 @@ h1 {
   aspect-ratio: 1;
   border: 1px solid var(--line);
   background:
-    radial-gradient(circle at 30% 30%, rgba(99, 153, 187, 0.18), transparent 60%), /* Balanced blue visual glow */
+    radial-gradient(circle at 30% 30%, rgba(99, 153, 187, 0.18), transparent 60%),
     var(--carbon-deep);
   display: flex; align-items: flex-end;
   padding: 0.75rem;
@@ -381,6 +383,7 @@ h1 {
 .foot-name {
   font-family: 'Unbounded', sans-serif;
   font-weight: 700; font-size: 0.9rem; letter-spacing: 0.2em;
+  white-space: nowrap;
 }
 .foot-meta { margin-top: 0.75rem; font-size: 0.9rem; color: var(--dim); }
 .foot-credit {
