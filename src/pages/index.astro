@@ -1,3 +1,148 @@
+---
+// jayesyn.com — homepage
+// Placeholders to replace before launch are marked TODO.
+const releases = [
+  { code: 'SGL 001', title: 'Single One', date: 'TBA 2026', status: 'Announced' },
+  { code: 'SGL 002', title: 'Single Two', date: 'TBA 2026', status: 'Scheduled' },
+  { code: 'SGL 003', title: 'Single Three', date: 'TBA 2026', status: 'Scheduled' },
+  { code: 'EP 001', title: 'Four-Track EP', date: 'TBA 2026', status: 'In production' },
+  { code: 'RMX 001', title: 'Remix Project', date: 'TBA 2027', status: 'Planned' },
+  { code: 'VNL 001', title: 'EP on Vinyl', date: 'TBA 2027', status: 'Planned' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: 'Jayesyn',
+  url: 'https://jayesyn.com',
+  genre: 'Electronic', // TODO: confirm genre with artist
+  foundingLocation: {
+    '@type': 'Place',
+    name: 'Los Angeles, California',
+  },
+  member: {
+    '@type': 'Person',
+    name: 'Jason Thomas Nelson',
+  },
+  // TODO: add sameAs array once platform profiles are live:
+  // sameAs: ['https://open.spotify.com/artist/...', 'https://music.apple.com/...', ...]
+};
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jayesyn — Three singles. One EP. Remixes. Vinyl.</title>
+<meta name="description" content="Jayesyn is a Los Angeles artist releasing three singles, a four-track EP, a remix project, and a vinyl pressing. Hear it first — join the list." />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="canonical" href="https://jayesyn.com/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</head>
+<body>
+
+<header class="top">
+  <span class="mark" aria-hidden="true"></span>
+  <span class="top-name">JAYESYN</span>
+  <a class="top-link" href="#signup">Join the list</a>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Los Angeles &middot; New project</p>
+      <h1>JAY<wbr />ESYN</h1>
+      <p class="lede">
+        Three singles, one month apart. A four-track EP. A remix project.
+        A vinyl pressing. All of it drawn from fifty original works of art.
+      </p>
+      <a class="cta" href="#signup">Hear the first single early</a>
+    </div>
+
+    <!-- Signature: rotating record-label disc -->
+    <div class="disc-wrap" aria-hidden="true">
+      <svg class="disc" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <path id="ringpath" d="M 200,200 m -152,0 a 152,152 0 1,1 304,0 a 152,152 0 1,1 -304,0" />
+        </defs>
+        <circle cx="200" cy="200" r="198" fill="#0D0B10" />
+        <circle cx="200" cy="200" r="188" fill="none" stroke="#231D2E" stroke-width="1" />
+        <circle cx="200" cy="200" r="172" fill="none" stroke="#231D2E" stroke-width="1" />
+        <circle cx="200" cy="200" r="120" fill="#EFE6D8" />
+        <circle cx="200" cy="200" r="119" fill="none" stroke="#121014" stroke-width="2" />
+        <text class="ring-text">
+          <textPath href="#ringpath" startOffset="0">
+            THREE SINGLES &#183; ONE EP &#183; REMIX PROJECT &#183; VINYL &#183; FIFTY WORKS OF ART &#183;&nbsp;
+          </textPath>
+        </text>
+        <text x="200" y="188" text-anchor="middle" class="label-name">JAYESYN</text>
+        <text x="200" y="216" text-anchor="middle" class="label-sub">JSN&#8211;001 &#183; 33&#8531; RPM</text>
+        <text x="200" y="238" text-anchor="middle" class="label-sub">STEREO</text>
+        <circle cx="200" cy="200" r="7" fill="#121014" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- RELEASE SEQUENCE -->
+  <section class="releases" aria-labelledby="rel-h">
+    <h2 id="rel-h" class="section-h">The sequence</h2>
+    <ol class="rel-track">
+      {releases.map((r) => (
+        <li class="rel-card">
+          <span class="rel-code">{r.code}</span>
+          <span class="rel-title">{r.title}</span>
+          <span class="rel-meta">{r.date} &middot; {r.status}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- BACKGROUND ARTWORK PLACES -->
+  <section class="art" aria-labelledby="art-h">
+    <h2 id="art-h" class="section-h">The art</h2>
+    <p class="art-lede">
+      Every release is packaged in original visual art by the artist —
+      fifty pieces, one body of work.
+    </p>
+    <!-- TODO: replace placeholder tiles with real artwork files -->
+    <div class="art-grid" aria-hidden="true">
+      {[1, 2, 3, 4, 5, 6].map((n) => (
+        <div class="art-tile"><span>ART {String(n).padStart(2, '0')} / 50</span></div>
+      ))}
+    </div>
+  </section>
+
+  <!-- SIGNUP -->
+  <section class="signup" id="signup" aria-labelledby="signup-h">
+    <h2 id="signup-h">Hear it first.</h2>
+    <p>One email when each release drops. Nothing else.</p>
+    
+    <!-- Connected to garycrossey@irishguy.us via Formspree processing -->
+    <form action="https://formspree.io/f/garycrossey@irishguy.us" method="post">
+      <label class="visually-hidden" for="email">Email address</label>
+      <input id="email" type="email" name="email" placeholder="you@example.com" required />
+      <button type="submit">Join the list</button>
+    </form>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="foot-name">JAYESYN</p>
+  <p class="foot-meta">
+    Los Angeles, CA &middot; Booking &amp; press:
+    <a href="mailto:press@jayesyn.com">press@jayesyn.com</a><!-- TODO: confirm address -->
+  </p>
+  <p class="foot-credit">
+    Released via <a href="https://irishguydesign.studio" rel="noopener">Irishguy Design Studio</a>
+    &middot; &copy; {new Date().getFullYear()} Jayesyn. All rights reserved.
+  </p>
+</footer>
+
 <style is:global>
 :root {
   --carbon: #121014;
@@ -178,7 +323,7 @@ h1 {
   aspect-ratio: 1;
   border: 1px solid var(--line);
   background:
-    radial-gradient(circle at 30% 30%, rgba(99, 153, 187, 0.18), transparent 60%), /* Updated: Changed to match brand blue */
+    radial-gradient(circle at 30% 30%, rgba(99, 153, 187, 0.18), transparent 60%), /* Balanced blue visual glow */
     var(--carbon-deep);
   display: flex; align-items: flex-end;
   padding: 0.75rem;
@@ -251,3 +396,6 @@ h1 {
   .disc { width: min(300px, 70vw); }
 }
 </style>
+
+</body>
+</html>
