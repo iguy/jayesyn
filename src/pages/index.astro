@@ -1,6 +1,5 @@
 ---
 // jayesyn.com — homepage
-// Placeholders to replace before launch are marked TODO.
 const releases = [
   { code: 'SGL 001', title: 'Single One', date: 'TBA 2026', status: 'Announced' },
   { code: 'SGL 002', title: 'Single Two', date: 'TBA 2026', status: 'Scheduled' },
@@ -57,16 +56,11 @@ const jsonLd = {
       <h1>JAYESYN</h1>
       
       <p class="lede">
-        A soulful and uplifting R&amp;B project with a hopeful, unifying message. 
-        The music is carried by an intimate, smooth male vocalist whose performance 
-        blossoms into rich, choir-like layered harmonies over a moving call for common ground.
+        JAYESYN is a visionary R&amp;B artist delivering a soulful, uplifting sound anchored by a powerful message of unity and common ground. Driven by an intimate, velvet-smooth vocal delivery, his arrangements blossom into stunning, choir-like layered harmonies that are as emotionally moving as they are technically brilliant.
       </p>
       
       <p class="track-desc">
-        The production is clean and polished, built upon a warm blend of classic and modern soul instrumentation. 
-        A groovy, melodic bass guitar line locks in with a steady mid-tempo drum pattern, accompanied by a 
-        gentle electric piano and a standout violin playing a poignant, memorable melody that adds a touch 
-        of classical elegance to a spacious atmosphere.
+        His production is meticulously polished, seamlessly blending classic soul instrumentation with modern, spacious landscapes. Anchored by a groovy, melodic bassline and a steady, mid-tempo pocket, the music is elevated by warm electric keys and a signature poignant violin melody that brings a timeless, classical elegance to the entire project.
       </p>
 
       <a class="cta" href="#signup">Hear the first single early</a>
@@ -154,14 +148,13 @@ const jsonLd = {
   --carbon: #121014;
   --carbon-deep: #0d0b10;
   --cream: #efe6d8;
-  --uv: #6399bb;               /* Primary Brand Blue */
-  --uv-soft: #84b6d6;          /* Softer Highlight Blue */
+  --uv: #6399bb;
+  --uv-soft: #84b6d6;
   --line: #2a2333;
   --dim: #9b93a8;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -261,14 +254,11 @@ h1 {
 .cta:hover { background: var(--uv-soft); }
 
 /* signature disc */
-.disc-wrap { 
-  display: flex; 
-  justify-content: center; 
-}
+.disc-wrap { display: flex; justify-content: center; }
 .disc {
   width: min(400px, 80vw);
   animation: spin 40s linear infinite;
-  transform-origin: 50% 50%; /* Center origin point fix */
+  transform-origin: 50% 50%;
 }
 @keyframes spin { 
   from { transform: rotate(0deg); }
@@ -374,7 +364,6 @@ h1 {
   transition: background 160ms ease;
 }
 .signup button:hover { background: var(--uv-soft); }
-.hp { position: absolute; left: -5000px; }
 
 /* ---------- footer ---------- */
 .foot {
