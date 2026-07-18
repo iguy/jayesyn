@@ -1,459 +1,111 @@
 ---
-// jayesyn.com — homepage
-const releases = [
-  { code: 'SGL 001', title: 'Common Ground', date: 'TBA 2026', status: 'Announced' },
-  { code: 'SGL 002', title: 'Single Two', date: 'TBA 2026', status: 'Scheduled' },
-  { code: 'SGL 003', title: 'Single Three', date: 'TBA 2026', status: 'Scheduled' },
-  { code: 'EP 001', title: 'Four-Track EP', date: 'TBA 2026', status: 'In production' },
-  { code: 'RMX 001', title: 'Remix Project', date: 'TBA 2027', status: 'Planned' },
-  { code: 'VNL 001', title: 'EP on Vinyl', date: 'TBA 2027', status: 'Planned' },
-];
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'MusicGroup',
-  name: 'Jayesyn',
-  url: 'https://jayesyn.com',
-  genre: 'R&B / Soul',
-  foundingLocation: {
-    '@type': 'Place',
-    name: 'Los Angeles, California',
-  },
-  member: {
-    '@type': 'Person',
-    name: 'Jason Thomas Nelson',
-  },
-};
+// index.astro - Jayesyn Artist Website
 ---
 
-<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Jayesyn — Soulful &amp; Uplifting R&amp;B</title>
-<meta name="description" content="Jayesyn is a Los Angeles artist releasing soulful R&amp;B driven by clean production, warm instrumentation, and a powerful message of common ground." />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="canonical" href="https://jayesyn.com/" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-</head>
-<body>
-
-<header class="top">
-  <span class="mark" aria-hidden="true"></span>
-  <span class="top-name">JAYESYN</span>
-  <a class="top-link" href="#signup">Join the list</a>
-</header>
-
-<main>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-text">
-      <p class="eyebrow">Los Angeles &middot; New project</p>
-      <h1>JAYESYN</h1>
-      
-      <p class="lede">
-        JAYESYN is a visionary R&amp;B artist launching with his debut single, "Common Ground"—a soulful, uplifting project anchored by a powerful message of unity. Driven by an intimate, velvet-smooth vocal delivery, his arrangements blossom into stunning, choir-like layered harmonies that are as emotionally moving as they are technically brilliant.
-      </p>
-      
-      <p class="track-desc">
-        His production is meticulously polished, seamlessly blending classic soul instrumentation with modern, spacious landscapes. Anchored by a groovy, melodic bassline and a steady, mid-tempo pocket, the music is elevated by warm electric keys and a signature poignant trumpet melody that brings a timeless, classical elegance to the entire project.
-      </p>
-
-      <a class="cta" href="#signup">Hear "Common Ground" early</a>
-    </div>
-
-    <!-- Hidden Audio Tag -->
-    <audio id="audio-preview" src="/audio/common-ground-sample.mp3" preload="auto" loop></audio>
-
-    <!-- Interactive Vinyl Disc Container -->
-    <div class="disc-wrap" id="interactive-disc" role="button" aria-label="Hover to preview Common Ground" tabindex="0">
-      <svg class="disc" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <path id="ringpath" d="M 200,200 m -152,0 a 152,152 0 1,1 304,0 a 152,152 0 1,1 -304,0" />
-        </defs>
-        <circle cx="200" cy="200" r="198" fill="#0D0B10" />
-        <circle cx="200" cy="200" r="188" fill="none" stroke="#231D2E" stroke-width="1" />
-        <circle cx="200" cy="200" r="172" fill="none" stroke="#231D2E" stroke-width="1" />
-        <circle cx="200" cy="200" r="120" fill="#EFE6D8" />
-        <circle cx="200" cy="200" r="119" fill="none" stroke="#121014" stroke-width="2" />
-        <text class="ring-text">
-          <textPath href="#ringpath" startOffset="0">
-            COMMON GROUND &#183; THREE SINGLES &#183; ONE EP &#183; REMIX PROJECT &#183; VINYL &#183;&nbsp;
-          </textPath>
-        </text>
-        <text x="200" y="188" text-anchor="middle" class="label-name">JAYESYN</text>
-        <text x="200" y="216" text-anchor="middle" class="label-sub">JSN&#8211;001 &#183; 33&#8531; RPM</text>
-        <text x="200" y="238" text-anchor="middle" class="label-sub">STEREO</text>
-        <circle cx="200" cy="200" r="7" fill="#121014" />
-      </svg>
-    </div>
-  </section>
-
-  <!-- RELEASE SEQUENCE -->
-  <section class="releases" aria-labelledby="rel-h">
-    <h2 id="rel-h" class="section-h">The sequence</h2>
-    <ol class="rel-track">
-      {releases.map((r) => (
-        <li class="rel-card">
-          <span class="rel-code">{r.code}</span>
-          <span class="rel-title">{r.title}</span>
-          <span class="rel-meta">{r.date} &middot; {r.status}</span>
-        </li>
-      ))}
-    </ol>
-  </section>
-
-  <!-- BACKGROUND ARTWORK PLACES -->
-  <section class="art" aria-labelledby="art-h">
-    <h2 id="art-h" class="section-h">The art</h2>
-    <p class="art-lede">
-      Every release is packaged in original visual art by the artist —
-      each piece part of one unified body of work.
-    </p>
-    <div class="art-grid" aria-hidden="true">
-      {[1, 2, 3, 4, 5, 6].map((n) => (
-        <div class="art-tile"><span>ART {String(n).padStart(2, '0')}</span></div>
-      ))}
-    </div>
-  </section>
-
-  <!-- SIGNUP -->
-  <section class="signup" id="signup" aria-labelledby="signup-h">
-    <h2 id="signup-h">Hear it first.</h2>
-    <p>One email when each release drops. Nothing else.</p>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Jayesyn | Common Ground</title>
+    <!-- Google Fonts for sleek typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#121212] text-[#f5f5f7] min-h-screen flex items-center justify-center font-['Plus_Jakarta_Sans',sans-serif] overflow-x-hidden">
     
-    <form action="https://formspree.io/f/xpqvdjyb" method="post">
-      <label class="visually-hidden" for="email">Email address</label>
-      <input id="email" type="email" name="email" placeholder="you@example.com" required />
-      <button type="submit">Join the list</button>
-    </form>
-  </section>
-</main>
+    <main class="max-w-6xl w-full mx-auto px-6 py-12 md:py-24 grid md:grid-cols-2 gap-12 items-center">
+      
+      <!-- Left Column: Artist Bio Text -->
+      <div class="space-y-6 order-2 md:order-1 max-w-xl">
+        <span class="text-sm uppercase tracking-widest text-zinc-500 font-medium block">Debut Single</span>
+        <h1 class="text-5xl md:text-7xl font-light tracking-tight text-white leading-none">
+          Common <span class="font-normal italic text-zinc-400">Ground</span>
+        </h1>
+        
+        <div class="h-px w-20 bg-zinc-700 my-4"></div>
+        
+        <p class="text-lg md:text-xl text-zinc-400 font-light leading-relaxed">
+          Jayesyn crafts an immersive, artist-led R&B experience designed to unite listeners through a shared sonic atmosphere. 
+        </p>
+        
+        <p class="text-base text-zinc-500 font-light leading-relaxed">
+          Built on a foundation of warm electric piano chords and a locked-in bass and drum groove, the track breathes with organic textures—anchored by a soulful, sweeping trumpet melody that bridges the gap between classic soul and modern rhythm.
+        </p>
+      </div>
 
-<footer class="foot">
-  <p class="foot-name">JAYESYN</p>
-  <p class="foot-meta">
-    Los Angeles, CA &middot; Booking &amp; press:
-    <a href="mailto:garycrossey@irishguy.us">garycrossey@irishguy.us</a>
-  </p>
-  <p class="foot-credit">
-    Released via <a href="https://irishguydesign.studio" rel="noopener">Irishguy Design Studio</a>
-    &middot; &copy; {new Date().getFullYear()} Jayesyn. All rights reserved.
-  </p>
-</footer>
+      <!-- Right Column: Interactive Vinyl Record & CTA -->
+      <div class="flex flex-col items-center justify-center order-1 md:order-2 group/hero select-none">
+        <div class="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center">
+          
+          <!-- Outer Vinyl Record (Interactive Element) -->
+          <div 
+            id="vinyl-record" 
+            class="absolute inset-0 rounded-full bg-[#1a1a1a] shadow-[0_0_50px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.05)] cursor-pointer transition-transform duration-500 ease-out group-hover/hero:scale-105 active:scale-95 flex items-center justify-center z-10"
+            style="transform-origin: center center;"
+          >
+            <!-- Grooves detailing on the vinyl -->
+            <div class="absolute inset-4 rounded-full border border-zinc-800/40"></div>
+            <div class="absolute inset-10 rounded-full border border-zinc-800/30"></div>
+            <div class="absolute inset-16 rounded-full border border-zinc-800/20"></div>
+            <div class="absolute inset-24 rounded-full border border-zinc-800/10"></div>
+            
+            <!-- Center Custom Record Label Cover Art -->
+            <div class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-zinc-800 border-4 border-[#121212] overflow-hidden shadow-inner flex items-center justify-center relative">
+              <div class="absolute inset-0 bg-gradient-to-tr from-zinc-900 to-zinc-700 flex flex-col items-center justify-center text-center p-2">
+                <span class="text-[9px] md:text-[11px] uppercase tracking-wider font-semibold text-white">Jayesyn</span>
+                <span class="text-[8px] md:text-[10px] text-zinc-400 italic">Common Ground</span>
+              </div>
+              <!-- Center Spindle Hole -->
+              <div class="w-3 h-3 rounded-full bg-[#121212] z-20 shadow-inner"></div>
+            </div>
+          </div>
+          
+        </div>
 
-<!-- INTERACTIVE AUDIO SCRIPT -->
-<script>
-  const discContainer = document.getElementById('interactive-disc');
-  const audio = document.getElementById('audio-preview');
+        <!-- Dynamic CTA Instruction Box -->
+        <div id="cta-badge" class="mt-8 flex items-center gap-2 bg-zinc-900/80 border border-zinc-800 px-4 py-2 rounded-full backdrop-blur-sm text-sm text-zinc-400 tracking-wide transition-all duration-300 animate-pulse group-hover/hero:opacity-0 group-hover/hero:translate-y-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-500 animate-bounce"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+          <span>Roll over to play snippet</span>
+        </div>
+      </div>
 
-  if (discContainer && audio) {
-    // Play on hover
-    discContainer.addEventListener('mouseenter', () => {
-      audio.play().catch(err => {
-        console.log("Audio play blocked by browser policy until manual interaction.", err);
-      });
-    });
+    </main>
 
-    // Pause and reset track when mouse leaves
-    discContainer.addEventListener('mouseleave', () => {
-      audio.pause();
-    });
+    <!-- Hidden HTML5 Audio Element -->
+    <audio id="audio-preview" src="/audio/common-ground-sample.m4a" preload="auto" loop></audio>
 
-    // Accessibility support: Play on click/enter tap if focused
-    discContainer.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
+    <!-- Custom CSS Animation Injection -->
+    <style is:global>
+      @keyframes record-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
       }
-    });
-  }
-</script>
+      .spinning {
+        animation: record-spin 3.5s linear infinite !important;
+      }
+    </style>
 
-<style is:global>
-:root {
-  --carbon: #121014;
-  --carbon-deep: #0d0b10;
-  --cream: #efe6d8;
-  --uv: #6399bb;
-  --uv-soft: #84b6d6;
-  --line: #2a2333;
-  --dim: #9b93a8;
-}
+    <!-- Script Handling Audio & CSS Spinning Triggers -->
+    <script>
+      const record = document.getElementById('vinyl-record');
+      const audio = document.getElementById('audio-preview') as HTMLAudioElement;
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+      if (record && audio) {
+        // Hover Interaction: Play & Spin
+        record.addEventListener('mouseenter', () => {
+          audio.play().catch(err => console.log("Audio playback safely managed:", err));
+          record.classList.add('spinning');
+        });
 
-body {
-  background: var(--carbon);
-  color: var(--cream);
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  font-size: 17px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-.visually-hidden {
-  position: absolute; width: 1px; height: 1px;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
-}
-
-a { color: var(--uv-soft); }
-a:focus-visible, button:focus-visible, input:focus-visible {
-  outline: 2px solid var(--uv-soft);
-  outline-offset: 3px;
-}
-
-/* ---------- header ---------- */
-.top {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 1.1rem clamp(1.25rem, 4vw, 3rem);
-  border-bottom: 1px solid var(--line);
-}
-.mark {
-  width: 18px; height: 18px; border-radius: 50%;
-  border: 3px solid var(--uv);
-}
-.top-name {
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 700; font-size: 0.85rem; letter-spacing: 0.18em;
-  white-space: nowrap;
-}
-.top-link {
-  margin-left: auto;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.8rem; text-decoration: none;
-  color: var(--cream); border-bottom: 1px solid var(--uv);
-  padding-bottom: 2px;
-}
-.top-link:hover { color: var(--uv-soft); }
-
-/* ---------- hero ---------- */
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  align-items: center;
-  gap: clamp(2rem, 5vw, 4rem);
-  padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 4vw, 3rem);
-  max-width: 1200px; margin: 0 auto;
-}
-.eyebrow {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.8rem; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--uv-soft);
-  margin-bottom: 1rem;
-}
-h1 {
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 900;
-  font-size: clamp(3.2rem, 9vw, 6.5rem);
-  line-height: 0.95;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  margin-bottom: 1.5rem;
-}
-.lede {
-  max-width: 38rem;
-  color: var(--cream);
-  font-size: 1.25rem;
-  line-height: 1.5;
-  font-weight: 500;
-}
-.track-desc {
-  margin-top: 1rem;
-  max-width: 38rem;
-  color: var(--dim);
-  font-size: 1rem;
-  line-height: 1.6;
-}
-.cta {
-  display: inline-block;
-  margin-top: 2rem;
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 700; font-size: 0.85rem;
-  text-decoration: none;
-  color: var(--cream);
-  background: var(--uv);
-  padding: 0.9rem 1.6rem;
-  border-radius: 999px;
-  transition: background 160ms ease;
-}
-.cta:hover { background: var(--uv-soft); }
-
-/* signature disc */
-.disc-wrap { 
-  display: flex; 
-  justify-content: center; 
-  cursor: pointer;
-  outline: none;
-  transition: transform 0.3s ease;
-}
-.disc-wrap:hover {
-  transform: scale(1.03);
-}
-
-.disc {
-  width: min(400px, 80vw);
-  animation: spin 40s linear infinite;
-  transform-origin: 50% 50%;
-}
-@keyframes spin { 
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); } 
-}
-
-/* record disc typography colors */
-.ring-text {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  fill: var(--uv-soft);
-}
-.label-name {
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 900;
-  font-size: 20px;
-  fill: var(--carbon);
-}
-.label-sub {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 500;
-  font-size: 9px;
-  letter-spacing: 0.05em;
-  fill: var(--carbon);
-}
-
-/* ---------- releases ---------- */
-.section-h {
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  margin-bottom: 1.75rem;
-}
-.releases {
-  max-width: 1200px; margin: 0 auto;
-  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem);
-  border-top: 1px solid var(--line);
-}
-.rel-track {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
-}
-.rel-card {
-  background: var(--carbon-deep);
-  padding: 1.25rem 1.1rem 1.4rem;
-  display: flex; flex-direction: column; gap: 0.45rem;
-}
-.rel-code {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.75rem; letter-spacing: 0.12em;
-  color: var(--uv-soft);
-}
-.rel-title { font-weight: 500; }
-.rel-meta {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem; color: var(--dim);
-}
-
-/* ---------- art ---------- */
-.art {
-  max-width: 1200px; margin: 0 auto;
-  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem);
-  border-top: 1px solid var(--line);
-}
-.art-lede { color: var(--dim); max-width: 36rem; margin-bottom: 1.75rem; }
-.art-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.75rem;
-}
-.art-tile {
-  aspect-ratio: 1;
-  border: 1px solid var(--line);
-  background:
-    radial-gradient(circle at 30% 30%, rgba(99, 153, 187, 0.18), transparent 60%),
-    var(--carbon-deep);
-  display: flex; align-items: flex-end;
-  padding: 0.75rem;
-}
-.art-tile span {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem; color: var(--dim); letter-spacing: 0.1em;
-}
-
-/* ---------- signup ---------- */
-.signup {
-  max-width: 720px; margin: 0 auto;
-  padding: clamp(3rem, 8vw, 5.5rem) clamp(1.25rem, 4vw, 3rem);
-  text-align: center;
-}
-.signup h2 {
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 900;
-  font-size: clamp(1.8rem, 5vw, 3rem);
-}
-.signup p { color: var(--dim); margin-top: 0.75rem; }
-.signup form {
-  margin-top: 2rem;
-  display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap;
-}
-.signup input[type='email'] {
-  flex: 1 1 260px; max-width: 340px;
-  background: var(--carbon-deep);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  color: var(--cream);
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1rem;
-  padding: 0.85rem 1.25rem;
-}
-.signup input::placeholder { color: var(--dim); }
-.signup button {
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 700; font-size: 0.85rem;
-  background: var(--uv); color: var(--cream);
-  border: 0; border-radius: 999px;
-  padding: 0.85rem 1.5rem;
-  cursor: pointer;
-  transition: background 160ms ease;
-}
-.signup button:hover { background: var(--uv-soft); }
-
-/* ---------- footer ---------- */
-.foot {
-  border-top: 1px solid var(--line);
-  padding: 2.5rem clamp(1.25rem, 4vw, 3rem) 3rem;
-  text-align: center;
-}
-.foot-name {
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 700; font-size: 0.9rem; letter-spacing: 0.2em;
-  white-space: nowrap;
-}
-.foot-meta { margin-top: 0.75rem; font-size: 0.9rem; color: var(--dim); }
-.foot-credit {
-  margin-top: 0.5rem;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.75rem; color: var(--dim);
-}
-
-/* ---------- responsive ---------- */
-@media (max-width: 820px) {
-  .hero { grid-template-columns: 1fr; }
-  .disc-wrap { order: -1; }
-  .disc { width: min(300px, 70vw); }
-}
-</style>
-
-</body>
+        // Leave Interaction: Pause & Halt Spin
+        record.addEventListener('mouseleave', () => {
+          audio.pause();
+          record.classList.remove('spinning');
+        });
+      }
+    </script>
+  </body>
 </html>
