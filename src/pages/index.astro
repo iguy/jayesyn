@@ -15,7 +15,7 @@ const jsonLd = {
   '@type': 'MusicGroup',
   name: 'Jayesyn',
   url: 'https://jayesyn.com',
-  genre: 'R&B / Soul', // Updated to match song style
+  genre: 'R&B / Soul',
   foundingLocation: {
     '@type': 'Place',
     name: 'Los Angeles, California',
@@ -24,8 +24,6 @@ const jsonLd = {
     '@type': 'Person',
     name: 'Jason Thomas Nelson',
   },
-  // TODO: add sameAs array once platform profiles are live:
-  // sameAs: ['https://open.spotify.com/artist/...', 'https://music.apple.com/...', ...]
 };
 ---
 
@@ -119,7 +117,6 @@ const jsonLd = {
       Every release is packaged in original visual art by the artist —
       each piece part of one unified body of work.
     </p>
-    <!-- TODO: replace placeholder tiles with real artwork files -->
     <div class="art-grid" aria-hidden="true">
       {[1, 2, 3, 4, 5, 6].map((n) => (
         <div class="art-tile"><span>ART {String(n).padStart(2, '0')}</span></div>
@@ -132,7 +129,6 @@ const jsonLd = {
     <h2 id="signup-h">Hear it first.</h2>
     <p>One email when each release drops. Nothing else.</p>
     
-    <!-- Secure production data stream via Formspree Endpoint ID -->
     <form action="https://formspree.io/f/xpqvdjyb" method="post">
       <label class="visually-hidden" for="email">Email address</label>
       <input id="email" type="email" name="email" placeholder="you@example.com" required />
@@ -145,7 +141,7 @@ const jsonLd = {
   <p class="foot-name">JAYESYN</p>
   <p class="foot-meta">
     Los Angeles, CA &middot; Booking &amp; press:
-    <a href="mailto:garycrossey@irishguy.us">garycrossey@irishguy.us</a><!-- TODO: confirm address -->
+    <a href="mailto:garycrossey@irishguy.us">garycrossey@irishguy.us</a>
   </p>
   <p class="foot-credit">
     Released via <a href="https://irishguydesign.studio" rel="noopener">Irishguy Design Studio</a>
@@ -158,8 +154,8 @@ const jsonLd = {
   --carbon: #121014;
   --carbon-deep: #0d0b10;
   --cream: #efe6d8;
-  --uv: #6399bb;               /* Updated: Primary Brand Blue */
-  --uv-soft: #84b6d6;          /* Updated: Softer Highlight Blue */
+  --uv: #6399bb;               /* Primary Brand Blue */
+  --uv-soft: #84b6d6;          /* Softer Highlight Blue */
   --line: #2a2333;
   --dim: #9b93a8;
 }
@@ -256,9 +252,8 @@ h1 {
   font-family: 'Unbounded', sans-serif;
   font-weight: 700; font-size: 0.85rem;
   text-decoration: none;
-  color: var(--carbon-deep);
-  background: var(--uv);
   color: var(--cream);
+  background: var(--uv);
   padding: 0.9rem 1.6rem;
   border-radius: 999px;
   transition: background 160ms ease;
@@ -266,30 +261,18 @@ h1 {
 .cta:hover { background: var(--uv-soft); }
 
 /* signature disc */
-.disc-wrap { display: flex; justify-content: center; }
+.disc-wrap { 
+  display: flex; 
+  justify-content: center; 
+}
 .disc {
   width: min(400px, 80vw);
   animation: spin 40s linear infinite;
+  transform-origin: 50% 50%; /* Center origin point fix */
 }
-@keyframes spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) {
-  .disc { animation: none; }
-  html { scroll-behavior: auto; }
-}
-.ring-text {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 15px; letter-spacing: 0.28em;
-  fill: var(--uv-soft);
-}
-.label-name {
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 900; font-size: 34px;
-  fill: var(--carbon);
-}
-.label-sub {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px; letter-spacing: 0.14em;
-  fill: var(--carbon);
+@keyframes spin { 
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); } 
 }
 
 /* ---------- releases ---------- */
