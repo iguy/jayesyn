@@ -2,7 +2,7 @@
 // jayesyn.com — homepage
 // Placeholders to replace before launch are marked TODO.
 const releases = [
-  { code: 'SGL 001', title: 'Single One', date: 'TBA 2026', status: 'Announced' },
+  { code: 'SGL 001', title: 'Common Ground', date: 'TBA 2026', status: 'Announced' },
   { code: 'SGL 002', title: 'Single Two', date: 'TBA 2026', status: 'Scheduled' },
   { code: 'SGL 003', title: 'Single Three', date: 'TBA 2026', status: 'Scheduled' },
   { code: 'EP 001', title: 'Four-Track EP', date: 'TBA 2026', status: 'In production' },
@@ -256,6 +256,10 @@ h1 {
 .disc {
   width: min(400px, 80vw);
   animation: spin 40s linear infinite;
+  cursor: pointer;
+}
+.disc-wrap.playing .disc {
+  animation-duration: 4s;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {
@@ -403,6 +407,42 @@ h1 {
   .disc { width: min(300px, 70vw); }
 }
 </style>
+
+<audio id="record-audio" src="/common-ground-sample.m4a" preload="auto" loop></audio>
+
+<script>
+  const audio = document.getElementById('record-audio');
+  const discWrap = document.querySelector('.disc-wrap');
+  const cta = document.querySelector('.cta');
+
+  function startPlayback() {
+    audio.play().catch(() => {
+      // Blocked until the visitor's first click/tap on the page (browser autoplay policy)
+    });
+    discWrap.classList.add('playing');
+  }
+
+  function stopPlayback() {
+    audio.pause();
+    discWrap.classList.remove('playing');
+  }
+
+  // Hover the record: play while hovering, pause on leave
+  discWrap.addEventListener('mouseenter', startPlayback);
+  discWrap.addEventListener('mouseleave', stopPlayback);
+
+  // Click/tap the record: toggle (also the mobile path, since phones have no hover)
+  discWrap.addEventListener('click', () => {
+    audio.paused ? startPlayback() : stopPlayback();
+  });
+
+  // Hover the "Hear the first single early" button: same behavior
+  cta.addEventListener('mouseenter', startPlayback);
+  cta.addEventListener('mouseleave', stopPlayback);
+  // Clicking the CTA still scrolls to #signup as before — no preventDefault —
+  // and that click doubles as the gesture that unlocks audio in the browser.
+  cta.addEventListener('click', startPlayback);
+</script>
 
 </body>
 </html>
