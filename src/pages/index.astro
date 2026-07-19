@@ -82,8 +82,8 @@ const jsonLd = {
     </div>
 
     <!-- Signature: rotating record-label disc -->
-    <div class="disc-wrap" aria-hidden="true">
-      <svg class="disc" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <div class="disc-wrap">
+      <svg class="disc" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Jayesyn record — plays a snippet of Common Ground">
         <defs>
           <path id="ringpath" d="M 200,200 m -152,0 a 152,152 0 1,1 304,0 a 152,152 0 1,1 -304,0" />
         </defs>
@@ -102,6 +102,7 @@ const jsonLd = {
         <text x="200" y="238" text-anchor="middle" class="label-sub">STEREO</text>
         <circle cx="200" cy="200" r="7" fill="#121014" />
       </svg>
+      <p class="disc-hint">Hover or tap to hear &ldquo;Common Ground&rdquo;</p>
     </div>
   </section>
 
@@ -266,14 +267,30 @@ h1 {
 .cta:hover { background: var(--uv-soft); }
 
 /* signature disc */
-.disc-wrap { display: flex; justify-content: center; }
+.disc-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
 .disc {
   width: min(400px, 80vw);
-  animation: spin 40s linear infinite;
+  animation: spin 12s linear infinite;
+  transform-origin: center center;
   cursor: pointer;
 }
 .disc-wrap.playing .disc {
-  animation-duration: 4s;
+  animation-duration: 1.8s; /* ≈ 33⅓ RPM, like the label says */
+}
+.disc-hint {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--uv-soft);
+}
+.disc-wrap.playing .disc-hint {
+  color: var(--cream);
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {
@@ -428,17 +445,21 @@ h1 {
   const audio = document.getElementById('record-audio');
   const discWrap = document.querySelector('.disc-wrap');
   const cta = document.querySelector('.cta');
+  const hint = document.querySelector('.disc-hint');
+  const hintIdle = hint.textContent;
 
   function startPlayback() {
     audio.play().catch(() => {
       // Blocked until the visitor's first click/tap on the page (browser autoplay policy)
     });
     discWrap.classList.add('playing');
+    hint.textContent = 'Now playing — \u201CCommon Ground\u201D';
   }
 
   function stopPlayback() {
     audio.pause();
     discWrap.classList.remove('playing');
+    hint.textContent = hintIdle;
   }
 
   // Hover the record: play while hovering, pause on leave
