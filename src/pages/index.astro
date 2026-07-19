@@ -58,17 +58,25 @@ const jsonLd = {
       <p class="eyebrow">Los Angeles &middot; New project</p>
       <h1>JAYESYN</h1>
       <p class="lede">
-        A soulful and uplifting R&amp;B project with a hopeful, unifying message.
-        The music is carried by an intimate, smooth male vocalist whose performance
-        blossoms into rich, choir-like layered harmonies over a moving call for
-        common ground.
+        This is a soulful and uplifting R&amp;B track with a hopeful, unifying
+        message. The song is carried by a male vocalist with a smooth, honeyed,
+        and exceptionally clear voice. His delivery is intimate and slightly
+        breathy in the verses, drawing the listener in, before blossoming into a
+        powerful, resonant, and passionate performance in the chorus. Layered
+        vocal harmonies are introduced to create a rich, choir-like effect,
+        amplifying the song's communal and heartfelt theme.
       </p>
       <p class="lede-detail">
         The production is clean and polished, built upon a warm blend of classic
         and modern soul instrumentation. A groovy, melodic bass guitar line locks
-        in with a steady mid-tempo drum pattern, accompanied by a gentle electric
-        piano and a standout violin playing a poignant, memorable melody that adds
-        a touch of classical elegance to a spacious atmosphere.
+        in with a steady mid-tempo drum pattern, creating a relaxed yet compelling
+        foundation. A gentle electric piano provides harmonic texture, while a
+        standout violin plays a poignant, memorable melody in the intro and
+        instrumental breaks, adding a touch of classical elegance. The overall
+        atmosphere is spacious and atmospheric, with subtle synth pads and a
+        generous use of reverb that allows the heartfelt vocals and soulful
+        instrumentation to shine, resulting in a moving and beautifully crafted
+        call for common ground.
       </p>
       <a class="cta" href="#signup">Hear the first single early</a>
     </div>
@@ -130,18 +138,9 @@ const jsonLd = {
   <section class="signup" id="signup" aria-labelledby="signup-h">
     <h2 id="signup-h">Hear it first.</h2>
     <p>One email when each release drops. Nothing else.</p>
-    <!--
-      TODO: wire to the NEW Jayesyn Mailchimp audience (do not reuse the studio list).
-      Replace ACTION_URL with the audience's POST url, e.g.
-      https://xxxx.usXX.list-manage.com/subscribe/post?u=...&id=...
-      and update the honeypot input name to match (b_USERID_AUDIENCEID).
-    -->
-    <form action="ACTION_URL" method="post" target="_blank" novalidate>
-      <label class="visually-hidden" for="mce-EMAIL">Email address</label>
-      <input id="mce-EMAIL" type="email" name="EMAIL" placeholder="you@example.com" required />
-      <div class="hp" aria-hidden="true">
-        <input type="text" name="b_USERID_AUDIENCEID" tabindex="-1" value="" />
-      </div>
+    <form action="https://formspree.io/f/xpqvdjyb" method="post">
+      <label class="visually-hidden" for="email">Email address</label>
+      <input id="email" type="email" name="email" placeholder="you@example.com" required />
       <button type="submit">Join the list</button>
     </form>
   </section>
