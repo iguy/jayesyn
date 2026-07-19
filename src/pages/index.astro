@@ -56,7 +56,7 @@ const jsonLd = {
   <section class="hero">
     <div class="hero-text">
       <p class="eyebrow">Los Angeles &middot; New project</p>
-      <h1>JAY<wbr />ESYN</h1>
+      <h1>JAYESYN</h1>
       <p class="lede">
         Three singles, one month apart. A four-track EP. A remix project.
         A vinyl pressing. All of it drawn from fifty original works of art.
@@ -77,7 +77,7 @@ const jsonLd = {
         <circle cx="200" cy="200" r="119" fill="none" stroke="#121014" stroke-width="2" />
         <text class="ring-text">
           <textPath href="#ringpath" startOffset="0">
-            THREE SINGLES &#183; ONE EP &#183; REMIX PROJECT &#183; VINYL &#183; FIFTY WORKS OF ART &#183;&#160;
+            THREE SINGLES &#183; ONE EP &#183; REMIX PROJECT &#183; VINYL &#183; FIFTY WORKS OF ART &#183;&nbsp;
           </textPath>
         </text>
         <text x="200" y="188" text-anchor="middle" class="label-name">JAYESYN</text>
@@ -226,9 +226,10 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 h1 {
   font-family: 'Unbounded', sans-serif;
   font-weight: 900;
-  font-size: clamp(3.2rem, 9vw, 6.5rem);
+  font-size: clamp(2.2rem, 8.5vw, 6.5rem);
   line-height: 0.95;
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 .lede {
   margin-top: 1.5rem;
