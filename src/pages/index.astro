@@ -58,7 +58,7 @@ const jsonLd = {
       <p class="eyebrow">Los Angeles &middot; New project</p>
       <h1>JAYESYN</h1>
       <p class="lede">
-        Jayesyn makes soulful, uplifting R&amp;B with a hopeful, unifying
+        <span class="brand-name">Jayesyn</span> makes soulful, uplifting R&amp;B with a hopeful, unifying
         message &mdash; and it starts with that voice. Smooth, honeyed, and
         exceptionally clear, he draws you in close with an intimate, slightly
         breathy delivery in the verses, then opens up into something powerful,
@@ -249,6 +249,11 @@ h1 {
   max-width: 34rem;
   color: var(--dim);
   font-size: 0.95rem;
+}
+.brand-name {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: 0.82em; /* Unbounded runs large; this optically matches the body text size */
 }
 .cta {
   display: inline-block;
