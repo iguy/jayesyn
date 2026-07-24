@@ -149,8 +149,7 @@ const jsonLd = {
   <section class="art" aria-labelledby="art-h">
     <h2 id="art-h" class="section-h">The art</h2>
     <p class="art-lede">
-      Every release is packaged in original visual art by the artist —
-      one body of work.
+      Every release is packaged in original visual art by the artist.
     </p>
     <div class="covers">
       {covers.map((c) => (
@@ -443,6 +442,7 @@ h1 {
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
+animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
 
 /* drift-y — Common Ground: full-width painting, slowly sinking and rising.
    Image is square at 100% width, so ~5.7x the band height of hidden canvas. */
