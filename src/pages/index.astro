@@ -110,13 +110,39 @@ const jsonLd = {
     <div class="disc-wrap">
       <svg class="disc" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Jayesyn record — plays a snippet of Common Ground">
         <defs>
-          <path id="ringpath" d="M 200,200 m -152,0 a 152,152 0 1,1 304,0 a 152,152 0 1,1 -304,0" />
+          <path id="ringpath" d="M 200,200 m -132,0 a 132,132 0 1,1 264,0 a 132,132 0 1,1 -264,0" />
+          <radialGradient id="sheen" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#1a1620" stop-opacity="0" />
+            <stop offset="62%" stop-color="#1a1620" stop-opacity="0" />
+            <stop offset="63%" stop-color="#3b3550" stop-opacity="0.55" />
+            <stop offset="66%" stop-color="#1a1620" stop-opacity="0" />
+            <stop offset="100%" stop-color="#1a1620" stop-opacity="0" />
+          </radialGradient>
         </defs>
+
+        <!-- vinyl body -->
         <circle cx="200" cy="200" r="198" fill="#0D0B10" />
-        <circle cx="200" cy="200" r="188" fill="none" stroke="#1D2A2E" stroke-width="1" />
-        <circle cx="200" cy="200" r="172" fill="none" stroke="#1D2A2E" stroke-width="1" />
+        <circle cx="200" cy="200" r="198" fill="none" stroke="#231d2e" stroke-width="1" />
+
+        <!-- concentric grooves: fine rings that make the spin readable -->
+        <g fill="none" stroke="#1c1826" stroke-width="0.75">
+          <circle cx="200" cy="200" r="192" /><circle cx="200" cy="200" r="187" />
+          <circle cx="200" cy="200" r="182" /><circle cx="200" cy="200" r="177" />
+          <circle cx="200" cy="200" r="172" /><circle cx="200" cy="200" r="167" />
+          <circle cx="200" cy="200" r="162" /><circle cx="200" cy="200" r="157" />
+          <circle cx="200" cy="200" r="152" /><circle cx="200" cy="200" r="147" />
+          <circle cx="200" cy="200" r="142" /><circle cx="200" cy="200" r="137" />
+        </g>
+
+        <!-- a single brighter groove + rotating light sheen give a sense of motion -->
+        <circle cx="200" cy="200" r="150" fill="none" stroke="#2e2740" stroke-width="1" />
+        <circle class="disc-sheen" cx="200" cy="200" r="198" fill="url(#sheen)" />
+
+        <!-- label -->
         <circle cx="200" cy="200" r="120" fill="#EFE6D8" />
         <circle cx="200" cy="200" r="119" fill="none" stroke="#121014" stroke-width="2" />
+        <circle cx="200" cy="200" r="123" fill="none" stroke="#0d0b10" stroke-width="2" />
+
         <text class="ring-text">
           <textPath href="#ringpath" startOffset="0">
             THREE SINGLES &#183; ONE EP &#183; REMIX PROJECT &#183; VINYL &#183; ORIGINAL ARTWORK &#183;&nbsp;
@@ -125,7 +151,10 @@ const jsonLd = {
         <text x="200" y="188" text-anchor="middle" class="label-name">Jayesyn</text>
         <text x="200" y="216" text-anchor="middle" class="label-sub">JSN&#8211;001 &#183; 33&#8531; RPM</text>
         <text x="200" y="238" text-anchor="middle" class="label-sub">STEREO</text>
-        <circle cx="200" cy="200" r="7" fill="#121014" />
+
+        <!-- spindle -->
+        <circle cx="200" cy="200" r="7" fill="#0d0b10" />
+        <circle cx="200" cy="200" r="2.5" fill="#231d2e" />
       </svg>
       <p class="disc-hint">Hover or tap to hear &ldquo;Common Ground&rdquo;</p>
     </div>
@@ -149,7 +178,8 @@ const jsonLd = {
   <section class="art" aria-labelledby="art-h">
     <h2 id="art-h" class="section-h">The art</h2>
     <p class="art-lede">
-      Every release is packaged in original visual art by the artist.
+      Every release is packaged in original visual art by the artist —
+      one body of work.
     </p>
     <div class="covers">
       {covers.map((c) => (
@@ -438,11 +468,10 @@ h1 {
   position: absolute;
   top: 0; left: 0;
   will-change: transform;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1); /* easeInOutSine — pendulum motion, no dwell at the ends */
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
-animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
 
 /* drift-y — Common Ground: full-width painting, slowly sinking and rising.
    Image is square at 100% width, so ~5.7x the band height of hidden canvas. */
