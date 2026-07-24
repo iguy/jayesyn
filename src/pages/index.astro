@@ -108,6 +108,8 @@ const jsonLd = {
 
     <!-- Signature: rotating record-label disc -->
     <div class="disc-wrap">
+      <div class="disc-glow" aria-hidden="true"></div>
+      <div class="disc-rotor">
       <svg class="disc" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Jayesyn record — plays a snippet of Common Ground">
         <defs>
           <path id="ringpath" d="M 200,200 m -132,0 a 132,132 0 1,1 264,0 a 132,132 0 1,1 -264,0" />
@@ -156,6 +158,7 @@ const jsonLd = {
         <circle cx="200" cy="200" r="7" fill="#0d0b10" />
         <circle cx="200" cy="200" r="2.5" fill="#231d2e" />
       </svg>
+      </div>
       <p class="disc-hint">Hover or tap to hear &ldquo;Common Ground&rdquo;</p>
     </div>
   </section>
@@ -340,50 +343,46 @@ h1 {
   gap: 1.1rem;
   position: relative;
 }
-/* Glow lives on a pseudo-element behind the disc — it never rotates,
-   so it stays perfectly centered while the record spins. */
-.disc-wrap::before {
-  content: "";
+/* Glow: pure radial gradient, no blur filter (blur layers can show square edges).
+   Sits behind the rotor, never rotates, never resizes. */
+.disc-glow {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: min(400px, 80vw);
+  width: min(440px, 88vw);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 153, 187, 0.45) 0%, rgba(99, 153, 187, 0) 68%);
-  filter: blur(30px);
-  opacity: 0.7;
-  transition: opacity 300ms ease;
+  background: radial-gradient(circle,
+    rgba(99, 153, 187, 0.30) 0%,
+    rgba(99, 153, 187, 0.12) 45%,
+    rgba(99, 153, 187, 0) 70%);
+  opacity: 0.8;
+  transition: opacity 400ms ease;
   pointer-events: none;
   z-index: 0;
 }
-.disc-wrap.playing::before {
-  opacity: 1; /* glow swells while it plays */
+.disc-wrap.playing .disc-glow {
+  opacity: 1;
 }
-.disc {
+/* The rotor is a plain div — rotating a div is reliable everywhere,
+   unlike animating transform directly on an <svg>. */
+.disc-rotor {
   position: relative;
   z-index: 1;
   width: min(400px, 80vw);
-  animation: spin 4s linear infinite; /* gentle idle glide — never interrupted */
-  transform-origin: center center;
+  aspect-ratio: 1;
+  animation: spin 4s linear infinite;
+  transform-origin: 50% 50%;
   cursor: pointer;
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 1px rgba(130, 176, 203, 0.15),
-    0 24px 60px -12px rgba(0, 0, 0, 0.8),
-    0 0 80px -20px rgba(99, 153, 187, 0.45);
-  transition: box-shadow 300ms ease, transform 300ms ease;
+  /* NOTE: no transition on this element — anything transitioning transform
+     here will fight the rotation and cause snapping. Speed changes are done
+     smoothly in JS via the Web Animations API, never by swapping duration. */
 }
-.disc-wrap:hover .disc {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow:
-    0 0 0 1px rgba(130, 176, 203, 0.35),
-    0 28px 70px -10px rgba(0, 0, 0, 0.85),
-    0 0 110px -15px rgba(99, 153, 187, 0.7);
-}
-.disc-wrap.playing .disc {
-  animation-duration: 1.8s; /* 33⅓ RPM — plays faster, keeps spinning */
+.disc {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .disc-hint {
   font-family: 'IBM Plex Mono', monospace;
@@ -517,46 +516,47 @@ h1 {
   position: absolute;
   top: 0; left: 0;
   will-change: transform;
-  animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1); /* easeInOutSine — pendulum motion, no dwell at the ends */
+  animation-timing-function: linear; /* constant speed — never eases to a stop */
   animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
 
-/* drift-y — Common Ground: full-width painting, sinking and rising. */
+/* drift-y — Common Ground: sinks then rises, looping seamlessly. */
 .drift-y .cover-art {
   width: 100%;
   height: auto;
   animation-name: drift-y;
-  animation-duration: 28s;
+  animation-duration: 40s;
 }
 @keyframes drift-y {
-  from { transform: translateY(-2%); }
-  to   { transform: translateY(-82%); }
+  0%   { transform: translateY(-2%); }
+  50%  { transform: translateY(-82%); }
+  100% { transform: translateY(-2%); }
 }
 
-/* drift-x — One Human Rhythm: painting oversized to 165% width, drifting across. */
+/* drift-x — One Human Rhythm: drifts across and back, looping seamlessly. */
 .drift-x .cover-art {
   width: 165%;
   height: auto;
-  transform: translateY(-30%);
   animation-name: drift-x;
-  animation-duration: 24s;
+  animation-duration: 36s;
 }
 @keyframes drift-x {
-  from { transform: translateY(-30%) translateX(0%); }
-  to   { transform: translateY(-30%) translateX(-39%); }
+  0%   { transform: translateY(-30%) translateX(0%); }
+  50%  { transform: translateY(-30%) translateX(-39%); }
+  100% { transform: translateY(-30%) translateX(0%); }
 }
 
-/* drift-xy — Music, Save Us: a diagonal wander, slightly different again. */
+/* drift-xy — Music, Save Us: diagonal wander out and back, looping seamlessly. */
 .drift-xy .cover-art {
   width: 145%;
   height: auto;
   animation-name: drift-xy;
-  animation-duration: 34s;
+  animation-duration: 48s;
 }
 @keyframes drift-xy {
-  from { transform: translate(0%, -4%); }
-  to   { transform: translate(-31%, -76%); }
+  0%   { transform: translate(0%, -4%); }
+  50%  { transform: translate(-31%, -76%); }
+  100% { transform: translate(0%, -4%); }
 }
 
 /* ---------- signup ---------- */
@@ -619,57 +619,75 @@ h1 {
 @media (max-width: 820px) {
   .hero { grid-template-columns: 1fr; }
   .disc-wrap { order: -1; }
-  .disc { width: min(300px, 70vw); }
+  .disc-rotor { width: min(300px, 70vw); }
+  .disc-glow { width: min(330px, 77vw); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .disc { animation: none; }
   html { scroll-behavior: auto; }
-  .cover-art { animation: none; }
-  /* park each painting on a good static crop */
-  .drift-y .cover-art  { transform: translateY(-40%); }
-  .drift-x .cover-art  { transform: translateY(-30%) translateX(-20%); }
-  .drift-xy .cover-art { transform: translate(-14%, -38%); }
+  /* Don't freeze entirely — just slow everything to a calm, non-distracting pace. */
+  .disc-rotor { animation-duration: 9s; }
+  .drift-y .cover-art  { animation-duration: 90s; }
+  .drift-x .cover-art  { animation-duration: 85s; }
+  .drift-xy .cover-art { animation-duration: 100s; }
 }
 </style>
 
 <audio id="record-audio" src="/common-ground-sample.m4a" preload="auto" loop></audio>
 
-<script>
-  const audio = document.getElementById('record-audio');
-  const discWrap = document.querySelector('.disc-wrap');
-  const cta = document.querySelector('.cta');
-  const hint = document.querySelector('.disc-hint');
-  const hintIdle = hint.textContent;
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var audio = document.getElementById('record-audio');
+    var discWrap = document.querySelector('.disc-wrap');
+    var rotor = document.querySelector('.disc-rotor');
+    var cta = document.querySelector('.cta');
+    var hint = document.querySelector('.disc-hint');
+    if (!audio || !discWrap || !rotor || !cta || !hint) return;
+    var hintIdle = hint.textContent;
 
-  function startPlayback() {
-    audio.play().catch(() => {
-      // Blocked until the visitor's first click/tap on the page (browser autoplay policy)
+    // Grab the CSS spin animation so we can change its speed smoothly.
+    // updatePlaybackRate preserves the current angle — no snap, ever.
+    var spinAnim = null;
+    function getSpin() {
+      if (!spinAnim) {
+        var anims = rotor.getAnimations ? rotor.getAnimations() : [];
+        spinAnim = anims.length ? anims[0] : null;
+      }
+      return spinAnim;
+    }
+
+    function startPlayback() {
+      audio.play().catch(function () {
+        // Blocked until the visitor's first click/tap (browser autoplay policy)
+      });
+      discWrap.classList.add('playing');
+      hint.textContent = 'Now playing \u2014 \u201CCommon Ground\u201D';
+      var s = getSpin();
+      if (s && s.updatePlaybackRate) s.updatePlaybackRate(2.22); /* 4s ÷ 2.22 ≈ 1.8s = 33⅓ RPM */
+    }
+
+    function stopPlayback() {
+      audio.pause();
+      discWrap.classList.remove('playing');
+      hint.textContent = hintIdle;
+      var s = getSpin();
+      if (s && s.updatePlaybackRate) s.updatePlaybackRate(1); /* glide back to idle speed */
+    }
+
+    // Hover the record: play while hovering, pause on leave
+    discWrap.addEventListener('mouseenter', startPlayback);
+    discWrap.addEventListener('mouseleave', stopPlayback);
+
+    // Click/tap the record: toggle (also the mobile path, since phones have no hover)
+    discWrap.addEventListener('click', function () {
+      audio.paused ? startPlayback() : stopPlayback();
     });
-    discWrap.classList.add('playing');
-    hint.textContent = 'Now playing — \u201CCommon Ground\u201D';
-  }
 
-  function stopPlayback() {
-    audio.pause();
-    discWrap.classList.remove('playing');
-    hint.textContent = hintIdle;
-  }
-
-  // Hover the record: play while hovering, pause on leave
-  discWrap.addEventListener('mouseenter', startPlayback);
-  discWrap.addEventListener('mouseleave', stopPlayback);
-
-  // Click/tap the record: toggle (also the mobile path, since phones have no hover)
-  discWrap.addEventListener('click', () => {
-    audio.paused ? startPlayback() : stopPlayback();
+    // Hover the "Hear the first single early" button: same behavior
+    cta.addEventListener('mouseenter', startPlayback);
+    cta.addEventListener('mouseleave', stopPlayback);
+    // Clicking the CTA still scrolls to #signup — that click also unlocks audio.
+    cta.addEventListener('click', startPlayback);
   });
-
-  // Hover the "Hear the first single early" button: same behavior
-  cta.addEventListener('mouseenter', startPlayback);
-  cta.addEventListener('mouseleave', stopPlayback);
-  // Clicking the CTA still scrolls to #signup as before — no preventDefault —
-  // and that click doubles as the gesture that unlocks audio in the browser.
-  cta.addEventListener('click', startPlayback);
 </script>
 
 </body>
