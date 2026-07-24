@@ -344,6 +344,19 @@ h1 {
   animation: spin 12s linear infinite;
   transform-origin: center center;
   cursor: pointer;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgba(130, 176, 203, 0.15),
+    0 24px 60px -12px rgba(0, 0, 0, 0.8),
+    0 0 80px -20px rgba(99, 153, 187, 0.45);
+  transition: box-shadow 300ms ease, transform 300ms ease;
+}
+.disc-wrap:hover .disc {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow:
+    0 0 0 1px rgba(130, 176, 203, 0.35),
+    0 28px 70px -10px rgba(0, 0, 0, 0.85),
+    0 0 110px -15px rgba(99, 153, 187, 0.7);
 }
 .disc-wrap.playing .disc {
   animation-duration: 1.8s; /* ≈ 33⅓ RPM, like the label says */
@@ -574,7 +587,7 @@ h1 {
   .disc { width: min(300px, 70vw); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .disc { animation: none; }
+  .disc { animation-duration: 8s; } /* keep a slow, calm turn instead of freezing */
   html { scroll-behavior: auto; }
   .cover-art { animation: none; }
   /* park each painting on a good static crop */
