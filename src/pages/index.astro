@@ -632,7 +632,10 @@ h1 {
 }
 </style>
 
-<audio id="record-audio" src="/common-ground-sample.m4a" preload="auto" loop></audio>
+<audio id="record-audio" preload="auto" loop>
+  <source src="/common-ground-sample.m4a" type="audio/mp4" />
+  <source src="/common-ground-sample.mp3" type="audio/mpeg" />
+</audio>
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function () {
