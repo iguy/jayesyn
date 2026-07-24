@@ -338,28 +338,40 @@ h1 {
   flex-direction: column;
   align-items: center;
   gap: 1.1rem;
+  position: relative;
+}
+/* Glow lives on a pseudo-element behind the disc — it never rotates,
+   so it stays perfectly centered while the record spins. */
+.disc-wrap::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(400px, 80vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 153, 187, 0.45) 0%, rgba(99, 153, 187, 0) 68%);
+  filter: blur(30px);
+  opacity: 0.7;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.disc-wrap.playing::before {
+  opacity: 1; /* glow swells while it plays */
 }
 .disc {
+  position: relative;
+  z-index: 1;
   width: min(400px, 80vw);
-  animation: spin 12s linear infinite;
+  animation: spin 4s linear infinite; /* gentle idle glide — never interrupted */
   transform-origin: center center;
   cursor: pointer;
   border-radius: 50%;
-  box-shadow:
-    0 0 0 1px rgba(130, 176, 203, 0.15),
-    0 24px 60px -12px rgba(0, 0, 0, 0.8),
-    0 0 80px -20px rgba(99, 153, 187, 0.45);
-  transition: box-shadow 300ms ease, transform 300ms ease;
-}
-.disc-wrap:hover .disc {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow:
-    0 0 0 1px rgba(130, 176, 203, 0.35),
-    0 28px 70px -10px rgba(0, 0, 0, 0.85),
-    0 0 110px -15px rgba(99, 153, 187, 0.7);
 }
 .disc-wrap.playing .disc {
-  animation-duration: 1.8s; /* ≈ 33⅓ RPM, like the label says */
+  animation-duration: 1.8s; /* 33⅓ RPM — plays faster, keeps spinning */
 }
 .disc-hint {
   font-family: 'IBM Plex Mono', monospace;
@@ -435,19 +447,31 @@ h1 {
 .covers {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 /* Each cover is a live square: real text top + bottom, artwork strip through the middle */
 .cover {
+  position: relative;
   aspect-ratio: 1;
   background: var(--carbon-deep);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(130, 176, 203, 0.25);
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
   container-type: inline-size; /* lets the type scale with the tile, like a printed cover */
+  box-shadow:
+    0 18px 50px -20px rgba(0, 0, 0, 0.9),
+    0 0 60px -22px rgba(99, 153, 187, 0.55); /* UV glow lifts the tile off the black */
+  transition: box-shadow 320ms ease, transform 320ms ease, border-color 320ms ease;
+}
+.cover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(130, 176, 203, 0.5);
+  box-shadow:
+    0 26px 64px -18px rgba(0, 0, 0, 0.95),
+    0 0 90px -14px rgba(99, 153, 187, 0.8);
 }
 .cover-artist {
   font-family: 'Unbounded', sans-serif;
@@ -486,17 +510,16 @@ h1 {
   animation-direction: alternate;
 }
 
-/* drift-y — Common Ground: full-width painting, slowly sinking and rising.
-   Image is square at 100% width, so ~5.7x the band height of hidden canvas. */
+/* drift-y — Common Ground: full-width painting, sinking and rising. */
 .drift-y .cover-art {
   width: 100%;
   height: auto;
   animation-name: drift-y;
-  animation-duration: 75s;
+  animation-duration: 28s;
 }
 @keyframes drift-y {
-  from { transform: translateY(-4%); }
-  to   { transform: translateY(-78%); }
+  from { transform: translateY(-2%); }
+  to   { transform: translateY(-82%); }
 }
 
 /* drift-x — One Human Rhythm: painting oversized to 165% width, drifting across. */
@@ -505,23 +528,23 @@ h1 {
   height: auto;
   transform: translateY(-30%);
   animation-name: drift-x;
-  animation-duration: 60s;
+  animation-duration: 24s;
 }
 @keyframes drift-x {
-  from { transform: translateY(-30%) translateX(-1%); }
-  to   { transform: translateY(-30%) translateX(-38%); }
+  from { transform: translateY(-30%) translateX(0%); }
+  to   { transform: translateY(-30%) translateX(-39%); }
 }
 
-/* drift-xy — Music, Save Us: a slow diagonal wander, slightly different again. */
+/* drift-xy — Music, Save Us: a diagonal wander, slightly different again. */
 .drift-xy .cover-art {
-  width: 140%;
+  width: 145%;
   height: auto;
   animation-name: drift-xy;
-  animation-duration: 90s;
+  animation-duration: 34s;
 }
 @keyframes drift-xy {
-  from { transform: translate(-2%, -8%); }
-  to   { transform: translate(-27%, -70%); }
+  from { transform: translate(0%, -4%); }
+  to   { transform: translate(-31%, -76%); }
 }
 
 /* ---------- signup ---------- */
@@ -587,7 +610,7 @@ h1 {
   .disc { width: min(300px, 70vw); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .disc { animation-duration: 8s; } /* keep a slow, calm turn instead of freezing */
+  .disc { animation: none; }
   html { scroll-behavior: auto; }
   .cover-art { animation: none; }
   /* park each painting on a good static crop */
