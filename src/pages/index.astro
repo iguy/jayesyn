@@ -1,13 +1,41 @@
 ---
 // jayesyn.com — homepage
 // Placeholders to replace before launch are marked TODO.
+//
+// ARTWORK FILES in /public/art/ — these must be the FULL SQUARE paintings (no text baked in):
+//   jayesyn-common-ground.jpeg      (blue/green pour)
+//   jayesyn-One_Human_rhythm.jpeg   (red/pink marble)
+//   jayesyn-music-save-us.jpeg      (purple/coral cells)
+//     ^ TODO: rename "jayesyn-music save us.jpeg" → "jayesyn-music-save-us.jpeg" (no spaces in web filenames)
+// The cover bands crop them to a strip and slowly drift through the rest of the canvas.
+
 const releases = [
   { code: 'SGL 001', title: 'Common Ground', date: 'TBA 2026', status: 'Announced' },
-  { code: 'SGL 002', title: 'Single Two', date: 'TBA 2026', status: 'Scheduled' },
-  { code: 'SGL 003', title: 'Single Three', date: 'TBA 2026', status: 'Scheduled' },
+  { code: 'SGL 002', title: 'One Human Rhythm', date: 'TBA 2026', status: 'Scheduled' }, // TODO: confirm single order 2 vs 3
+  { code: 'SGL 003', title: 'Music, Save Us', date: 'TBA 2026', status: 'Scheduled' },
   { code: 'EP 001', title: 'Four-Track EP', date: 'TBA 2026', status: 'In production' },
   { code: 'RMX 001', title: 'Remix Project', date: 'TBA 2027', status: 'Planned' },
   { code: 'VNL 001', title: 'EP on Vinyl', date: 'TBA 2027', status: 'Planned' },
+];
+
+// Single covers rendered live in HTML — text stays selectable, artwork drifts.
+// drift: 'y' = up/down · 'x' = across · 'xy' = slow diagonal — each cover moves differently.
+const covers = [
+  {
+    title: ['One Human', 'Rhythm'],
+    art: '/art/jayesyn-One_Human_rhythm.jpeg',
+    drift: 'x',
+  },
+  {
+    title: ['Common', 'Ground'],
+    art: '/art/jayesyn-common-ground.jpeg',
+    drift: 'y',
+  },
+  {
+    title: ['Music,', 'Save Us'],
+    art: '/art/jayesyn-music-save-us.jpeg',
+    drift: 'xy',
+  },
 ];
 
 const jsonLd = {
@@ -117,17 +145,24 @@ const jsonLd = {
     </ol>
   </section>
 
-  <!-- ARTWORK -->
+  <!-- ARTWORK / SINGLE COVERS -->
   <section class="art" aria-labelledby="art-h">
     <h2 id="art-h" class="section-h">The art</h2>
     <p class="art-lede">
       Every release is packaged in original visual art by the artist —
       one body of work.
     </p>
-    <!-- TODO: replace placeholder tiles with real artwork files -->
-    <div class="art-grid" aria-hidden="true">
-      {[1, 2, 3, 4, 5, 6].map((n) => (
-        <div class="art-tile"><span>ART {String(n).padStart(2, '0')}</span></div>
+    <div class="covers">
+      {covers.map((c) => (
+        <article class={`cover drift-${c.drift}`}>
+          <p class="cover-artist">Jayesyn</p>
+          <div class="cover-band">
+            <img class="cover-art" src={c.art} alt="" loading="lazy" />
+          </div>
+          <h3 class="cover-title">
+            {c.title[0]}<br />{c.title[1]}
+          </h3>
+        </article>
       ))}
     </div>
   </section>
@@ -295,10 +330,6 @@ h1 {
   color: var(--cream);
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) {
-  .disc { animation: none; }
-  html { scroll-behavior: auto; }
-}
 .ring-text {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 15px; letter-spacing: 0.28em;
@@ -351,30 +382,104 @@ h1 {
   font-size: 0.72rem; color: var(--dim);
 }
 
-/* ---------- art ---------- */
+/* ---------- art / single covers ---------- */
 .art {
   max-width: 1200px; margin: 0 auto;
   padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem);
   border-top: 1px solid var(--line);
 }
 .art-lede { color: var(--dim); max-width: 36rem; margin-bottom: 1.75rem; }
-.art-grid {
+
+.covers {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 1rem;
 }
-.art-tile {
+
+/* Each cover is a live square: real text top + bottom, artwork strip through the middle */
+.cover {
   aspect-ratio: 1;
+  background: var(--carbon-deep);
   border: 1px solid var(--line);
-  background:
-    radial-gradient(circle at 30% 30%, rgba(99, 153, 187, 0.18), transparent 60%),
-    var(--carbon-deep);
-  display: flex; align-items: flex-end;
-  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  container-type: inline-size; /* lets the type scale with the tile, like a printed cover */
 }
-.art-tile span {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem; color: var(--dim); letter-spacing: 0.1em;
+.cover-artist {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: 7.5cqw;
+  color: var(--cream);
+  padding: 0 9%;
+  margin-bottom: 5.5%;
+}
+.cover-title {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 11cqw;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--cream);
+  padding: 0 9%;
+  margin-top: 7%;
+}
+
+/* The artwork band: a strip-shaped window onto the full square painting.
+   The painting is much larger than the window, and drifts through it. */
+.cover-band {
+  position: relative;
+  width: 100%;
+  height: 17.5%;
+  overflow: hidden;
+}
+.cover-art {
+  position: absolute;
+  top: 0; left: 0;
+  will-change: transform;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* drift-y — Common Ground: full-width painting, slowly sinking and rising.
+   Image is square at 100% width, so ~5.7x the band height of hidden canvas. */
+.drift-y .cover-art {
+  width: 100%;
+  height: auto;
+  animation-name: drift-y;
+  animation-duration: 75s;
+}
+@keyframes drift-y {
+  from { transform: translateY(-4%); }
+  to   { transform: translateY(-78%); }
+}
+
+/* drift-x — One Human Rhythm: painting oversized to 165% width, drifting across. */
+.drift-x .cover-art {
+  width: 165%;
+  height: auto;
+  transform: translateY(-30%);
+  animation-name: drift-x;
+  animation-duration: 60s;
+}
+@keyframes drift-x {
+  from { transform: translateY(-30%) translateX(-1%); }
+  to   { transform: translateY(-30%) translateX(-38%); }
+}
+
+/* drift-xy — Music, Save Us: a slow diagonal wander, slightly different again. */
+.drift-xy .cover-art {
+  width: 140%;
+  height: auto;
+  animation-name: drift-xy;
+  animation-duration: 90s;
+}
+@keyframes drift-xy {
+  from { transform: translate(-2%, -8%); }
+  to   { transform: translate(-27%, -70%); }
 }
 
 /* ---------- signup ---------- */
@@ -433,11 +538,20 @@ h1 {
   font-size: 0.75rem; color: var(--dim);
 }
 
-/* ---------- responsive ---------- */
+/* ---------- responsive & motion ---------- */
 @media (max-width: 820px) {
   .hero { grid-template-columns: 1fr; }
   .disc-wrap { order: -1; }
   .disc { width: min(300px, 70vw); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .disc { animation: none; }
+  html { scroll-behavior: auto; }
+  .cover-art { animation: none; }
+  /* park each painting on a good static crop */
+  .drift-y .cover-art  { transform: translateY(-40%); }
+  .drift-x .cover-art  { transform: translateY(-30%) translateX(-20%); }
+  .drift-xy .cover-art { transform: translate(-14%, -38%); }
 }
 </style>
 
