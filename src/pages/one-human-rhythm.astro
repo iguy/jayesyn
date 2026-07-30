@@ -41,12 +41,117 @@ const moods = [
 // r = 8 + (value/100)*80, angles at 36° steps starting from top, clockwise.
 const radarPoints = '100,24 142.3,41.8 164.7,79 115.2,104.9 109.4,112.9 100,112 92.9,109.7 84.8,104.9 84.8,95.1 95.3,93.5';
 
-// TODO: paste full lyrics here. Empty string entries render as a blank line (verse/chorus break).
 const LYRICS = [
-  'One human rhythm, one human soul',
-  '',
-  '// TODO — paste the rest of the lyrics in this array,',
-  '// one line per entry, empty string "" for a line break.',
+  {
+    section: 'Verse',
+    lines: [
+      'We come in every shade',
+      'Every story, every name',
+      'Raise different flags with different hands',
+      'Yet we still cry out the same',
+      'And there are those of us in this world',
+      'Trying so hard to care',
+      "There's more good hearts than bad ones",
+      'If we choose to see them there',
+    ],
+  },
+  {
+    section: 'Pre-Chorus',
+    lines: [
+      'So put the fear down',
+      'Let the walls fall',
+      'We were made for this',
+      'We were made to call',
+      'Across the water',
+      'Across the line',
+      'Our love can pull us',
+      'Out of the dark design',
+    ],
+  },
+  {
+    section: 'Chorus',
+    lines: [
+      'One human rhythm',
+      'One human song',
+      'We rise together',
+      'When we move as one',
+      'One human rhythm',
+      'Love is enough',
+      'Block out the fear',
+      'And lift love up',
+    ],
+  },
+  {
+    section: 'Verse',
+    lines: [
+      'Turn off the poison feed',
+      'Let the screen go cold tonight',
+      'Look around your own street',
+      'See the people holding life',
+      'On the corner, by the courtyard',
+      'At the market, in the park',
+      "There's a thousand little kindnesses",
+      'Lighting up the dark',
+    ],
+  },
+  {
+    section: 'Pre-Chorus',
+    lines: [
+      'So put the fear down',
+      'Let the walls fall',
+      'We were made for this',
+      'We were made to call',
+      'Across the water',
+      'Across the line',
+      'Our love can pull us',
+      'Out of the dark design',
+    ],
+  },
+  {
+    section: 'Chorus',
+    lines: [
+      'One human rhythm',
+      'One human song',
+      'We rise together',
+      'When we move as one',
+      'One human rhythm',
+      'Love is enough',
+      'Block out the fear',
+      'And lift love up',
+    ],
+  },
+  {
+    section: 'Bridge',
+    lines: [
+      'If they feed you hate',
+      "Don't eat that lie",
+      'Look at the stranger',
+      'Smiling by your side',
+      'When they blast their static',
+      'Let it fade away',
+      'We got hands to hold',
+      'And a world to save',
+    ],
+  },
+  {
+    section: 'Final Chorus',
+    lines: [
+      'One human rhythm',
+      'One human song',
+      'One human rhythm',
+      'One human song',
+      'We rise together',
+      'When we move as one',
+      'One human rhythm',
+      'Love is enough',
+      'Block out the fear',
+      'And lift love up',
+      'One human rhythm',
+      "We're still here",
+      "We're still here",
+      "And we're not going anywhere",
+    ],
+  },
 ];
 ---
 
@@ -157,9 +262,13 @@ const LYRICS = [
   <!-- LYRICS -->
   <section class="lyrics-section" aria-labelledby="lyrics-h">
     <h2 id="lyrics-h" class="section-h">Lyrics</h2>
+    <p class="lyrics-credit">Words &amp; music: Jason Nelson</p>
     <div class="lyrics">
-      {LYRICS.map((line) => (
-        line === '' ? <br /> : <p>{line}</p>
+      {LYRICS.map((block) => (
+        <div class="lyrics-block">
+          <p class="lyrics-label">{block.section}</p>
+          {block.lines.map((line) => <p class="lyrics-line">{line}</p>)}
+        </div>
       ))}
     </div>
   </section>
@@ -349,13 +458,25 @@ h1 {
   padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem);
   border-top: 1px solid var(--line);
 }
-.lyrics { max-width: 34rem; }
-.lyrics p {
+.lyrics-credit {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.95rem; color: var(--cream);
-  margin-bottom: 0.4rem;
+  font-size: 0.78rem; color: var(--dim);
+  margin-bottom: 1.75rem;
 }
-.lyrics br { display: block; content: ''; margin-top: 0.6rem; }
+.lyrics {
+  max-width: 34rem;
+  display: flex; flex-direction: column; gap: 1.75rem;
+}
+.lyrics-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--uv-soft);
+  margin-bottom: 0.6rem;
+}
+.lyrics-line {
+  font-size: 1rem; color: var(--cream);
+  line-height: 1.5;
+}
 
 /* bottom cta */
 .bottom-cta {
