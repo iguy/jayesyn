@@ -11,8 +11,8 @@
 
 const releases = [
   { code: 'SGL 001', title: 'Common Ground', date: 'August 12, 2026', status: 'Scheduled', link: 'https://distrokid.com/hyperfollow/jayesyn/common-ground' },
-  { code: 'SGL 002', title: 'One Human Rhythm', date: 'September 8, 2026', status: 'Scheduled', link: 'https://distrokid.com/hyperfollow/jayesyn/one-human-rhythm' },
-  { code: 'SGL 003', title: 'Music, Save Us Tonight', date: 'TBA 2026', status: 'Scheduled', link: 'https://distrokid.com/hyperfollow/jayesyn/music-save-us-tonight' },
+  { code: 'SGL 002', title: 'One Human Rhythm', date: 'September 8, 2026', status: 'Scheduled', link: 'https://distrokid.com/hyperfollow/jayesyn/one-human-rhythm', page: '/one-human-rhythm' },
+  { code: 'SGL 003', title: 'Music, Save Us Tonight', date: 'October 6, 2026', status: 'Scheduled', link: 'https://distrokid.com/hyperfollow/jayesyn/music-save-us-tonight' },
   { code: 'EP 001', title: 'Four-Track EP', date: 'TBA 2026', status: 'In production' },
   { code: 'RMX 001', title: 'Remix Project', date: 'TBA 2027', status: 'Planned' },
   { code: 'VNL 001', title: 'EP on Vinyl', date: 'TBA 2027', status: 'Planned' },
@@ -26,6 +26,7 @@ const covers = [
     art: '/art/jayesyn-One_Human_rhythm.jpeg',
     drift: 'x',
     link: 'https://distrokid.com/hyperfollow/jayesyn/one-human-rhythm',
+    page: '/one-human-rhythm',
   },
   {
     title: ['Common', 'Ground'],
@@ -167,26 +168,32 @@ const jsonLd = {
 
   <!-- RELEASE SEQUENCE -->
   <section class="releases" aria-labelledby="rel-h">
-    <h2 id="rel-h" class="section-h">The sequence</h2>
-    <ol class="rel-track">
-      {releases.map((r) => (
-        <li class="rel-card">
-          {r.link ? (
-            <a class="rel-link" href={r.link} target="_blank" rel="noopener">
-              <span class="rel-code">{r.code}</span>
-              <span class="rel-title">{r.title}</span>
-              <span class="rel-meta">{r.date} &middot; {r.status}</span>
-            </a>
-          ) : (
-            <>
-              <span class="rel-code">{r.code}</span>
-              <span class="rel-title">{r.title}</span>
-              <span class="rel-meta">{r.date} &middot; {r.status}</span>
-            </>
-          )}
-        </li>
-      ))}
-    </ol>
+    <div class="releases-inner">
+      <h2 id="rel-h" class="section-h">The sequence</h2>
+      <ol class="rel-track">
+        {releases.map((r) => {
+          const href = r.page || r.link;
+          const external = !r.page && !!r.link;
+          return (
+            <li class="rel-card">
+              {href ? (
+                <a class="rel-link" href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
+                  <span class="rel-code">{r.code}</span>
+                  <span class="rel-title">{r.title}</span>
+                  <span class="rel-meta">{r.date} &middot; {r.status}</span>
+                </a>
+              ) : (
+                <>
+                  <span class="rel-code">{r.code}</span>
+                  <span class="rel-title">{r.title}</span>
+                  <span class="rel-meta">{r.date} &middot; {r.status}</span>
+                </>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </div>
   </section>
 
   <!-- ARTWORK / SINGLE COVERS -->
@@ -196,17 +203,21 @@ const jsonLd = {
       Every release is packaged in original visual art by the artist.
     </p>
     <div class="covers">
-      {covers.map((c) => (
-        <a class={`cover drift-${c.drift}`} href={c.link} target="_blank" rel="noopener">
-          <p class="cover-artist">Jayesyn</p>
-          <div class="cover-band">
-            <img class="cover-art" src={c.art} alt="" loading="lazy" />
-          </div>
-          <h3 class="cover-title">
-            {c.title[0]}<br />{c.title[1]}
-          </h3>
-        </a>
-      ))}
+      {covers.map((c) => {
+        const href = c.page || c.link;
+        const external = !c.page && !!c.link;
+        return (
+          <a class={`cover drift-${c.drift}`} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
+            <p class="cover-artist">Jayesyn</p>
+            <div class="cover-band">
+              <img class="cover-art" src={c.art} alt="" loading="lazy" />
+            </div>
+            <h3 class="cover-title">
+              {c.title[0]}<br />{c.title[1]}
+            </h3>
+          </a>
+        );
+      })}
     </div>
   </section>
 
@@ -243,6 +254,7 @@ const jsonLd = {
   --uv-soft: #82b0cb;
   --line: #2a2333;
   --dim: #9b93a8;
+  --brand-blue: #6399bc;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -420,9 +432,12 @@ h1 {
   margin-bottom: 1.75rem;
 }
 .releases {
+  background: var(--brand-blue);
+  border-top: 1px solid var(--line);
+}
+.releases-inner {
   max-width: 1200px; margin: 0 auto;
   padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem);
-  border-top: 1px solid var(--line);
 }
 .rel-track {
   list-style: none;
