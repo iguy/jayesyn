@@ -13,7 +13,7 @@ const releases = [
   { code: 'SGL 001', title: 'Common Ground', date: 'August 12, 2026', status: 'Scheduled', link: 'https://distrokid.com/hyperfollow/jayesyn/common-ground', page: '/common-ground' },
   { code: 'SGL 002', title: 'One Human Rhythm', date: 'September 8, 2026', status: 'Scheduled', link: 'https://distrokid.com/hyperfollow/jayesyn/one-human-rhythm', page: '/one-human-rhythm' },
   { code: 'SGL 003', title: 'Music, Save Us Tonight', date: 'October 6, 2026', status: 'Scheduled', link: 'https://distrokid.com/hyperfollow/jayesyn/music-save-us-tonight', page: '/music-save-us-tonight' },
-  { code: 'EP 001', title: 'Four-Track EP', date: 'TBA 2026', status: 'In production' },
+  { code: 'EP 001', title: 'Four-Track EP', date: 'TBA 2026', status: 'In production', page: '/jayesyn-ep' },
   { code: 'RMX 001', title: 'Remix Project', date: 'TBA 2027', status: 'Planned' },
   { code: 'VNL 001', title: 'EP on Vinyl', date: 'TBA 2027', status: 'Planned' },
 ];
@@ -180,17 +180,17 @@ const jsonLd = {
           return (
             <li class="rel-card">
               {href ? (
-                <a class="rel-link" href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
+                <a class="rel-top" href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
                   <span class="rel-code">{r.code}</span>
                   <span class="rel-title">{r.title}</span>
                   <span class="rel-meta">{r.date} &middot; {r.status}</span>
                 </a>
               ) : (
-                <>
+                <div class="rel-top rel-top-static">
                   <span class="rel-code">{r.code}</span>
                   <span class="rel-title">{r.title}</span>
                   <span class="rel-meta">{r.date} &middot; {r.status}</span>
-                </>
+                </div>
               )}
               {showPresave && (
                 <a class="rel-presave" href={r.link} target="_blank" rel="noopener">Pre-save &rarr;</a>
@@ -455,17 +455,16 @@ h1 {
 }
 .rel-card {
   background: var(--carbon-deep);
-  padding: 1.25rem 1.1rem 1.4rem;
+  display: flex; flex-direction: column;
+}
+.rel-top {
   display: flex; flex-direction: column; gap: 0.45rem;
+  padding: 1.25rem 1.1rem 1.1rem;
+  color: inherit; text-decoration: none;
   transition: background 160ms ease;
 }
-.rel-card:has(.rel-link):hover {
+a.rel-top:hover {
   background: rgba(130, 176, 203, 0.08);
-}
-.rel-link {
-  display: contents;
-  color: inherit;
-  text-decoration: none;
 }
 .rel-code {
   font-family: 'IBM Plex Mono', monospace;
@@ -478,16 +477,19 @@ h1 {
   font-size: 0.72rem; color: var(--dim);
 }
 .rel-presave {
-  display: inline-block;
-  margin-top: 0.6rem;
-  padding-top: 0.6rem;
+  display: block;
+  padding: 0.85rem 1.1rem 1.1rem;
   border-top: 1px solid var(--line);
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.72rem; letter-spacing: 0.06em;
   color: var(--uv-soft);
   text-decoration: none;
+  transition: background 160ms ease, color 160ms ease;
 }
-.rel-presave:hover { color: var(--cream); }
+.rel-presave:hover {
+  background: rgba(130, 176, 203, 0.08);
+  color: var(--cream);
+}
 
 /* ---------- art / single covers ---------- */
 .art {
