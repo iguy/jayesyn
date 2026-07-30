@@ -177,8 +177,12 @@ const LYRICS = [
       <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">{song.ctaLabel}</a>
     </div>
 
-    <div class="art-wrap">
-      <img class="art-img" src={song.art} alt="Common Ground single artwork" />
+    <div class="art-wrap drift-y">
+      <p class="cover-artist">Jayesyn</p>
+      <div class="cover-band">
+        <img class="cover-art" src={song.art} alt="" loading="lazy" />
+      </div>
+      <h2 class="cover-title">Common<br />Ground</h2>
     </div>
   </section>
 
@@ -363,10 +367,56 @@ h1 {
 
 .art-wrap {
   position: relative; aspect-ratio: 1;
+  background: var(--carbon-deep);
+  border: 1px solid rgba(130, 176, 203, 0.25);
+  display: flex; flex-direction: column; justify-content: center;
   border-radius: 6px; overflow: hidden;
+  container-type: inline-size;
   box-shadow: 0 26px 64px -18px rgba(0, 0, 0, 0.9), 0 0 70px -20px rgba(99, 153, 187, 0.55);
 }
-.art-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cover-artist {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: 7.5cqw;
+  color: var(--cream);
+  padding: 0 9%;
+  margin-bottom: 5.5%;
+}
+.cover-title {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 11cqw;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--cream);
+  padding: 0 9%;
+  margin-top: 7%;
+}
+.cover-band {
+  position: relative;
+  width: 100%;
+  height: 17.5%;
+  overflow: hidden;
+}
+.cover-art {
+  position: absolute;
+  top: 0; left: 0;
+  will-change: transform;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.drift-y .cover-art {
+  width: 100%;
+  height: auto;
+  animation-name: drift-y;
+  animation-duration: 40s;
+}
+@keyframes drift-y {
+  0%   { transform: translateY(-2%); }
+  50%  { transform: translateY(-82%); }
+  100% { transform: translateY(-2%); }
+}
 
 /* player */
 .player-section {
@@ -489,6 +539,7 @@ h1 {
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .drift-y .cover-art { animation-duration: 90s; }
 }
 </style>
 
