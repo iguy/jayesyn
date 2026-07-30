@@ -165,6 +165,7 @@ const jsonLd = {
         <circle cx="200" cy="200" r="2.5" fill="#231d2e" />
       </svg>
       </div>
+      <p class="disc-hint">Hover or tap to preview &mdash; sound unlocks after your first click on the page</p>
     </div>
   </section>
 
@@ -371,12 +372,18 @@ h1 {
   align-items: center;
   gap: 1.1rem;
   position: relative;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  border-radius: 28px;
+  background: radial-gradient(circle at 50% 42%,
+    rgba(99, 153, 187, 0.16) 0%,
+    rgba(99, 153, 187, 0.05) 55%,
+    rgba(99, 153, 187, 0) 75%);
 }
 /* Glow: pure radial gradient, no blur filter (blur layers can show square edges).
    Sits behind the rotor, never rotates, never resizes. */
 .disc-glow {
   position: absolute;
-  top: 0;
+  top: clamp(2rem, 5vw, 3.5rem);
   left: 50%;
   transform: translateX(-50%);
   width: min(440px, 88vw);
@@ -414,6 +421,17 @@ h1 {
   height: 100%;
 }
 @keyframes spin { to { transform: rotate(-360deg); } }
+.disc-hint {
+  max-width: 22rem;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem; letter-spacing: 0.04em;
+  color: var(--dim);
+  transition: opacity 400ms ease;
+}
+.disc-hint.unlocked {
+  opacity: 0.7;
+}
 .ring-text {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 15px; letter-spacing: 0.28em;
@@ -689,7 +707,19 @@ a.rel-top:hover {
     var discWrap = document.querySelector('.disc-wrap');
     var rotor = document.querySelector('.disc-rotor');
     var cta = document.querySelector('.cta');
+    var hint = document.querySelector('.disc-hint');
     if (!audio || !discWrap || !rotor) return;
+
+    // The browser blocks audio until the visitor's first click anywhere on
+    // the page — this just updates the hint copy once that's happened, so
+    // people aren't left wondering why hover was silent the first time.
+    if (hint) {
+      document.addEventListener('click', function unlock() {
+        hint.textContent = 'Hover or tap to preview';
+        hint.classList.add('unlocked');
+        document.removeEventListener('click', unlock);
+      }, { once: true });
+    }
 
     // Grab the CSS spin animation so we can change its speed smoothly.
     // updatePlaybackRate preserves the current angle — no snap, ever.
