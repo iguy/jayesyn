@@ -4,11 +4,11 @@
 //
 // TODOs before launch, all marked below:
 //   1. Paste full lyrics into the LYRICS array (same section/lines structure as the other single pages).
-//   2. Point `audioSrc` at the actual mixed/mastered file once it's in /public/ (not /dist/).
-//      Note: an audio sample already exists at /common-ground-sample.m4a from the homepage
-//      hover player — reuse that path here if it's the right file, or replace with the full mix.
-//   3. Confirm/replace the "song story" paragraph — it's drafted from the DescribeMusic
+//   2. Confirm/replace the "song story" paragraph — it's drafted from the DescribeMusic
 //      analysis, in your voice, but you know the real story better than any tool does.
+//
+// NOTE: the audio player was intentionally removed — the song isn't out yet, so there's
+// nothing to stream.
 //
 // NOTE: genre is labeled "Soul Pop" here, not the analyzer's raw "Contemporary R&B / Soul Pop" —
 // Jason doesn't want the R&B label used anywhere on the site.
@@ -24,7 +24,6 @@ const song = {
   hyperfollow: 'https://distrokid.com/hyperfollow/jayesyn/common-ground',
   ctaLabel: 'Pre-save on all platforms',
   art: '/art/jayesyn-common-ground.jpeg',
-  audioSrc: '/common-ground-sample.m4a', // TODO: confirm this is the right file, or swap for the full mix
   genre: 'Soul Pop',
   bpm: 94,
   key: 'C# minor',
@@ -104,33 +103,24 @@ const LYRICS = [
     </div>
   </section>
 
-  <!-- PLAYER -->
-  <section class="player-section" aria-labelledby="player-h">
-    <h2 id="player-h" class="section-h">Listen</h2>
-    <audio class="player" controls preload="none">
-      <source src={song.audioSrc} type="audio/mp4" />
-    </audio>
-    <p class="player-note">Full stream lands {song.releaseDate}. <a href={song.hyperfollow} target="_blank" rel="noopener">Pre-save to get it the day it drops.</a></p>
-  </section>
-
   <!-- STORY + SOUND -->
   <section class="story" aria-labelledby="story-h">
     <div class="story-text">
       <h2 id="story-h" class="section-h">The story</h2>
       <p>
-        Where the other two singles reach up and out, this one stays close.
-        The verses are intimate almost to the point of whispering, a voice
-        that draws you in rather than calling across a room, before the
-        chorus opens into something fuller &mdash; layered harmonies stacking
-        like a small choir behind him, warm rather than triumphant.
+        Where the other two singles reach up and out, this song stays close.
+        The verses are almost whispered, drawing you in rather than calling
+        across a room, before the chorus opens into something fuller &mdash;
+        layered harmonies stacking like a small choir behind him, warm rather
+        than triumphant.
       </p>
       <p>
         Underneath, a groovy, melodic bassline and a steady mid-tempo pulse
         keep things relaxed rather than driving, while a recurring violin
-        line runs through the intro and instrumental breaks, giving the whole
-        thing a touch of classical elegance against the soul-pop foundation.
-        It's the most reflective of the three &mdash; a song built for sitting
-        with someone, not moving a crowd.
+        line threads through the intro and instrumental breaks, adding a
+        touch of classical elegance to the soul-pop foundation. It's the most
+        reflective of the three songs &mdash; written for sitting with
+        someone, not moving a crowd.
       </p>
     </div>
 
@@ -308,11 +298,6 @@ h1 {
   font-family: 'Unbounded', sans-serif; font-weight: 700;
   font-size: clamp(1.3rem, 2.6vw, 1.8rem); margin-bottom: 1.25rem;
 }
-.player { width: 100%; max-width: 560px; }
-.player-note {
-  margin-top: 0.9rem; font-size: 0.9rem; color: var(--dim);
-}
-
 /* story + mood chart */
 .story {
   max-width: 1200px; margin: 0 auto;

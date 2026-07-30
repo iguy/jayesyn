@@ -4,18 +4,24 @@
 //
 // TODOs before launch, all marked below:
 //   1. Paste full lyrics into the LYRICS array (one line per entry, empty string = line break).
-//   2. Point `audioSrc` at the actual mixed/mastered file once it's in /public/ (not /dist/).
-//      Right now it's a placeholder path — the file must exist or the player will 404 silently.
-//   3. Confirm/replace the "song story" paragraph below — it's drafted from the DescribeMusic
+//   2. Confirm/replace the "song story" paragraph below — it's drafted from the DescribeMusic
 //      analysis, written in your voice, but you know the real story behind the hook better than any tool does.
+//
+// NOTE: the audio player was intentionally removed — the song isn't out yet, so there's
+// nothing to stream. Re-add it once the track is released (see the removed <!-- PLAYER -->
+// section in this project's earlier version if you want the markup back).
 
 const song = {
   code: 'SGL 002',
   title: 'One Human Rhythm',
   releaseDate: 'September 8, 2026',
+  // Pre-launch: this hyperfollow link collects pre-saves. After release day,
+  // swap this to the song's permanent streaming link and change ctaLabel below
+  // from 'Pre-save on all platforms' to 'Stream now' (both CTA buttons on this
+  // page pull from these two values, so this is the only place to edit).
   hyperfollow: 'https://distrokid.com/hyperfollow/jayesyn/one-human-rhythm',
+  ctaLabel: 'Pre-save on all platforms',
   art: '/art/jayesyn-One_Human_rhythm.jpeg',
-  audioSrc: '/one-human-rhythm-sample.m4a', // TODO: replace with real file in /public/
   genre: 'Dance-Pop / Electronic Pop',
   bpm: 118,
   key: 'C minor',
@@ -190,7 +196,7 @@ const LYRICS = [
       <div class="tag-row">
         {song.tags.map((t) => <span class="tag">{t}</span>)}
       </div>
-      <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">Pre-save on all platforms</a>
+      <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">{song.ctaLabel}</a>
     </div>
 
     <div class="art-wrap">
@@ -198,31 +204,23 @@ const LYRICS = [
     </div>
   </section>
 
-  <!-- PLAYER -->
-  <section class="player-section" aria-labelledby="player-h">
-    <h2 id="player-h" class="section-h">Listen</h2>
-    <audio class="player" controls preload="none">
-      <source src={song.audioSrc} type="audio/mp4" />
-    </audio>
-    <p class="player-note">Full stream lands {song.releaseDate}. <a href={song.hyperfollow} target="_blank" rel="noopener">Pre-save to get it the day it drops.</a></p>
-  </section>
-
   <!-- STORY + SOUND -->
   <section class="story" aria-labelledby="story-h">
     <div class="story-text">
       <h2 id="story-h" class="section-h">The story</h2>
       <p>
-        Everything about this one is built to open up. It starts close &mdash;
-        an intimate, breathy verse &mdash; and by the chorus it's a full choir,
-        stacked harmonies lifting a single, defiant idea: however different the
-        rooms we stand in, we're all keeping the same time. The hook isn't a
-        metaphor so much as an instruction &mdash; find the rhythm, and you've
+        This song is built to open up. It starts close, with an intimate,
+        breathy verse, then by the chorus it turns into a full choir &mdash;
+        stacked harmonies lifting one simple, defiant idea: however different
+        the rooms we stand in, we're all keeping the same time. The hook isn't
+        really a metaphor. It's an instruction: find the rhythm, and you've
         found the person next to you.
       </p>
       <p>
-        Underneath, a melodic synth bass locks the groove down while arpeggios
-        and vocal scatting keep the energy restless, building from reflective
-        verses into risers and swells that hit like the room just got bigger.
+        Underneath it all, a melodic synth bass locks the groove down while
+        arpeggios and vocal scatting keep the energy restless, building from
+        quieter verses into risers and swells that hit like the room just
+        got bigger.
       </p>
     </div>
 
@@ -276,7 +274,7 @@ const LYRICS = [
   <!-- BOTTOM CTA -->
   <section class="bottom-cta">
     <h2>Out {song.releaseDate}.</h2>
-    <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">Pre-save One Human Rhythm</a>
+    <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">{song.ctaLabel} &mdash; One Human Rhythm</a>
     <a class="secondary-link" href="/">Back to Jayesyn</a>
   </section>
 </main>
@@ -401,11 +399,6 @@ h1 {
   font-family: 'Unbounded', sans-serif; font-weight: 700;
   font-size: clamp(1.3rem, 2.6vw, 1.8rem); margin-bottom: 1.25rem;
 }
-.player { width: 100%; max-width: 560px; }
-.player-note {
-  margin-top: 0.9rem; font-size: 0.9rem; color: var(--dim);
-}
-
 /* story + mood chart */
 .story {
   max-width: 1200px; margin: 0 auto;

@@ -4,9 +4,11 @@
 //
 // TODOs before launch, all marked below:
 //   1. Paste full lyrics into the LYRICS array (same section/lines structure as One Human Rhythm).
-//   2. Point `audioSrc` at the actual mixed/mastered file once it's in /public/ (not /dist/).
-//   3. Confirm/replace the "song story" paragraph — it's drafted from the DescribeMusic
+//   2. Confirm/replace the "song story" paragraph — it's drafted from the DescribeMusic
 //      analysis, in your voice, but you know the real story better than any tool does.
+//
+// NOTE: the audio player was intentionally removed — the song isn't out yet, so there's
+// nothing to stream.
 
 const song = {
   code: 'SGL 003',
@@ -19,7 +21,6 @@ const song = {
   hyperfollow: 'https://distrokid.com/hyperfollow/jayesyn/music-save-us-tonight',
   ctaLabel: 'Pre-save on all platforms',
   art: '/art/jayesyn-music-save-us.jpeg',
-  audioSrc: '/music-save-us-tonight-sample.m4a', // TODO: replace with real file in /public/
   genre: 'House / Pop House',
   bpm: 124,
   key: 'C minor',
@@ -101,33 +102,23 @@ const LYRICS = [
     </div>
   </section>
 
-  <!-- PLAYER -->
-  <section class="player-section" aria-labelledby="player-h">
-    <h2 id="player-h" class="section-h">Listen</h2>
-    <audio class="player" controls preload="none">
-      <source src={song.audioSrc} type="audio/mp4" />
-    </audio>
-    <p class="player-note">Full stream lands {song.releaseDate}. <a href={song.hyperfollow} target="_blank" rel="noopener">Pre-save to get it the day it drops.</a></p>
-  </section>
-
   <!-- STORY + SOUND -->
   <section class="story" aria-labelledby="story-h">
     <div class="story-text">
       <h2 id="story-h" class="section-h">The story</h2>
       <p>
-        This one leans into church before it leans into the club &mdash; a
-        raspy, soulful lead vocal that sounds like it's testifying, not just
-        singing, backed by a full choir that turns the hook into something
-        closer to a chant than a chorus. It's classic four-on-the-floor house
-        at its foundation: punchy kick, crisp claps, a bassline that just
-        won't let go of the groove.
+        This song leans into church before it leans into the club. The lead
+        vocal is raspy and soulful, more testifying than singing, backed by a
+        full choir that turns the hook into something closer to a chant than
+        a chorus. At its core, it's classic four-on-the-floor house: punchy
+        kick, crisp claps, a bassline that won't let go of the groove.
       </p>
       <p>
-        But the arrangement is doing real work &mdash; filter sweeps and
-        risers pull the tension tight before every drop, so each chorus lands
-        like relief. Underneath the party, it's a song about needing
-        something bigger than yourself to get through the night, and finding
-        it in the room around you.
+        The arrangement does real work getting there, though &mdash; filter
+        sweeps and risers pull the tension tight before every drop, so each
+        chorus lands like relief. Underneath the party, it's really a song
+        about needing something bigger than yourself to get through the
+        night, and finding it in the people around you.
       </p>
     </div>
 
@@ -306,11 +297,6 @@ h1 {
   font-family: 'Unbounded', sans-serif; font-weight: 700;
   font-size: clamp(1.3rem, 2.6vw, 1.8rem); margin-bottom: 1.25rem;
 }
-.player { width: 100%; max-width: 560px; }
-.player-note {
-  margin-top: 0.9rem; font-size: 0.9rem; color: var(--dim);
-}
-
 /* story + mood chart */
 .story {
   max-width: 1200px; margin: 0 auto;
