@@ -176,6 +176,7 @@ const jsonLd = {
         {releases.map((r) => {
           const href = r.page || r.link;
           const external = !r.page && !!r.link;
+          const showPresave = !!r.page && !!r.link;
           return (
             <li class="rel-card">
               {href ? (
@@ -190,6 +191,9 @@ const jsonLd = {
                   <span class="rel-title">{r.title}</span>
                   <span class="rel-meta">{r.date} &middot; {r.status}</span>
                 </>
+              )}
+              {showPresave && (
+                <a class="rel-presave" href={r.link} target="_blank" rel="noopener">Click to pre-save &rarr;</a>
               )}
             </li>
           );
@@ -473,6 +477,14 @@ h1 {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.72rem; color: var(--dim);
 }
+.rel-presave {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.04em;
+  color: var(--uv-soft);
+  text-decoration: none;
+  margin-top: 0.15rem;
+}
+.rel-presave:hover { color: var(--cream); text-decoration: underline; }
 
 /* ---------- art / single covers ---------- */
 .art {
