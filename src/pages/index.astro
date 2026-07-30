@@ -10,9 +10,9 @@
 // The cover bands crop them to a strip and slowly drift through the rest of the canvas.
 
 const releases = [
-  { code: 'SGL 001', title: 'Common Ground', date: 'TBA 2026', status: 'Announced' },
-  { code: 'SGL 002', title: 'One Human Rhythm', date: 'TBA 2026', status: 'Scheduled' }, // TODO: confirm single order 2 vs 3
-  { code: 'SGL 003', title: 'Music, Save Us', date: 'TBA 2026', status: 'Scheduled' },
+  { code: 'SGL 001', title: 'Common Ground', date: 'August 12, 2026', status: 'Scheduled', link: 'https://distrokid.com/hyperfollow/jayesyn/common-ground' },
+  { code: 'SGL 002', title: 'One Human Rhythm', date: 'September 8, 2026', status: 'Scheduled', link: 'https://distrokid.com/hyperfollow/jayesyn/one-human-rhythm' },
+  { code: 'SGL 003', title: 'Music, Save Us Tonight', date: 'TBA 2026', status: 'Scheduled', link: 'https://distrokid.com/hyperfollow/jayesyn/music-save-us-tonight' },
   { code: 'EP 001', title: 'Four-Track EP', date: 'TBA 2026', status: 'In production' },
   { code: 'RMX 001', title: 'Remix Project', date: 'TBA 2027', status: 'Planned' },
   { code: 'VNL 001', title: 'EP on Vinyl', date: 'TBA 2027', status: 'Planned' },
@@ -25,16 +25,19 @@ const covers = [
     title: ['One Human', 'Rhythm'],
     art: '/art/jayesyn-One_Human_rhythm.jpeg',
     drift: 'x',
+    link: 'https://distrokid.com/hyperfollow/jayesyn/one-human-rhythm',
   },
   {
     title: ['Common', 'Ground'],
     art: '/art/jayesyn-common-ground.jpeg',
     drift: 'y',
+    link: 'https://distrokid.com/hyperfollow/jayesyn/common-ground',
   },
   {
-    title: ['Music,', 'Save Us'],
+    title: ['Music, Save', 'Us Tonight'],
     art: '/art/jayesyn-music-save-us.jpeg',
     drift: 'xy',
+    link: 'https://distrokid.com/hyperfollow/jayesyn/music-save-us-tonight',
   },
 ];
 
@@ -159,7 +162,6 @@ const jsonLd = {
         <circle cx="200" cy="200" r="2.5" fill="#231d2e" />
       </svg>
       </div>
-      <p class="disc-hint">Hover or tap to hear &ldquo;Common Ground&rdquo;</p>
     </div>
   </section>
 
@@ -169,9 +171,19 @@ const jsonLd = {
     <ol class="rel-track">
       {releases.map((r) => (
         <li class="rel-card">
-          <span class="rel-code">{r.code}</span>
-          <span class="rel-title">{r.title}</span>
-          <span class="rel-meta">{r.date} &middot; {r.status}</span>
+          {r.link ? (
+            <a class="rel-link" href={r.link} target="_blank" rel="noopener">
+              <span class="rel-code">{r.code}</span>
+              <span class="rel-title">{r.title}</span>
+              <span class="rel-meta">{r.date} &middot; {r.status}</span>
+            </a>
+          ) : (
+            <>
+              <span class="rel-code">{r.code}</span>
+              <span class="rel-title">{r.title}</span>
+              <span class="rel-meta">{r.date} &middot; {r.status}</span>
+            </>
+          )}
         </li>
       ))}
     </ol>
@@ -181,12 +193,11 @@ const jsonLd = {
   <section class="art" aria-labelledby="art-h">
     <h2 id="art-h" class="section-h">The art</h2>
     <p class="art-lede">
-      Every release is packaged in original visual art by the artist —
-      one body of work.
+      Every release is packaged in original visual art by the artist.
     </p>
     <div class="covers">
       {covers.map((c) => (
-        <article class={`cover drift-${c.drift}`}>
+        <a class={`cover drift-${c.drift}`} href={c.link} target="_blank" rel="noopener">
           <p class="cover-artist">Jayesyn</p>
           <div class="cover-band">
             <img class="cover-art" src={c.art} alt="" loading="lazy" />
@@ -194,7 +205,7 @@ const jsonLd = {
           <h3 class="cover-title">
             {c.title[0]}<br />{c.title[1]}
           </h3>
-        </article>
+        </a>
       ))}
     </div>
   </section>
@@ -384,16 +395,6 @@ h1 {
   width: 100%;
   height: 100%;
 }
-.disc-hint {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--uv-soft);
-}
-.disc-wrap.playing .disc-hint {
-  color: var(--cream);
-}
 @keyframes spin { to { transform: rotate(-360deg); } }
 .ring-text {
   font-family: 'IBM Plex Mono', monospace;
@@ -435,6 +436,15 @@ h1 {
   background: var(--carbon-deep);
   padding: 1.25rem 1.1rem 1.4rem;
   display: flex; flex-direction: column; gap: 0.45rem;
+  transition: background 160ms ease;
+}
+.rel-card:has(.rel-link):hover {
+  background: rgba(130, 176, 203, 0.08);
+}
+.rel-link {
+  display: contents;
+  color: inherit;
+  text-decoration: none;
 }
 .rel-code {
   font-family: 'IBM Plex Mono', monospace;
@@ -476,6 +486,8 @@ h1 {
     0 18px 50px -20px rgba(0, 0, 0, 0.9),
     0 0 60px -22px rgba(99, 153, 187, 0.55); /* UV glow lifts the tile off the black */
   transition: box-shadow 320ms ease, transform 320ms ease, border-color 320ms ease;
+  color: inherit;
+  text-decoration: none;
 }
 .cover:hover {
   transform: translateY(-4px);
@@ -546,7 +558,7 @@ h1 {
   100% { transform: translateY(-30%) translateX(0%); }
 }
 
-/* drift-xy — Music, Save Us: diagonal wander out and back, looping seamlessly. */
+/* drift-xy — Music, Save Us Tonight: diagonal wander out and back, looping seamlessly. */
 .drift-xy .cover-art {
   width: 145%;
   height: auto;
@@ -643,9 +655,7 @@ h1 {
     var discWrap = document.querySelector('.disc-wrap');
     var rotor = document.querySelector('.disc-rotor');
     var cta = document.querySelector('.cta');
-    var hint = document.querySelector('.disc-hint');
-    if (!audio || !discWrap || !rotor || !cta || !hint) return;
-    var hintIdle = hint.textContent;
+    if (!audio || !discWrap || !rotor) return;
 
     // Grab the CSS spin animation so we can change its speed smoothly.
     // updatePlaybackRate preserves the current angle — no snap, ever.
@@ -658,12 +668,31 @@ h1 {
       return spinAnim;
     }
 
+    // Surfaces the *real* reason playback fails in the console — either the
+    // browser's autoplay gate (expected, harmless) or a genuine load error
+    // (file missing/404/wrong path — check this first if audio never plays).
+    audio.addEventListener('error', function () {
+      var err = audio.error;
+      console.error(
+        '[record audio] failed to load. Check that the file is committed ' +
+        'from /public/ (not just /dist/) and that visiting the URL directly ' +
+        '(e.g. yoursite.com/common-ground-sample.m4a) does not 404. Error code:',
+        err && err.code
+      );
+    });
+
     function startPlayback() {
-      audio.play().catch(function () {
-        // Blocked until the visitor's first click/tap (browser autoplay policy)
-      });
+      var p = audio.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function (err) {
+          // Blocked until the visitor's first click/tap (browser autoplay policy) —
+          // expected on a fresh page load, not a bug. If this fires *every* time,
+          // including after a click, the console 'error' listener above will show
+          // the real cause.
+          console.warn('[record audio] play() rejected:', err && err.message);
+        });
+      }
       discWrap.classList.add('playing');
-      hint.textContent = 'Now playing \u2014 \u201CCommon Ground\u201D';
       var s = getSpin();
       if (s && s.updatePlaybackRate) s.updatePlaybackRate(2.22); /* 4s ÷ 2.22 ≈ 1.8s = 33⅓ RPM */
     }
@@ -671,7 +700,6 @@ h1 {
     function stopPlayback() {
       audio.pause();
       discWrap.classList.remove('playing');
-      hint.textContent = hintIdle;
       var s = getSpin();
       if (s && s.updatePlaybackRate) s.updatePlaybackRate(1); /* glide back to idle speed */
     }
@@ -686,10 +714,12 @@ h1 {
     });
 
     // Hover the "Hear the first single early" button: same behavior
-    cta.addEventListener('mouseenter', startPlayback);
-    cta.addEventListener('mouseleave', stopPlayback);
-    // Clicking the CTA still scrolls to #signup — that click also unlocks audio.
-    cta.addEventListener('click', startPlayback);
+    if (cta) {
+      cta.addEventListener('mouseenter', startPlayback);
+      cta.addEventListener('mouseleave', stopPlayback);
+      // Clicking the CTA still scrolls to #signup — that click also unlocks audio.
+      cta.addEventListener('click', startPlayback);
+    }
   });
 </script>
 
