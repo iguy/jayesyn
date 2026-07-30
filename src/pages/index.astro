@@ -2,6 +2,8 @@
 // jayesyn.com — homepage
 // Placeholders to replace before launch are marked TODO.
 //
+import Layout from '../layouts/Layout.astro';
+//
 // ARTWORK FILES in /public/art/ — these must be the FULL SQUARE paintings (no text baked in):
 //   jayesyn-common-ground.jpeg      (blue/green pour)
 //   jayesyn-One_Human_rhythm.jpeg   (red/pink marble)
@@ -63,21 +65,14 @@ const jsonLd = {
 };
 ---
 
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Jayesyn — Three singles. One EP. Remixes. Vinyl.</title>
-<meta name="description" content="Jayesyn is a Los Angeles artist releasing three singles, a four-track EP, a remix project, and a vinyl pressing. Hear it first — join the list." />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="canonical" href="https://jayesyn.com/" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-</head>
-<body>
+<Layout
+  title="Jayesyn — Three singles. One EP. Remixes. Vinyl."
+  description="Jayesyn is a Los Angeles artist releasing three singles, a four-track EP, a remix project, and a vinyl pressing. Hear it first — join the list."
+  canonical="https://jayesyn.com/"
+>
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</Fragment>
 
 <header class="top">
   <span class="mark" aria-hidden="true"></span>
@@ -242,18 +237,6 @@ const jsonLd = {
     </form>
   </section>
 </main>
-
-<footer class="foot">
-  <p class="foot-name">Jayesyn</p>
-  <p class="foot-meta">
-    Los Angeles, CA &middot; Booking &amp; press:
-    <a href="mailto:garycrossey@irishguy.us">garycrossey@irishguy.us</a>
-  </p>
-  <p class="foot-credit">
-    Released via <a href="https://irishguydesign.studio" rel="noopener">Irishguy Design Studio</a>
-    &middot; &copy; {new Date().getFullYear()} Jayesyn. All rights reserved.
-  </p>
-</footer>
 
 <style is:global>
 :root {
@@ -799,5 +782,4 @@ a.rel-top:hover {
   });
 </script>
 
-</body>
-</html>
+</Layout>

@@ -159,22 +159,15 @@ const LYRICS = [
     ],
   },
 ];
+
+import Layout from '../layouts/Layout.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>One Human Rhythm — Jayesyn</title>
-<meta name="description" content="One Human Rhythm — Jayesyn. An anthemic pop-electronic single about global unity, out September 8, 2026." />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="canonical" href="https://jayesyn.com/one-human-rhythm" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-</head>
-<body>
+<Layout
+  title="One Human Rhythm — Jayesyn"
+  description="One Human Rhythm — Jayesyn. An anthemic pop-electronic single about global unity, out September 8, 2026."
+  canonical="https://jayesyn.com/one-human-rhythm"
+>
 
 <header class="top">
   <a class="back" href="/">&larr; Jayesyn</a>
@@ -282,18 +275,6 @@ const LYRICS = [
     <a class="secondary-link" href="/">Back to Jayesyn</a>
   </section>
 </main>
-
-<footer class="foot">
-  <p class="foot-name">Jayesyn</p>
-  <p class="foot-meta">
-    Los Angeles, CA &middot; Booking &amp; press:
-    <a href="mailto:garycrossey@irishguy.us">garycrossey@irishguy.us</a>
-  </p>
-  <p class="foot-credit">
-    Released via <a href="https://irishguydesign.studio" rel="noopener">Irishguy Design Studio</a>
-    &middot; &copy; {new Date().getFullYear()} Jayesyn. All rights reserved.
-  </p>
-</footer>
 
 <style is:global>
 :root {
@@ -564,5 +545,4 @@ h1 {
 }
 </style>
 
-</body>
-</html>
+</Layout>

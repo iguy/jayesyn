@@ -1,0 +1,72 @@
+---
+// jayesyn.com — shared layout
+// Drop this into src/layouts/Layout.astro
+//
+// Consolidates what was previously copy-pasted into every page's <head> and
+// footer: viewport/favicon/canonical, font preconnects, the Google Analytics
+// tag, and the site footer. Site-wide changes (like adding another tracking
+// script) now only need to happen here, once, instead of in five files.
+//
+// Usage in a page:
+//   ---
+//   import Layout from '../layouts/Layout.astro';
+//   ---
+//   <Layout title="..." description="..." canonical="https://jayesyn.com/...">
+//     <Fragment slot="head"> ...optional extra <head> content, e.g. JSON-LD... </Fragment>
+//     <header class="top">...</header>
+//     <main>...</main>
+//     <style is:global>...page-specific styles...</style>
+//   </Layout>
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+}
+
+const { title, description, canonical } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="canonical" href={canonical} />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CC08T2EXRG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CC08T2EXRG');
+</script>
+
+<slot name="head" />
+</head>
+<body>
+
+<slot />
+
+<footer class="foot">
+  <p class="foot-name">Jayesyn</p>
+  <p class="foot-meta">
+    Los Angeles, CA &middot; Booking &amp; press:
+    <a href="mailto:garycrossey@irishguy.us">garycrossey@irishguy.us</a>
+  </p>
+  <p class="foot-credit">
+    Released via <a href="https://irishguydesign.studio" rel="noopener">Irishguy Design Studio</a>
+    &middot; &copy; {new Date().getFullYear()} Jayesyn. All rights reserved.
+  </p>
+</footer>
+
+</body>
+</html>
