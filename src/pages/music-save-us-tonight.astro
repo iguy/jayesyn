@@ -1,161 +1,136 @@
 ---
-// jayesyn.com — single page: One Human Rhythm (SGL 002)
-// Drop this into src/pages/one-human-rhythm.astro
+// jayesyn.com — single page: Music, Save Us Tonight (SGL 003)
+// Drop this into src/pages/music-save-us-tonight.astro
 //
 // TODOs before launch, all marked below:
-//   1. Paste full lyrics into the LYRICS array (one line per entry, empty string = line break).
-//   2. Confirm/replace the "song story" paragraph below — it's drafted from the DescribeMusic
-//      analysis, written in your voice, but you know the real story behind the hook better than any tool does.
+//   1. Paste full lyrics into the LYRICS array (same section/lines structure as One Human Rhythm).
+//   2. Confirm/replace the "song story" paragraph — it's drafted from the DescribeMusic
+//      analysis, in your voice, but you know the real story better than any tool does.
 //
 // NOTE: the audio player was intentionally removed — the song isn't out yet, so there's
-// nothing to stream. Re-add it once the track is released (see the removed <!-- PLAYER -->
-// section in this project's earlier version if you want the markup back).
+// nothing to stream.
 
 const song = {
-  code: 'SGL 002',
-  title: 'One Human Rhythm',
-  releaseDate: 'September 8, 2026',
+  code: 'SGL 003',
+  title: 'Music, Save Us Tonight',
+  releaseDate: 'October 6, 2026',
   // Pre-launch: this hyperfollow link collects pre-saves. After release day,
   // swap this to the song's permanent streaming link and change ctaLabel below
   // from 'Pre-save on all platforms' to 'Stream now' (both CTA buttons on this
   // page pull from these two values, so this is the only place to edit).
-  hyperfollow: 'https://distrokid.com/hyperfollow/jayesyn/one-human-rhythm',
+  hyperfollow: 'https://distrokid.com/hyperfollow/jayesyn/music-save-us-tonight',
   ctaLabel: 'Pre-save on all platforms',
-  art: '/art/jayesyn-One_Human_rhythm.jpeg',
-  genre: 'Dance-Pop / Electronic Pop',
-  bpm: 118,
+  art: '/art/jayesyn-music-save-us.jpeg',
+  genre: 'House / Pop House',
+  bpm: 124,
   key: 'C minor',
-  tags: ['dance-pop', 'electronic', 'uplifting', 'anthemic', 'energetic', 'unity', 'male vocals', 'four-on-the-floor'],
+  tags: ['house', 'pop-house', 'uplifting', 'anthemic', 'gospel-influenced', 'energetic', 'four-on-the-floor', 'male vocals'],
 };
 
 // Straight from the track's own audio analysis — used below to draw the mood chart.
-// (Order chosen for a clean shape, not the tool's default axis order.)
 const moods = [
-  { label: 'Energetic', value: 85 },
+  { label: 'Energetic', value: 90 },
   { label: 'Excited', value: 80 },
-  { label: 'Happy', value: 75 },
+  { label: 'Happy', value: 60 },
   { label: 'Calm', value: 10 },
-  { label: 'Peaceful', value: 10 },
-  { label: 'Relaxed', value: 5 },
-  { label: 'Sad', value: 5 },
+  { label: 'Peaceful', value: 0 },
+  { label: 'Relaxed', value: 0 },
+  { label: 'Sad', value: 0 },
   { label: 'Tense', value: 10 },
-  { label: 'Melancholic', value: 10 },
+  { label: 'Melancholic', value: 0 },
   { label: 'Angry', value: 0 },
 ];
 
 // Precomputed 10-axis radar polygon (200x200 viewBox, center 100,100).
 // r = 8 + (value/100)*80, angles at 36° steps starting from top, clockwise.
-const radarPoints = '100,24 142.3,41.8 164.7,79 115.2,104.9 109.4,112.9 100,112 92.9,109.7 84.8,104.9 84.8,95.1 95.3,93.5';
+const radarPoints = '100,20 142.3,41.8 153.3,82.7 115.2,104.9 104.7,106.5 100,108 95.3,106.5 84.8,104.9 92.4,97.5 95.3,93.5';
 
 const LYRICS = [
   {
+    section: 'Pre-Chorus',
+    lines: ['Save us... save us...'],
+  },
+  {
     section: 'Verse',
     lines: [
-      'We come in every shade',
-      'Every story, every name',
-      'Raise different flags with different hands',
-      'Yet we still cry out the same',
-      'And there are those of us in this world',
-      'Trying so hard to care',
-      "There's more good hearts than bad ones",
-      'If we choose to see them there',
+      'Turn it up, tune it out',
+      'Let the noise all fade behind',
+      'Whatever they tried to sell us today',
+      "We're leaving it all outside tonight",
     ],
   },
   {
     section: 'Pre-Chorus',
     lines: [
-      'So put the fear down',
-      'Let the walls fall',
-      'We were made for this',
-      'We were made to call',
-      'Across the water',
-      'Across the line',
-      'Our love can pull us',
-      'Out of the dark design',
+      'Cause one sound never left us',
+      'One sound always knew',
+      'So turn it up now',
     ],
   },
   {
     section: 'Chorus',
     lines: [
-      'One human rhythm',
-      'One human song',
-      'We rise together',
-      'When we move as one',
-      'One human rhythm',
-      'Love is enough',
-      'Block out the fear',
-      'And lift love up',
+      'Music, save us tonight',
+      "You're the only truth left alive",
+      'One language, no borders, no sides',
+      'Music, save us tonight',
     ],
   },
   {
     section: 'Verse',
     lines: [
-      'Turn off the poison feed',
-      'Let the screen go cold tonight',
-      'Look around your own street',
-      'See the people holding life',
-      'On the corner, by the courtyard',
-      'At the market, in the park',
-      "There's a thousand little kindnesses",
-      'Lighting up the dark',
+      "Doesn't matter where you're from",
+      "Doesn't matter who you are",
+      'One beat and the whole room moves',
+      'Hands up, wherever you are',
     ],
   },
   {
     section: 'Pre-Chorus',
     lines: [
-      'So put the fear down',
-      'Let the walls fall',
-      'We were made for this',
-      'We were made to call',
-      'Across the water',
-      'Across the line',
-      'Our love can pull us',
-      'Out of the dark design',
+      'And it lives in me, it lives in you',
+      'The one thing real, the one thing true',
+      'So turn it up now',
     ],
   },
   {
     section: 'Chorus',
     lines: [
-      'One human rhythm',
-      'One human song',
-      'We rise together',
-      'When we move as one',
-      'One human rhythm',
-      'Love is enough',
-      'Block out the fear',
-      'And lift love up',
+      'Music, save us tonight',
+      "You're the only truth left alive",
+      'One language, no borders, no sides',
+      'Music, save us tonight',
     ],
   },
   {
     section: 'Bridge',
     lines: [
-      'If they feed you hate',
-      "Don't eat that lie",
-      'Look at the stranger',
-      'Smiling by your side',
-      'When they blast their static',
-      'Let it fade away',
-      'We got hands to hold',
-      'And a world to save',
+      'Beyond every language',
+      'Beyond every name',
+      'Just a feeling, just a rhythm',
+      'Pulling at us the same',
+      "No one's a stranger",
+      'Out here on the floor',
+      'Hands in the air',
+      "'Cause we've been here before",
     ],
   },
   {
     section: 'Final Chorus',
     lines: [
-      'One human rhythm',
-      'One human song',
-      'One human rhythm',
-      'One human song',
-      'We rise together',
-      'When we move as one',
-      'One human rhythm',
-      'Love is enough',
-      'Block out the fear',
-      'And lift love up',
-      'One human rhythm',
-      "We're still here",
-      "We're still here",
-      "And we're not going anywhere",
+      'Music, save us tonight',
+      '(save us, save us)',
+      "You're the only truth left alive",
+      '(the only truth)',
+      'No borders, no sides',
+      'Music, save us tonight',
+      '(save us, save us)',
+      "You're the only truth left alive",
+      '(the only truth)',
+      'No borders, no sides',
+      'Music, save us tonight',
+      'Save us... Save us',
+      'Tonight',
     ],
   },
 ];
@@ -166,10 +141,10 @@ const LYRICS = [
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>One Human Rhythm — Jayesyn</title>
-<meta name="description" content="One Human Rhythm — Jayesyn. An anthemic pop-electronic single about global unity, out September 8, 2026." />
+<title>Music, Save Us Tonight — Jayesyn</title>
+<meta name="description" content="Music, Save Us Tonight — Jayesyn. A gospel-tinged house anthem about music as a unifying force, out October 6, 2026." />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="canonical" href="https://jayesyn.com/one-human-rhythm" />
+<link rel="canonical" href="https://jayesyn.com/music-save-us-tonight" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -178,7 +153,7 @@ const LYRICS = [
 
 <header class="top">
   <a class="back" href="/">&larr; Jayesyn</a>
-  <span class="top-name">One Human Rhythm</span>
+  <span class="top-name">Music, Save Us Tonight</span>
   <a class="top-link" href={song.hyperfollow} target="_blank" rel="noopener">Pre-save</a>
 </header>
 
@@ -187,11 +162,11 @@ const LYRICS = [
   <section class="hero">
     <div class="hero-text">
       <p class="eyebrow">{song.code} &middot; {song.releaseDate}</p>
-      <h1>One Human<br />Rhythm</h1>
+      <h1>Music,<br />Save Us<br />Tonight</h1>
       <p class="lede">
-        A driving, danceable anthem about the thing that connects everyone in
-        the room &mdash; built around one hook: <span class="hook">&ldquo;One human
-        rhythm, one human soul.&rdquo;</span>
+        A gospel-lit house anthem built for the floor at 1am, when the room
+        needs one more reason to keep going &mdash; the hook doesn't ask,
+        it <span class="hook">&ldquo;save us tonight.&rdquo;</span>
       </p>
       <div class="tag-row">
         {song.tags.map((t) => <span class="tag">{t}</span>)}
@@ -199,12 +174,12 @@ const LYRICS = [
       <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">{song.ctaLabel}</a>
     </div>
 
-    <div class="art-wrap drift-x">
+    <div class="art-wrap drift-xy">
       <p class="cover-artist">Jayesyn</p>
       <div class="cover-band">
         <img class="cover-art" src={song.art} alt="" loading="lazy" />
       </div>
-      <h2 class="cover-title">One Human<br />Rhythm</h2>
+      <h2 class="cover-title">Music, Save<br />Us Tonight</h2>
     </div>
   </section>
 
@@ -213,18 +188,18 @@ const LYRICS = [
     <div class="story-text">
       <h2 id="story-h" class="section-h">The story</h2>
       <p>
-        This song is built to open up. It starts close, with an intimate,
-        breathy verse, then by the chorus it turns into a full choir &mdash;
-        stacked harmonies lifting one simple, defiant idea: however different
-        the rooms we stand in, we're all keeping the same time. The hook isn't
-        really a metaphor. It's an instruction: find the rhythm, and you've
-        found the person next to you.
+        This song leans into church before it leans into the club. The lead
+        vocal is raspy and soulful, more testifying than singing, backed by a
+        full choir that turns the hook into something closer to a chant than
+        a chorus. At its core, it's classic four-on-the-floor house: punchy
+        kick, crisp claps, a bassline that won't let go of the groove.
       </p>
       <p>
-        Underneath it all, a melodic synth bass locks the groove down while
-        arpeggios and vocal scatting keep the energy restless, building from
-        quieter verses into risers and swells that hit like the room just
-        got bigger.
+        The arrangement does real work getting there, though &mdash; filter
+        sweeps and risers pull the tension tight before every drop, so each
+        chorus lands like relief. Underneath the party, it's really a song
+        about needing something bigger than yourself to get through the
+        night, and finding it in the people around you.
       </p>
     </div>
 
@@ -249,9 +224,9 @@ const LYRICS = [
           <line x1="100" y1="100" x2="34.7" y2="86.5" />
         </g>
         <polygon points={radarPoints} class="mood-shape" />
-        <text x="100" y="12" text-anchor="middle" class="mood-tag">ENERGETIC 85</text>
+        <text x="100" y="12" text-anchor="middle" class="mood-tag">ENERGETIC 90</text>
         <text x="178" y="38" text-anchor="start" class="mood-tag">EXCITED 80</text>
-        <text x="170" y="83" text-anchor="start" class="mood-tag">HAPPY 75</text>
+        <text x="180" y="87" text-anchor="start" class="mood-tag">HAPPY 60</text>
       </svg>
       <dl class="mood-stats">
         <div><dt>Genre</dt><dd>{song.genre}</dd></div>
@@ -278,7 +253,7 @@ const LYRICS = [
   <!-- BOTTOM CTA -->
   <section class="bottom-cta">
     <h2>Out {song.releaseDate}.</h2>
-    <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">{song.ctaLabel} &mdash; One Human Rhythm</a>
+    <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">{song.ctaLabel} &mdash; Music, Save Us Tonight</a>
     <a class="secondary-link" href="/">Back to Jayesyn</a>
   </section>
 </main>
@@ -361,7 +336,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--uv-soft); outli
 h1 {
   font-family: 'Unbounded', sans-serif;
   font-weight: 900;
-  font-size: clamp(2.4rem, 7vw, 5rem);
+  font-size: clamp(2.2rem, 6.5vw, 4.4rem);
   line-height: 0.98; letter-spacing: -0.01em;
 }
 .lede { margin-top: 1.5rem; max-width: 32rem; font-size: 1.1rem; }
@@ -427,16 +402,16 @@ h1 {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
-.drift-x .cover-art {
-  width: 165%;
+.drift-xy .cover-art {
+  width: 145%;
   height: auto;
-  animation-name: drift-x;
-  animation-duration: 36s;
+  animation-name: drift-xy;
+  animation-duration: 48s;
 }
-@keyframes drift-x {
-  0%   { transform: translateY(-30%) translateX(0%); }
-  50%  { transform: translateY(-30%) translateX(-39%); }
-  100% { transform: translateY(-30%) translateX(0%); }
+@keyframes drift-xy {
+  0%   { transform: translate(0%, -4%); }
+  50%  { transform: translate(-31%, -76%); }
+  100% { transform: translate(0%, -4%); }
 }
 
 /* player */
@@ -507,8 +482,8 @@ h1 {
   margin-bottom: 1.75rem;
 }
 .lyrics {
-  max-width: 44rem;
-  columns: 2;
+  max-width: 60rem;
+  columns: 3;
   column-gap: 2.5rem;
 }
 .lyrics-block {
@@ -560,7 +535,7 @@ h1 {
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .drift-x .cover-art { animation-duration: 85s; }
+  .drift-xy .cover-art { animation-duration: 100s; }
 }
 </style>
 
