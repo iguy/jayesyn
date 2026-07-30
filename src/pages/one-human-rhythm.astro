@@ -1,0 +1,397 @@
+---
+// jayesyn.com — single page: One Human Rhythm (SGL 002)
+// Drop this into src/pages/one-human-rhythm.astro
+//
+// TODOs before launch, all marked below:
+//   1. Paste full lyrics into the LYRICS array (one line per entry, empty string = line break).
+//   2. Point `audioSrc` at the actual mixed/mastered file once it's in /public/ (not /dist/).
+//      Right now it's a placeholder path — the file must exist or the player will 404 silently.
+//   3. Confirm/replace the "song story" paragraph below — it's drafted from the DescribeMusic
+//      analysis, written in your voice, but you know the real story behind the hook better than any tool does.
+
+const song = {
+  code: 'SGL 002',
+  title: 'One Human Rhythm',
+  releaseDate: 'September 8, 2026',
+  hyperfollow: 'https://distrokid.com/hyperfollow/jayesyn/one-human-rhythm',
+  art: '/art/jayesyn-One_Human_rhythm.jpeg',
+  audioSrc: '/one-human-rhythm-sample.m4a', // TODO: replace with real file in /public/
+  genre: 'Dance-Pop / Electronic Pop',
+  bpm: 118,
+  key: 'C minor',
+  tags: ['dance-pop', 'electronic', 'uplifting', 'anthemic', 'energetic', 'unity', 'male vocals', 'four-on-the-floor'],
+};
+
+// Straight from the track's own audio analysis — used below to draw the mood chart.
+// (Order chosen for a clean shape, not the tool's default axis order.)
+const moods = [
+  { label: 'Energetic', value: 85 },
+  { label: 'Excited', value: 80 },
+  { label: 'Happy', value: 75 },
+  { label: 'Calm', value: 10 },
+  { label: 'Peaceful', value: 10 },
+  { label: 'Relaxed', value: 5 },
+  { label: 'Sad', value: 5 },
+  { label: 'Tense', value: 10 },
+  { label: 'Melancholic', value: 10 },
+  { label: 'Angry', value: 0 },
+];
+
+// Precomputed 10-axis radar polygon (200x200 viewBox, center 100,100).
+// r = 8 + (value/100)*80, angles at 36° steps starting from top, clockwise.
+const radarPoints = '100,24 142.3,41.8 164.7,79 115.2,104.9 109.4,112.9 100,112 92.9,109.7 84.8,104.9 84.8,95.1 95.3,93.5';
+
+// TODO: paste full lyrics here. Empty string entries render as a blank line (verse/chorus break).
+const LYRICS = [
+  'One human rhythm, one human soul',
+  '',
+  '// TODO — paste the rest of the lyrics in this array,',
+  '// one line per entry, empty string "" for a line break.',
+];
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>One Human Rhythm — Jayesyn</title>
+<meta name="description" content="One Human Rhythm — Jayesyn. An anthemic pop-electronic single about global unity, out September 8, 2026." />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="canonical" href="https://jayesyn.com/one-human-rhythm" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<header class="top">
+  <a class="back" href="/">&larr; Jayesyn</a>
+  <span class="top-name">One Human Rhythm</span>
+  <a class="top-link" href={song.hyperfollow} target="_blank" rel="noopener">Pre-save</a>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">{song.code} &middot; {song.releaseDate}</p>
+      <h1>One Human<br />Rhythm</h1>
+      <p class="lede">
+        A driving, danceable anthem about the thing that connects everyone in
+        the room &mdash; built around one hook: <span class="hook">&ldquo;One human
+        rhythm, one human soul.&rdquo;</span>
+      </p>
+      <div class="tag-row">
+        {song.tags.map((t) => <span class="tag">{t}</span>)}
+      </div>
+      <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">Pre-save on all platforms</a>
+    </div>
+
+    <div class="art-wrap">
+      <img class="art-img" src={song.art} alt="One Human Rhythm single artwork" />
+    </div>
+  </section>
+
+  <!-- PLAYER -->
+  <section class="player-section" aria-labelledby="player-h">
+    <h2 id="player-h" class="section-h">Listen</h2>
+    <audio class="player" controls preload="none">
+      <source src={song.audioSrc} type="audio/mp4" />
+    </audio>
+    <p class="player-note">Full stream lands {song.releaseDate}. <a href={song.hyperfollow} target="_blank" rel="noopener">Pre-save to get it the day it drops.</a></p>
+  </section>
+
+  <!-- STORY + SOUND -->
+  <section class="story" aria-labelledby="story-h">
+    <div class="story-text">
+      <h2 id="story-h" class="section-h">The story</h2>
+      <p>
+        Everything about this one is built to open up. It starts close &mdash;
+        an intimate, breathy verse &mdash; and by the chorus it's a full choir,
+        stacked harmonies lifting a single, defiant idea: however different the
+        rooms we stand in, we're all keeping the same time. The hook isn't a
+        metaphor so much as an instruction &mdash; find the rhythm, and you've
+        found the person next to you.
+      </p>
+      <p>
+        Underneath, a melodic synth bass locks the groove down while arpeggios
+        and vocal scatting keep the energy restless, building from reflective
+        verses into risers and swells that hit like the room just got bigger.
+      </p>
+    </div>
+
+    <div class="mood-card">
+      <p class="mood-label">The sound, by the numbers</p>
+      <svg class="mood-chart" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mood profile: dominated by energetic, excited, and happy">
+        <g class="mood-rings" fill="none" stroke="var(--line)" stroke-width="1">
+          <circle cx="100" cy="100" r="28" />
+          <circle cx="100" cy="100" r="56" />
+          <circle cx="100" cy="100" r="84" />
+        </g>
+        <g class="mood-spokes" stroke="var(--line)" stroke-width="1">
+          <line x1="100" y1="100" x2="100" y2="16" />
+          <line x1="100" y1="100" x2="171.6" y2="53.4" />
+          <line x1="100" y1="100" x2="180.6" y2="125.8" />
+          <line x1="100" y1="100" x2="126.5" y2="182.1" />
+          <line x1="100" y1="100" x2="61.1" y2="182.1" />
+          <line x1="100" y1="100" x2="20" y2="140" />
+          <line x1="100" y1="100" x2="20" y2="60" />
+          <line x1="100" y1="100" x2="61.1" y2="17.9" />
+          <line x1="100" y1="100" x2="18" y2="27.5" />
+          <line x1="100" y1="100" x2="34.7" y2="86.5" />
+        </g>
+        <polygon points={radarPoints} class="mood-shape" />
+        <text x="100" y="12" text-anchor="middle" class="mood-tag">ENERGETIC 85</text>
+        <text x="178" y="38" text-anchor="start" class="mood-tag">EXCITED 80</text>
+        <text x="170" y="83" text-anchor="start" class="mood-tag">HAPPY 75</text>
+      </svg>
+      <dl class="mood-stats">
+        <div><dt>Genre</dt><dd>{song.genre}</dd></div>
+        <div><dt>BPM</dt><dd>{song.bpm}</dd></div>
+        <div><dt>Key</dt><dd>{song.key}</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- LYRICS -->
+  <section class="lyrics-section" aria-labelledby="lyrics-h">
+    <h2 id="lyrics-h" class="section-h">Lyrics</h2>
+    <div class="lyrics">
+      {LYRICS.map((line) => (
+        line === '' ? <br /> : <p>{line}</p>
+      ))}
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="bottom-cta">
+    <h2>Out {song.releaseDate}.</h2>
+    <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">Pre-save One Human Rhythm</a>
+    <a class="secondary-link" href="/">Back to Jayesyn</a>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="foot-name">Jayesyn</p>
+  <p class="foot-meta">
+    Los Angeles, CA &middot; Booking &amp; press:
+    <a href="mailto:garycrossey@irishguy.us">garycrossey@irishguy.us</a>
+  </p>
+  <p class="foot-credit">
+    Released via <a href="https://irishguydesign.studio" rel="noopener">Irishguy Design Studio</a>
+    &middot; &copy; {new Date().getFullYear()} Jayesyn. All rights reserved.
+  </p>
+</footer>
+
+<style is:global>
+:root {
+  --carbon: #121014;
+  --carbon-deep: #0d0b10;
+  --cream: #efe6d8;
+  --uv: #6399bb;
+  --uv-soft: #82b0cb;
+  --line: #2a2333;
+  --dim: #9b93a8;
+  --amber: #e8a15c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--carbon);
+  color: var(--cream);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--uv-soft); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--uv-soft); outline-offset: 3px; }
+
+/* header */
+.top {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1.1rem clamp(1.25rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--line);
+}
+.back {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem; text-decoration: none; color: var(--dim);
+}
+.back:hover { color: var(--cream); }
+.top-name {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em;
+}
+.top-link {
+  margin-left: auto;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem; text-decoration: none;
+  color: var(--cream); border-bottom: 1px solid var(--uv);
+  padding-bottom: 2px;
+}
+.top-link:hover { color: var(--uv-soft); }
+
+/* hero */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 4vw, 3rem);
+  max-width: 1200px; margin: 0 auto;
+}
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--uv-soft); margin-bottom: 1rem;
+}
+h1 {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.4rem, 7vw, 5rem);
+  line-height: 0.98; letter-spacing: -0.01em;
+}
+.lede { margin-top: 1.5rem; max-width: 32rem; font-size: 1.1rem; }
+.hook { color: var(--uv-soft); font-style: italic; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+.tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.06em;
+  color: var(--dim);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+}
+.cta {
+  display: inline-block; margin-top: 2rem;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700; font-size: 0.85rem;
+  text-decoration: none;
+  background: var(--uv); color: var(--cream);
+  padding: 0.9rem 1.6rem; border-radius: 999px;
+  transition: background 160ms ease;
+}
+.cta:hover { background: var(--uv-soft); }
+
+.art-wrap {
+  position: relative; aspect-ratio: 1;
+  border-radius: 6px; overflow: hidden;
+  box-shadow: 0 26px 64px -18px rgba(0, 0, 0, 0.9), 0 0 70px -20px rgba(99, 153, 187, 0.55);
+}
+.art-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* player */
+.player-section {
+  max-width: 1200px; margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3rem) clamp(1.25rem, 4vw, 3rem);
+  border-top: 1px solid var(--line);
+}
+.section-h {
+  font-family: 'Unbounded', sans-serif; font-weight: 700;
+  font-size: clamp(1.3rem, 2.6vw, 1.8rem); margin-bottom: 1.25rem;
+}
+.player { width: 100%; max-width: 560px; }
+.player-note {
+  margin-top: 0.9rem; font-size: 0.9rem; color: var(--dim);
+}
+
+/* story + mood chart */
+.story {
+  max-width: 1200px; margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem);
+  border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.9fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+.story-text p { max-width: 34rem; margin-bottom: 1.1rem; color: var(--cream); }
+.story-text p:last-child { margin-bottom: 0; }
+
+.mood-card {
+  background: var(--carbon-deep);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1.5rem;
+}
+.mood-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 0.75rem;
+}
+.mood-chart { width: 100%; height: auto; }
+.mood-shape {
+  fill: rgba(232, 161, 92, 0.28);
+  stroke: var(--amber);
+  stroke-width: 1.5;
+}
+.mood-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 6.5px; letter-spacing: 0.06em;
+  fill: var(--dim);
+}
+.mood-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem; margin-top: 1.25rem;
+  border-top: 1px solid var(--line); padding-top: 1.1rem;
+}
+.mood-stats dt {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--dim);
+}
+.mood-stats dd { font-weight: 500; margin-top: 0.2rem; font-size: 0.9rem; }
+
+/* lyrics */
+.lyrics-section {
+  max-width: 1200px; margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem);
+  border-top: 1px solid var(--line);
+}
+.lyrics { max-width: 34rem; }
+.lyrics p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.95rem; color: var(--cream);
+  margin-bottom: 0.4rem;
+}
+.lyrics br { display: block; content: ''; margin-top: 0.6rem; }
+
+/* bottom cta */
+.bottom-cta {
+  max-width: 1200px; margin: 0 auto;
+  padding: clamp(3rem, 8vw, 5.5rem) clamp(1.25rem, 4vw, 3rem);
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.bottom-cta h2 {
+  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+}
+.bottom-cta .cta { display: block; width: fit-content; margin: 2rem auto 0; }
+.secondary-link {
+  display: block; margin-top: 1.25rem;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem;
+  color: var(--dim); text-decoration: none;
+}
+.secondary-link:hover { color: var(--cream); }
+
+/* footer */
+.foot { border-top: 1px solid var(--line); padding: 2.5rem clamp(1.25rem, 4vw, 3rem) 3rem; text-align: center; }
+.foot-name { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.2em; }
+.foot-meta { margin-top: 0.75rem; font-size: 0.9rem; color: var(--dim); }
+.foot-credit { margin-top: 0.5rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--dim); }
+
+/* responsive */
+@media (max-width: 820px) {
+  .hero { grid-template-columns: 1fr; }
+  .art-wrap { order: -1; }
+  .story { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+</style>
+
+</body>
+</html>
