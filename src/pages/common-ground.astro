@@ -50,12 +50,91 @@ const moods = [
 // peak on the other two singles' pages — a deliberately different silhouette.
 const radarPoints = '100,52 118.8,74.1 153.3,82.7 168.5,122.2 137.6,151.8 100,164 85.9,119.4 84.8,104.9 61.9,87.6 95.3,93.5';
 
-// TODO: paste full lyrics here, same shape as the other single pages:
-// [{ section: 'Verse', lines: ['line one', 'line two', ...] }, ...]
 const LYRICS = [
   {
-    section: 'TODO',
-    lines: ['Paste the full lyrics here as { section, lines } blocks — see one-human-rhythm.astro for the format.'],
+    section: 'Verse',
+    lines: [
+      "The rich man don't know the poor man's blues",
+      'But the poor man would like to fill his shoes',
+      "And the preacher can't see the sinner's point of view",
+      "But the preacher's got a sin or two",
+    ],
+  },
+  {
+    section: 'Chorus',
+    lines: [
+      'Common ground',
+      'Some way, somehow',
+      "Let's figure it out",
+      'And love one another',
+      'Turn off the news',
+      "'Cause it's me and you",
+      'A whole world of good',
+      'And we need each other',
+      'Mm-mm-mm-mm, mm-mm-mm',
+      'Mm-mm-mm-mm, mm-mm-mm',
+      'Mm-mm-mm-mm, mm-mm-mm',
+      'Mm-mm-mm-mm, mm-mm-mm',
+    ],
+  },
+  {
+    section: 'Verse',
+    lines: [
+      "He can't relate to him or he to her",
+      'They both look down on the other one first',
+      'But we all got a place, a space on this Earth',
+      "It's a whole world of good, we can't just see the worst",
+      "The young can't hear what the old ones learned",
+      'And the old forget how the young get burned',
+      'Different rooms in the same falling house',
+      'But the same cold wind comes whistling out',
+    ],
+  },
+  {
+    section: 'Chorus',
+    lines: [
+      'Common ground',
+      'Some way, somehow',
+      "Let's figure it out",
+      'And love one another',
+      'Turn off the news',
+      "'Cause it's me and you",
+      'A whole world of good',
+      'And we need each other',
+      'Mm-mm-mm-mm, mm-mm-mm',
+      'Mm-mm-mm-mm, mm-mm-mm',
+      'Mm-mm-mm-mm, mm-mm-mm',
+      'Mm-mm-mm-mm, mm-mm-mm',
+    ],
+  },
+  {
+    section: 'Bridge',
+    lines: [
+      "The flag on his porch ain't the flag on mine",
+      'We quit saying hello somewhere down the line',
+      "But strip back the noise and the names we're called",
+      "And we're just neighbors, after all",
+      "They'll sell you a side, they'll sell you a wall",
+      'Get rich off the line drawn down the middle of it all',
+      "But I've seen your face when the guard slips away",
+      "And we're closer than they'd ever let us say",
+    ],
+  },
+  {
+    section: 'Final Chorus',
+    lines: [
+      'Common ground',
+      'Some way, somehow',
+      'We already know how',
+      'We just forgot it',
+      'Turn off the news',
+      "It's only me and you",
+      'A whole world of good',
+      'And God, we need each other',
+      'We need each other',
+      'Mm-mm-mm-mm, mm-mm-mm',
+      'Mm-mm-mm-mm, mm-mm-mm',
+    ],
   },
 ];
 ---
@@ -108,19 +187,20 @@ const LYRICS = [
     <div class="story-text">
       <h2 id="story-h" class="section-h">The story</h2>
       <p>
-        Where the other two singles reach up and out, this song stays close.
-        The verses are almost whispered, drawing you in rather than calling
-        across a room, before the chorus opens into something fuller &mdash;
-        layered harmonies stacking like a small choir behind him, warm rather
-        than triumphant.
+        This is the song that opens the door. It starts close &mdash; an
+        almost-whispered verse that pulls you in rather than announcing
+        itself &mdash; before the chorus lifts into something fuller, stacked
+        harmonies rising behind him like a small congregation finding its
+        footing together. It's less a statement than an invitation: come
+        stand somewhere in the middle for a minute.
       </p>
       <p>
-        Underneath, a groovy, melodic bassline and a steady mid-tempo pulse
-        keep things relaxed rather than driving, while a recurring violin
-        line threads through the intro and instrumental breaks, adding a
-        touch of classical elegance to the soul-pop foundation. It's the most
-        reflective of the three songs &mdash; written for sitting with
-        someone, not moving a crowd.
+        A groovy, melodic bassline and a steady mid-tempo pulse keep the
+        whole thing relaxed rather than driving, while a recurring violin
+        line runs through the intro and instrumental breaks, giving it a
+        touch of classical elegance against the soul-pop foundation. It's the
+        quiet, reflective note the rest of the project builds from &mdash;
+        written for sitting with someone, not moving a crowd.
       </p>
     </div>
 
@@ -356,8 +436,13 @@ h1 {
   margin-bottom: 1.75rem;
 }
 .lyrics {
-  max-width: 34rem;
-  display: flex; flex-direction: column; gap: 1.75rem;
+  max-width: 44rem;
+  columns: 2;
+  column-gap: 2.5rem;
+}
+.lyrics-block {
+  break-inside: avoid;
+  margin-bottom: 1.75rem;
 }
 .lyrics-label {
   font-family: 'IBM Plex Mono', monospace;
@@ -400,6 +485,7 @@ h1 {
   .hero { grid-template-columns: 1fr; }
   .art-wrap { order: -1; }
   .story { grid-template-columns: 1fr; }
+  .lyrics { columns: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
