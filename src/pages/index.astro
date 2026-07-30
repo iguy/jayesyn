@@ -193,7 +193,7 @@ const jsonLd = {
                 </>
               )}
               {showPresave && (
-                <a class="rel-presave" href={r.link} target="_blank" rel="noopener">Click to pre-save &rarr;</a>
+                <a class="rel-presave" href={r.link} target="_blank" rel="noopener">Pre-save &rarr;</a>
               )}
             </li>
           );
@@ -478,13 +478,16 @@ h1 {
   font-size: 0.72rem; color: var(--dim);
 }
 .rel-presave {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem; letter-spacing: 0.04em;
+  font-size: 0.72rem; letter-spacing: 0.06em;
   color: var(--uv-soft);
   text-decoration: none;
-  margin-top: 0.15rem;
 }
-.rel-presave:hover { color: var(--cream); text-decoration: underline; }
+.rel-presave:hover { color: var(--cream); }
 
 /* ---------- art / single covers ---------- */
 .art {
