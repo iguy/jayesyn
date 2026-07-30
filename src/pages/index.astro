@@ -22,18 +22,18 @@ const releases = [
 // drift: 'y' = up/down · 'x' = across · 'xy' = slow diagonal — each cover moves differently.
 const covers = [
   {
-    title: ['One Human', 'Rhythm'],
-    art: '/art/jayesyn-One_Human_rhythm.jpeg',
-    drift: 'x',
-    link: 'https://distrokid.com/hyperfollow/jayesyn/one-human-rhythm',
-    page: '/one-human-rhythm',
-  },
-  {
     title: ['Common', 'Ground'],
     art: '/art/jayesyn-common-ground.jpeg',
     drift: 'y',
     link: 'https://distrokid.com/hyperfollow/jayesyn/common-ground',
     page: '/common-ground',
+  },
+  {
+    title: ['One Human', 'Rhythm'],
+    art: '/art/jayesyn-One_Human_rhythm.jpeg',
+    drift: 'x',
+    link: 'https://distrokid.com/hyperfollow/jayesyn/one-human-rhythm',
+    page: '/one-human-rhythm',
   },
   {
     title: ['Music, Save', 'Us Tonight'],
@@ -208,9 +208,9 @@ const jsonLd = {
 
   <!-- ARTWORK / SINGLE COVERS -->
   <section class="art" aria-labelledby="art-h">
-    <h2 id="art-h" class="section-h">The art</h2>
+    <h2 id="art-h" class="section-h">The singles</h2>
     <p class="art-lede">
-      Every release is packaged in original visual art by the artist.
+      Three singles, released over three months &mdash; then a new EP.
     </p>
     <div class="covers">
       {covers.map((c) => {
@@ -321,7 +321,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .hero-bg-shape {
   position: absolute;
-  inset: 0;
+  top: 0; left: 0; right: 0;
+  bottom: -2px;
   background: var(--brand-blue);
   clip-path: polygon(66% 0%, 100% 0%, 100% 100%, 56% 100%);
   z-index: 0;
