@@ -1,252 +1,100 @@
 ---
-// jayesyn.com — single page: Music, Save Us Tonight (SGL 003)
-// Drop this into src/pages/music-save-us-tonight.astro
+// jayesyn.com — EP page: Jayesyn (self-titled, EP 001)
+// Drop this into src/pages/jayesyn-ep.astro
 //
-// TODOs before launch, all marked below:
-//   1. Paste full lyrics into the LYRICS array (same section/lines structure as One Human Rhythm).
-//   2. Confirm/replace the "song story" paragraph — it's drafted from the DescribeMusic
-//      analysis, in your voice, but you know the real story better than any tool does.
-//
-// NOTE: the audio player was intentionally removed — the song isn't out yet, so there's
-// nothing to stream.
+// TODOs before launch:
+//   1. Confirm release date and swap into `ep.releaseDate` below.
+//   2. Add the EP's hyperfollow/pre-save link once one exists — currently
+//      showing a "coming soon" note instead of a dead link.
+//   3. Track 4 (bonus track) needs a title, story, and lyrics — once those
+//      exist this page can grow a "the story" + lyrics section just like
+//      the single pages, and track 4 can link to its own page if it gets one.
 
-const song = {
-  code: 'SGL 003',
-  title: 'Music, Save Us Tonight',
-  releaseDate: 'October 6, 2026',
-  // Pre-launch: this hyperfollow link collects pre-saves. After release day,
-  // swap this to the song's permanent streaming link and change ctaLabel below
-  // from 'Pre-save on all platforms' to 'Stream now' (both CTA buttons on this
-  // page pull from these two values, so this is the only place to edit).
-  hyperfollow: 'https://distrokid.com/hyperfollow/jayesyn/music-save-us-tonight',
-  ctaLabel: 'Pre-save on all platforms',
-  art: '/art/jayesyn-music-save-us.jpeg',
-  genre: 'House / Pop House',
-  bpm: 124,
-  key: 'C minor',
-  tags: ['house', 'pop-house', 'uplifting', 'anthemic', 'gospel-influenced', 'energetic', 'four-on-the-floor', 'male vocals'],
+const ep = {
+  code: 'EP 001',
+  title: 'Jayesyn',
+  subtitle: 'The EP',
+  releaseDate: 'TBA 2026',
 };
 
-// Straight from the track's own audio analysis — used below to draw the mood chart.
-const moods = [
-  { label: 'Energetic', value: 90 },
-  { label: 'Excited', value: 80 },
-  { label: 'Happy', value: 60 },
-  { label: 'Calm', value: 10 },
-  { label: 'Peaceful', value: 0 },
-  { label: 'Relaxed', value: 0 },
-  { label: 'Sad', value: 0 },
-  { label: 'Tense', value: 10 },
-  { label: 'Melancholic', value: 0 },
-  { label: 'Angry', value: 0 },
+const tracks = [
+  { n: 1, title: 'Common Ground', page: '/common-ground' },
+  { n: 2, title: 'One Human Rhythm', page: '/one-human-rhythm' },
+  { n: 3, title: 'Music, Save Us Tonight', page: '/music-save-us-tonight' },
+  { n: 4, title: 'Bonus track — TBA', page: null },
 ];
 
-// Precomputed 10-axis radar polygon (200x200 viewBox, center 100,100).
-// r = 8 + (value/100)*80, angles at 36° steps starting from top, clockwise.
-const radarPoints = '100,20 142.3,41.8 153.3,82.7 115.2,104.9 104.7,106.5 100,108 95.3,106.5 84.8,104.9 92.4,97.5 95.3,93.5';
-
-const LYRICS = [
-  {
-    section: 'Pre-Chorus',
-    lines: ['Save us... save us...'],
-  },
-  {
-    section: 'Verse',
-    lines: [
-      'Turn it up, tune it out',
-      'Let the noise all fade behind',
-      'Whatever they tried to sell us today',
-      "We're leaving it all outside tonight",
-    ],
-  },
-  {
-    section: 'Pre-Chorus',
-    lines: [
-      'Cause one sound never left us',
-      'One sound always knew',
-      'So turn it up now',
-    ],
-  },
-  {
-    section: 'Chorus',
-    lines: [
-      'Music, save us tonight',
-      "You're the only truth left alive",
-      'One language, no borders, no sides',
-      'Music, save us tonight',
-    ],
-  },
-  {
-    section: 'Verse',
-    lines: [
-      "Doesn't matter where you're from",
-      "Doesn't matter who you are",
-      'One beat and the whole room moves',
-      'Hands up, wherever you are',
-    ],
-  },
-  {
-    section: 'Pre-Chorus',
-    lines: [
-      'And it lives in me, it lives in you',
-      'The one thing real, the one thing true',
-      'So turn it up now',
-    ],
-  },
-  {
-    section: 'Chorus',
-    lines: [
-      'Music, save us tonight',
-      "You're the only truth left alive",
-      'One language, no borders, no sides',
-      'Music, save us tonight',
-    ],
-  },
-  {
-    section: 'Bridge',
-    lines: [
-      'Beyond every language',
-      'Beyond every name',
-      'Just a feeling, just a rhythm',
-      'Pulling at us the same',
-      "No one's a stranger",
-      'Out here on the floor',
-      'Hands in the air',
-      "'Cause we've been here before",
-    ],
-  },
-  {
-    section: 'Final Chorus',
-    lines: [
-      'Music, save us tonight',
-      '(save us, save us)',
-      "You're the only truth left alive",
-      '(the only truth)',
-      'No borders, no sides',
-      'Music, save us tonight',
-      '(save us, save us)',
-      "You're the only truth left alive",
-      '(the only truth)',
-      'No borders, no sides',
-      'Music, save us tonight',
-      'Save us... Save us',
-      'Tonight',
-    ],
-  },
+// Composite cover: three live artwork bands stacked in one tile, each
+// reusing the same drift technique (and drift direction) as its single's
+// own cover, top to bottom: Music Save Us Tonight (violet) → One Human
+// Rhythm (red) → Common Ground (teal).
+const bands = [
+  { art: '/art/jayesyn-music-save-us.jpeg', drift: 'drift-xy' },
+  { art: '/art/jayesyn-One_Human_rhythm.jpeg', drift: 'drift-x' },
+  { art: '/art/jayesyn-common-ground.jpeg', drift: 'drift-y' },
 ];
 
-import Layout from './layout.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout
-  title="Music, Save Us Tonight — Jayesyn"
-  description="Music, Save Us Tonight — Jayesyn. A gospel-tinged house anthem about music as a unifying force, out October 6, 2026."
-  canonical="https://jayesyn.com/music-save-us-tonight"
+  title="Jayesyn — The EP"
+  description="Jayesyn, the self-titled EP — three singles plus one new song, TBA 2026."
+  canonical="https://jayesyn.com/jayesyn-ep"
 >
 
 <header class="top">
   <a class="back" href="/">&larr; Jayesyn</a>
-  <span class="top-name">Music, Save Us Tonight</span>
-  <a class="top-link" href={song.hyperfollow} target="_blank" rel="noopener">Pre-save</a>
+  <span class="top-name">{ep.title} — {ep.subtitle}</span>
+  <span class="top-link muted">Pre-save link coming soon</span>
 </header>
 
 <main>
   <!-- HERO -->
   <section class="hero">
     <div class="hero-text">
-      <p class="eyebrow">{song.code} &middot; {song.releaseDate}</p>
-      <h1>Music,<br />Save Us<br />Tonight</h1>
+      <p class="eyebrow">{ep.code} &middot; {ep.releaseDate}</p>
+      <h1>Jayesyn</h1>
       <p class="lede">
-        A gospel-lit house anthem built for the floor at 1am, when the room
-        needs one more reason to keep going &mdash; the hook doesn't ask,
-        it <span class="hook">&ldquo;save us tonight.&rdquo;</span>
+        Three singles, one self-titled EP. The public voice of
+        &ldquo;Common Ground,&rdquo; &ldquo;One Human Rhythm,&rdquo; and
+        &ldquo;Music, Save Us Tonight&rdquo; together, plus one more song
+        that's just for the people who already know him.
       </p>
-      <div class="tag-row">
-        {song.tags.map((t) => <span class="tag">{t}</span>)}
-      </div>
-      <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">{song.ctaLabel}</a>
+      <p class="cta-note">Pre-save link coming soon</p>
     </div>
 
-    <div class="art-wrap drift-xy">
+    <div class="ep-cover">
       <p class="cover-artist">Jayesyn</p>
-      <div class="cover-band">
-        <img class="cover-art" src={song.art} alt="" loading="lazy" />
-      </div>
-      <h2 class="cover-title">Music, Save<br />Us Tonight</h2>
-    </div>
-  </section>
-
-  <!-- STORY + SOUND -->
-  <section class="story" aria-labelledby="story-h">
-    <div class="story-text">
-      <h2 id="story-h" class="section-h">The story</h2>
-      <p>
-        This song leans into church before it leans into the club. The lead
-        vocal is raspy and soulful, more testifying than singing, backed by a
-        full choir that turns the hook into something closer to a chant than
-        a chorus. At its core, it's classic four-on-the-floor house: punchy
-        kick, crisp claps, a bassline that won't let go of the groove.
-      </p>
-      <p>
-        The arrangement does real work getting there, though &mdash; filter
-        sweeps and risers pull the tension tight before every drop, so each
-        chorus lands like relief. Underneath the party, it's really a song
-        about needing something bigger than yourself to get through the
-        night, and finding it in the people around you.
-      </p>
-    </div>
-
-    <div class="mood-card">
-      <p class="mood-label">The sound, by the numbers</p>
-      <svg class="mood-chart" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mood profile: dominated by energetic, excited, and happy">
-        <g class="mood-rings" fill="none" stroke="var(--line)" stroke-width="1">
-          <circle cx="100" cy="100" r="28" />
-          <circle cx="100" cy="100" r="56" />
-          <circle cx="100" cy="100" r="84" />
-        </g>
-        <g class="mood-spokes" stroke="var(--line)" stroke-width="1">
-          <line x1="100" y1="100" x2="100" y2="16" />
-          <line x1="100" y1="100" x2="171.6" y2="53.4" />
-          <line x1="100" y1="100" x2="180.6" y2="125.8" />
-          <line x1="100" y1="100" x2="126.5" y2="182.1" />
-          <line x1="100" y1="100" x2="61.1" y2="182.1" />
-          <line x1="100" y1="100" x2="20" y2="140" />
-          <line x1="100" y1="100" x2="20" y2="60" />
-          <line x1="100" y1="100" x2="61.1" y2="17.9" />
-          <line x1="100" y1="100" x2="18" y2="27.5" />
-          <line x1="100" y1="100" x2="34.7" y2="86.5" />
-        </g>
-        <polygon points={radarPoints} class="mood-shape" />
-        <text x="100" y="12" text-anchor="middle" class="mood-tag">ENERGETIC 90</text>
-        <text x="178" y="38" text-anchor="start" class="mood-tag">EXCITED 80</text>
-        <text x="180" y="87" text-anchor="start" class="mood-tag">HAPPY 60</text>
-      </svg>
-      <dl class="mood-stats">
-        <div><dt>Genre</dt><dd>{song.genre}</dd></div>
-        <div><dt>BPM</dt><dd>{song.bpm}</dd></div>
-        <div><dt>Key</dt><dd>{song.key}</dd></div>
-      </dl>
-    </div>
-  </section>
-
-  <!-- LYRICS -->
-  <section class="lyrics-section" aria-labelledby="lyrics-h">
-    <h2 id="lyrics-h" class="section-h">Lyrics</h2>
-    <p class="lyrics-credit">Words: Jason Nelson</p>
-    <div class="lyrics">
-      {LYRICS.map((block) => (
-        <div class="lyrics-block">
-          <p class="lyrics-label">{block.section}</p>
-          {block.lines.map((line) => <p class="lyrics-line">{line}</p>)}
+      {bands.map((band) => (
+        <div class={`ep-band ${band.drift}`}>
+          <img class="ep-band-art" src={band.art} alt="" loading="lazy" />
         </div>
       ))}
     </div>
   </section>
 
+  <!-- TRACKLIST -->
+  <section class="tracklist-section" aria-labelledby="tracklist-h">
+    <h2 id="tracklist-h" class="section-h">Tracklist</h2>
+    <ol class="tracklist">
+      {tracks.map((track) => (
+        <li class="track-row">
+          <span class="track-n">{String(track.n).padStart(2, '0')}</span>
+          {track.page ? (
+            <a class="track-title" href={track.page}>{track.title}</a>
+          ) : (
+            <span class="track-title track-tba">{track.title}</span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </section>
+
   <!-- BOTTOM CTA -->
   <section class="bottom-cta">
-    <h2>Out {song.releaseDate}.</h2>
-    <a class="cta" href={song.hyperfollow} target="_blank" rel="noopener">{song.ctaLabel} &mdash; Music, Save Us Tonight</a>
+    <h2>{ep.releaseDate}.</h2>
+    <p class="cta-note">Pre-save link coming soon</p>
     <a class="secondary-link" href="/">Back to Jayesyn</a>
   </section>
 </main>
@@ -298,7 +146,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--uv-soft); outli
   color: var(--cream); border-bottom: 1px solid var(--uv);
   padding-bottom: 2px;
 }
-.top-link:hover { color: var(--uv-soft); }
+.top-link.muted { color: var(--dim); border-bottom-color: var(--line); }
 
 /* hero */
 .hero {
@@ -321,32 +169,19 @@ h1 {
   line-height: 0.98; letter-spacing: -0.01em;
 }
 .lede { margin-top: 1.5rem; max-width: 32rem; font-size: 1.1rem; }
-.hook { color: var(--uv-soft); font-style: italic; }
-.tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
-.tag {
+.cta-note {
+  margin-top: 1.5rem;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem; letter-spacing: 0.06em;
+  font-size: 0.85rem;
   color: var(--dim);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 0.3rem 0.75rem;
 }
-.cta {
-  display: inline-block; margin-top: 2rem;
-  font-family: 'Unbounded', sans-serif;
-  font-weight: 700; font-size: 0.85rem;
-  text-decoration: none;
-  background: var(--uv); color: var(--cream);
-  padding: 0.9rem 1.6rem; border-radius: 999px;
-  transition: background 160ms ease;
-}
-.cta:hover { background: var(--uv-soft); }
 
-.art-wrap {
+/* composite EP cover: three live drifting bands stacked in one tile */
+.ep-cover {
   position: relative; aspect-ratio: 1;
   background: var(--carbon-deep);
   border: 1px solid rgba(130, 176, 203, 0.25);
-  display: flex; flex-direction: column; justify-content: center;
+  display: flex; flex-direction: column;
   border-radius: 6px; overflow: hidden;
   container-type: inline-size;
   box-shadow: 0 26px 64px -18px rgba(0, 0, 0, 0.9), 0 0 70px -20px rgba(99, 153, 187, 0.55);
@@ -356,130 +191,77 @@ h1 {
   font-weight: 700;
   font-size: 7.5cqw;
   color: var(--cream);
-  padding: 0 9%;
-  margin-bottom: 5.5%;
+  padding: 7% 9%;
 }
-.cover-title {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  font-size: 11cqw;
-  line-height: 1.04;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-  color: var(--cream);
-  padding: 0 9%;
-  margin-top: 7%;
-}
-.cover-band {
+.ep-band {
   position: relative;
   width: 100%;
-  height: 17.5%;
+  flex: 1;
   overflow: hidden;
 }
-.cover-art {
+.ep-band-art {
   position: absolute;
   top: 0; left: 0;
+  width: 145%;
+  height: auto;
   will-change: transform;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
-.drift-xy .cover-art {
-  width: 145%;
-  height: auto;
-  animation-name: drift-xy;
-  animation-duration: 48s;
-}
+.ep-band.drift-xy .ep-band-art { animation-name: drift-xy; animation-duration: 48s; }
+.ep-band.drift-x .ep-band-art  { animation-name: drift-x;  animation-duration: 40s; }
+.ep-band.drift-y .ep-band-art  { animation-name: drift-y;  animation-duration: 44s; }
+
 @keyframes drift-xy {
   0%   { transform: translate(0%, -4%); }
   50%  { transform: translate(-31%, -76%); }
   100% { transform: translate(0%, -4%); }
 }
-
-/* player */
-.player-section {
-  max-width: 1200px; margin: 0 auto;
-  padding: clamp(2rem, 5vw, 3rem) clamp(1.25rem, 4vw, 3rem);
-  border-top: 1px solid var(--line);
+@keyframes drift-x {
+  0%   { transform: translate(0%, -10%); }
+  50%  { transform: translate(-31%, -10%); }
+  100% { transform: translate(0%, -10%); }
 }
+@keyframes drift-y {
+  0%   { transform: translate(0%, 0%); }
+  50%  { transform: translate(0%, -60%); }
+  100% { transform: translate(0%, 0%); }
+}
+
 .section-h {
   font-family: 'Unbounded', sans-serif; font-weight: 700;
   font-size: clamp(1.3rem, 2.6vw, 1.8rem); margin-bottom: 1.25rem;
 }
-/* story + mood chart */
-.story {
+
+/* tracklist */
+.tracklist-section {
   max-width: 1200px; margin: 0 auto;
   padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem);
   border-top: 1px solid var(--line);
-  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.9fr);
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: start;
 }
-.story-text p { max-width: 34rem; margin-bottom: 1.1rem; color: var(--cream); }
-.story-text p:last-child { margin-bottom: 0; }
-
-.mood-card {
-  background: var(--carbon-deep);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 1.5rem;
+.tracklist {
+  list-style: none;
+  max-width: 36rem;
 }
-.mood-label {
+.track-row {
+  display: flex; align-items: baseline; gap: 1.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.track-n {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--dim); margin-bottom: 0.75rem;
+  font-size: 0.85rem; color: var(--dim);
+  width: 1.5rem;
 }
-.mood-chart { width: 100%; height: auto; }
-.mood-shape {
-  fill: rgba(232, 161, 92, 0.28);
-  stroke: var(--amber);
-  stroke-width: 1.5;
+.track-title {
+  font-size: 1.1rem;
+  color: var(--cream);
+  text-decoration: none;
 }
-.mood-tag {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 6.5px; letter-spacing: 0.06em;
-  fill: var(--dim);
-}
-.mood-stats {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem; margin-top: 1.25rem;
-  border-top: 1px solid var(--line); padding-top: 1.1rem;
-}
-.mood-stats dt {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+a.track-title:hover { color: var(--uv-soft); }
+.track-tba {
   color: var(--dim);
-}
-.mood-stats dd { font-weight: 500; margin-top: 0.2rem; font-size: 0.9rem; }
-
-/* lyrics */
-.lyrics-section {
-  max-width: 1200px; margin: 0 auto;
-  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem);
-  border-top: 1px solid var(--line);
-}
-.lyrics-credit {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.78rem; color: var(--dim);
-  margin-bottom: 1.75rem;
-}
-.lyrics {
-  max-width: 60rem;
-  columns: 3;
-  column-gap: 2.5rem;
-}
-.lyrics-block {
-  break-inside: avoid;
-  margin-bottom: 1.75rem;
-}
-.lyrics-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--uv-soft);
-  margin-bottom: 0.6rem;
-}
-.lyrics-line {
-  font-size: 1rem; color: var(--cream);
-  line-height: 1.5;
+  font-style: italic;
 }
 
 /* bottom cta */
@@ -493,7 +275,7 @@ h1 {
   font-family: 'Unbounded', sans-serif; font-weight: 900;
   font-size: clamp(1.8rem, 5vw, 3rem);
 }
-.bottom-cta .cta { display: block; width: fit-content; margin: 2rem auto 0; }
+.bottom-cta .cta-note { margin-top: 1rem; }
 .secondary-link {
   display: block; margin-top: 1.25rem;
   font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem;
@@ -501,22 +283,14 @@ h1 {
 }
 .secondary-link:hover { color: var(--cream); }
 
-/* footer */
-.foot { border-top: 1px solid var(--line); padding: 2.5rem clamp(1.25rem, 4vw, 3rem) 3rem; text-align: center; }
-.foot-name { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.2em; }
-.foot-meta { margin-top: 0.75rem; font-size: 0.9rem; color: var(--dim); }
-.foot-credit { margin-top: 0.5rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--dim); }
-
 /* responsive */
 @media (max-width: 820px) {
   .hero { grid-template-columns: 1fr; }
-  .art-wrap { order: -1; }
-  .story { grid-template-columns: 1fr; }
-  .lyrics { columns: 1; }
+  .ep-cover { order: -1; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .drift-xy .cover-art { animation-duration: 100s; }
+  .ep-band-art { animation-duration: 90s !important; }
 }
 </style>
 
